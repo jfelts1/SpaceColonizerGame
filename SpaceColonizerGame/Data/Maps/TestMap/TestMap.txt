@@ -1,0 +1,10 @@
+BEGINTEXTUREDEFS
+1=Data/Images/Tiles/BlueTile.png;
+2=Data/Images/Tiles/RedTile.png;
+ENDTEXTUREDEFS
+BEGINTEXTUREMAP
+1 2 2 1 2 2 2 1 2 2 1 2 2 2 1 2 2 1 2 2 1;
+1 2 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2;
+2 1 2 1 1 2 2 1 2 2 1 2 1 2 1 2 1 2 1 2 1;
+2 1 2 1 2 2 1 2 2 2 1 2 1 2 1 2 1 2 1 2 1;
+ENDTEXTUREMAP

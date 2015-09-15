@@ -1,28 +1,102 @@
-#include <stdio.h>
+/*
+James Felts 2015
+*/
+#include <cstdlib>
+#include <cstdio>
 #include <allegro5/allegro.h>
+#include "ColorDefines.h"
+#include "GameWorld.h"
+
+bool initGame();
+void shutdownGame();
 
 int main(int argc, char **argv)
 {
-	ALLEGRO_DISPLAY *display = NULL;
+	initGame();
+	GameWorld* world =  new GameWorld();
 
-	if (!al_init()) {
+	al_rest(1.0);
+	//using delete since relying on scoping to delete things causes the clean up of the GameWorld to happen after allegro has shutdown
+	//causing access violations
+	delete world;
+	shutdownGame();
+
+	return EXIT_SUCCESS;
+}
+
+bool initGame()
+{
+	if (!al_init())
+	{
 		fprintf(stderr, "failed to initialize allegro!\n");
-		return -1;
+		return false;
 	}
 
-	display = al_create_display(640, 480);
-	if (!display) {
-		fprintf(stderr, "failed to create display!\n");
-		return -1;
+	if (!al_init_image_addon())
+	{
+		fprintf(stderr, "failed to initialize allegro image addon!\n");
+		return false;
 	}
 
-	al_clear_to_color(al_map_rgb(0, 0, 0));
+	if (!al_init_primitives_addon())
+	{
+		fprintf(stderr, "failed to initialize allegro primitives addon!\n");
+		return false;
+	}
 
-	al_flip_display();
+	if (!al_install_audio())
+	{
+		fprintf(stderr, "failed to install audio system\n");
+		return false;
+	}
 
-	al_rest(10.0);
+	if (!al_init_acodec_addon())
+	{
+		fprintf(stderr, "failed to init audio codec system\n");
+		return false;
+	}
 
-	al_destroy_display(display);
+	if (!al_reserve_samples(25))
+	{
+		fprintf(stderr, "failed to reserve audio samples\n");
+		return false;
+	}
 
-	return 0;
+	if (!al_install_mouse())
+	{
+		fprintf(stderr, "no mouse found!\n");
+		return false;
+	}
+
+	if (!al_install_keyboard())
+	{
+		fprintf(stderr, "no keyboard found!\n");
+		return false;
+	}
+	if (!al_init_font_addon())
+	{
+		fprintf(stderr, "unable to init fonts\n");
+		return false;
+	}
+	if (!al_init_ttf_addon())
+	{
+		fprintf(stderr, "unable to init ttf fonts\n");
+		return false;
+	}
+
+	return true;
+}
+
+void shutdownGame()
+{
+	Utils::cleanSpriteMap();
+
+	al_shutdown_image_addon();
+	al_shutdown_primitives_addon();
+	al_shutdown_ttf_addon();
+	al_shutdown_font_addon();
+	al_uninstall_audio();
+	al_uninstall_keyboard();
+	al_uninstall_mouse();
+	al_uninstall_system();
 }

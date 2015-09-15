@@ -113,15 +113,44 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Users\James\Desktop\Files\Programming\SpaceColonizerGame\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>D:\Users\James\Desktop\Files\Programming\SpaceColonizerGame\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>allegro_monolith.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameTile.cpp" />
+    <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Utils\FileUtils.cpp" />
+    <ClCompile Include="Utils\MapUtils.cpp" />
+    <ClCompile Include="Utils\SpriteUtils.cpp" />
+    <ClCompile Include="Utils\StringUtils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ColorDefines.h" />
+    <ClInclude Include="GameTile.h" />
+    <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Utils\FileUtils.h" />
+    <ClInclude Include="Utils\MapUtils.h" />
+    <ClInclude Include="Utils\SpriteUtils.h" />
+    <ClInclude Include="Utils\StringUtils.h" />
+    <ClInclude Include="Vector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Data\Images\Tiles\BlueTile.png" />
+    <Image Include="Data\Images\Tiles\RedTile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Data\Maps\TestMap\TestMap.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

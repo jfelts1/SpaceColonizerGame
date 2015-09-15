@@ -1,1 +1,3 @@
 # SpaceColonizerGame
+
+All Rights Reserved
