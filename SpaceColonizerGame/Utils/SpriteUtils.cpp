@@ -32,6 +32,4 @@ namespace Utils
 			al_destroy_bitmap(bit.second);
 		}
 	}
-
-
 }

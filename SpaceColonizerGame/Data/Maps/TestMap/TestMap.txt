@@ -1,10 +1,10 @@
 BEGINTEXTUREDEFS
-1=Data/Images/Tiles/BlueTile.png;
-2=Data/Images/Tiles/RedTile.png;
+0=Data/Images/Tiles/BlueTile.png;
+1=Data/Images/Tiles/RedTile.png;
 ENDTEXTUREDEFS
 BEGINTEXTUREMAP
-1 2 2 1 2 2 2 1 2 2 1 2 2 2 1 2 2 1 2 2 1;
-1 2 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2;
-2 1 2 1 1 2 2 1 2 2 1 2 1 2 1 2 1 2 1 2 1;
-2 1 2 1 2 2 1 2 2 2 1 2 1 2 1 2 1 2 1 2 1;
+0 1 1 0 1 1 1 0 1 1 0 1 1 1 0 1 1 0 1 1 0;
+0 1 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1;
+1 0 1 0 1 1 1 0 1 1 0 1 0 1 0 1 0 1 0 1 0;
+1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1;
 ENDTEXTUREMAP

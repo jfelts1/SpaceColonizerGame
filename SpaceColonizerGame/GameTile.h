@@ -3,10 +3,10 @@ James Felts 2015
 */
 #ifndef GAMETILE_H
 #define GAMETILE_H
-#include "Utils/SpriteUtils.h"
-#include "Point.h"
 #include <string>
 #include <iostream>
+#include "Utils/SpriteUtils.h"
+#include "Point.h"
 #define TILE_SPRITE_SIZE 10
 
 /*

@@ -16,25 +16,6 @@ GameWorld::GameWorld()
 	al_register_event_source(m_events, m_keyboardEventSource);
 
 	m_tiles = Utils::loadMap("Data/Maps/TestMap/TestMap.txt");
-	/*int x = 10;
-	int y = 10;
-
-	for (int i = 0; i < x;i++)
-	{
-		std::vector<GameTile> tmp;
-		for (int j = 0;j < y;j++)
-		{
-			if (i % 2 == 0)
-			{
-				tmp.push_back(GameTile(j, i, "Data/Images/Tiles/BlueTile.png"));
-			}
-			else
-			{
-				tmp.push_back(GameTile(j, i, "Data/Images/Tiles/RedTile.png"));
-			}
-		}
-		m_tiles.push_back(tmp);
-	}*/
 	Renderer::getRenderer().updateRenderInfo(m_tiles);
 }
 

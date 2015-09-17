@@ -4,9 +4,11 @@ James Felts 2015
 #ifndef MAPUTILS_H
 #define MAPUTILS_H
 #include <vector>
+#include <array>
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "../GameTile.h"
 #include "SpriteUtils.h"
 #include "FileUtils.h"
@@ -23,8 +25,8 @@ with no spaces
 
 ex
 BEGINTEXTUREDEFS
-1=Data/Images/Tiles/BlueTile.png;
-2=Data/Images/Tiles/RedTile.png;
+0=Data/Images/Tiles/BlueTile.png;
+1=Data/Images/Tiles/RedTile.png;
 ENDTEXTUREDEFS
 
 Placement of the various tiles on the map, starting with BEGINTEXTUREMAP, followed by the data, with ; seperating each row, followed by ENDTEXTUREMAP at the end of the section
@@ -37,10 +39,10 @@ where the number corrisponds to one of the texture defs in the previous section
 
 ex
 BEGINTEXTUREMAP
-1 2 2 1 2 2 2 1 2 2 1 2 2 2 1 2 2 1 2 2 1;
-1 2 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2;
-2 1 2 1 1 2 2 1 2 2 1 2 1 2 1 2 1 2 1 2 1;
-2 1 2 1 2 2 1 2 2 2 1 2 1 2 1 2 1 2 1 2 1;
+0 1 1 0 1 1 1 0 1 1 0 1 1 1 0 1 1 0 1 1 0;
+0 1 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1;
+1 0 1 0 1 1 1 0 1 1 0 1 0 1 0 1 0 1 0 1 0;
+1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1;
 ENDTEXTUREMAP
 
 
