@@ -1,3 +1,3 @@
 # SpaceColonizerGame
 
-All Rights Reserved
+All Rights Reserved James Felts
