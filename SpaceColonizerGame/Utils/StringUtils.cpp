@@ -63,14 +63,14 @@ std::vector<std::string> Utils::splitString(const std::string str, const char de
 	std::vector<string> ret;
 	//-1 makes the code simpler
 	int prev = -1;
-	int delimPos = 0;
-	delimPos = (int)str.find_first_of(delim, 0);
+	size_t delimPos = 0;
+	delimPos = str.find_first_of(delim, 0);
 	string tmp;
 	while (delimPos != std::string::npos)
 	{
 		tmp = Utils::trim(str.substr(prev+1, delimPos-(prev+1)));
 		ret.push_back(tmp);
-		prev = delimPos;
+		prev = (int)delimPos;
 		delimPos = (int)str.find_first_of(delim, prev + 1);
 	}
 

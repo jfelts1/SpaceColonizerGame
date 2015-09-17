@@ -21,7 +21,8 @@ GameWorld::GameWorld()
 
 GameWorld::~GameWorld()
 {
-	Renderer::getRenderer().~Renderer();
+	//Renderer::getRenderer().~Renderer();
+	Renderer::getRenderer().stopRenderer();
 	al_unregister_event_source(m_events, m_mouseEventSource);
 	al_unregister_event_source(m_events, m_keyboardEventSource);
 	al_destroy_event_queue(m_events);

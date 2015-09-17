@@ -35,6 +35,7 @@ public:
 	virtual ~Renderer();
 	void updateRenderInfo(std::vector<std::vector<GameTile>> tiles);
 	static Renderer& getRenderer();
+	void stopRenderer();
 private:
 	Renderer();
 

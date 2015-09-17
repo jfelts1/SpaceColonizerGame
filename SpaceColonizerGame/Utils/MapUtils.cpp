@@ -22,14 +22,14 @@ std::vector<std::vector<GameTile>> Utils::loadMap(const std::string filepath)
 
 	texturePaths = Utils::splitString(texureDefs, ';');
 	//remove the number= from the begining of each string
-	for (int i = 0;i < texturePaths.size();i++)
+	for (int i = 0;i < (int)texturePaths.size();i++)
 	{
 		Utils::OddlySpecificUtils::removeNumberEqualsFromBeginingOfString(texturePaths[i]);
 	}
 	mapData = Utils::splitString(mapDataStr, ';');
 	std::istringstream strStream;
 	int j;
-	for (int i = 0;i < mapData.size();i++)
+	for (int i = 0;i < (int)mapData.size();i++)
 	{
 		j = 0;
 		vector<GameTile> tileRow;

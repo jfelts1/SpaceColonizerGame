@@ -15,18 +15,7 @@ Renderer::Renderer()
 
 Renderer::~Renderer()
 {
-	m_render = false;
-	if (m_thread.joinable())
-	{
-		try
-		{
-			m_thread.join();
-		}
-		catch (std::system_error& e)
-		{
-			std::cerr << e.what() << std::endl;
-		}
-	}
+	
 }
 
 void Renderer::updateRenderInfo(std::vector<std::vector<GameTile>> tiles)
@@ -74,5 +63,21 @@ Renderer& Renderer::getRenderer()
 {
 	static Renderer m_rend;
 	return m_rend;
+}
+
+void Renderer::stopRenderer()
+{
+	m_render = false;
+	if (m_thread.joinable())
+	{
+		try
+		{
+			m_thread.join();
+		}
+		catch (std::system_error& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+	}
 }
 
