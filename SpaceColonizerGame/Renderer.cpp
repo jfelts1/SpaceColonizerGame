@@ -16,13 +16,16 @@ Renderer::Renderer()
 Renderer::~Renderer()
 {
 	m_render = false;
-	try
+	if (m_thread.joinable())
 	{
-		m_thread.join();
-	}
-	catch (std::system_error& e)
-	{
-		std::cerr << e.what() << std::endl;
+		try
+		{
+			m_thread.join();
+		}
+		catch (std::system_error& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
 	}
 }
 
