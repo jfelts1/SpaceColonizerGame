@@ -12,16 +12,19 @@ void shutdownGame();
 
 int main(int argc, char **argv)
 {
-	initGame();
-	GameWorld* world =  new GameWorld();
+	bool success = initGame();
+	if (success)
+	{
+		//using new and delete since relying on scoping to delete things causes the clean up of the GameWorld to happen after allegro has shutdown
+		//causing access violations
+		GameWorld* world =  new GameWorld();
 
-	al_rest(1.0);
-	//using delete since relying on scoping to delete things causes the clean up of the GameWorld to happen after allegro has shutdown
-	//causing access violations
-	delete world;
-	shutdownGame();
-
-	return EXIT_SUCCESS;
+		al_rest(1.0);
+		delete world;
+		shutdownGame();
+		return EXIT_SUCCESS;
+	}
+	return EXIT_FAILURE;
 }
 
 bool initGame()
