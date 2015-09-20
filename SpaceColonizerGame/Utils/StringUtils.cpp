@@ -19,13 +19,13 @@ std::string Utils::getStringBetweenTwoStrings(const std::string rawString,const 
 	return ret;
 }
 
-int Utils::findFirstStringInString(const std::string rawString, const std::string lookFor,int startAt)
+int Utils::findFirstStringInString(const std::string rawString, const std::string lookFor,int start)
 {
 	int len = (int)lookFor.size();
 	const char* rawStr = rawString.c_str();
 	const char* lookStr = lookFor.c_str();
 	int end = (int)rawString.size();
-	for (int i = startAt;i < end;i++)
+	for (int i = start;i < end;i++)
 	{
 		//taking advantage of pointer math to search through the string
 		if (strncmp(rawStr + i, lookStr, len)==0)

@@ -24,6 +24,15 @@ namespace Utils
 			updateMagnitude();
 		}
 		float getMagnitude() const { return m_magnitude; }
+		void truncate(const float maxSize)
+		{
+			if (m_magnitude > maxSize)
+			{
+				float ratio = maxSize / m_magnitude;
+				m_y = m_y*ratio;
+				m_x = m_x*ratio;
+			}
+		}
 
 	private:
 		float m_x = 0;

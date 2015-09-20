@@ -6,20 +6,36 @@ James Felts 2015
 #include <allegro5/allegro.h>
 #include "ColorDefines.h"
 #include "GameWorld.h"
+#define MS_PER_TICK 16
+
+using std::chrono::high_resolution_clock;
+using std::chrono::time_point;
+using std::chrono::duration;
+using std::chrono::duration_cast;
 
 bool initGame();
 void shutdownGame();
 
 int main(int argc, char **argv)
 {
+
 	bool success = initGame();
 	if (success)
 	{
 		//using new and delete since relying on scoping to delete things causes the clean up of the GameWorld to happen after allegro has shutdown
 		//causing access violations
 		GameWorld* world =  new GameWorld();
+		while (GET_KEYBINDS.quitPressed() == false)
+		{
+			auto startTime = high_resolution_clock::now();
+			GET_KEYBINDS.update();
+			world->update();
+			auto endTime = high_resolution_clock::now();
+			auto gameTickTime = duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+			std::this_thread::sleep_for(std::chrono::milliseconds(MS_PER_TICK - gameTickTime));
+		}
 
-		al_rest(1.0);
+		
 		delete world;
 		shutdownGame();
 		return EXIT_SUCCESS;

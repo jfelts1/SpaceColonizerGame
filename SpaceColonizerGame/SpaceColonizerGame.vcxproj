@@ -128,9 +128,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameTile.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="Keybinds.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Utils\FileUtils.cpp" />
     <ClCompile Include="Utils\MapUtils.cpp" />
@@ -138,9 +141,12 @@
     <ClCompile Include="Utils\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="ColorDefines.h" />
     <ClInclude Include="GameTile.h" />
     <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="Keybinds.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Utils\FileUtils.h" />

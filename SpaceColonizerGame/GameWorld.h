@@ -18,17 +18,23 @@ James Felts 2015
 #include "Utils/MapUtils.h"
 #include "GameTile.h"
 #include "Renderer.h"
+#include "Map.h"
+#include "Camera.h"
+#include "Keybinds.h"
 
 class GameWorld
 {
 public:
 	GameWorld();
 	virtual ~GameWorld();
+	void update();
 
 private:
 	ALLEGRO_EVENT_QUEUE* m_events = nullptr;
 	ALLEGRO_EVENT_SOURCE* m_mouseEventSource = nullptr;
-	ALLEGRO_EVENT_SOURCE* m_keyboardEventSource = nullptr;
-	std::vector<std::vector<GameTile>> m_tiles;
+	
+	float m_zoomLevel = 1;
+	std::shared_ptr<Map> m_map;
+	Camera m_cam;
 };
 #endif

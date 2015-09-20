@@ -22,8 +22,11 @@ James Felts 2015
 #include <iostream>
 #include "GameTile.h"
 #include "ColorDefines.h"
+#include "Map.h"
 #define SCREEN_SIZE_X 1280
 #define SCREEN_SIZE_Y 720
+#define GET_RENDERER Renderer::getRenderer()
+
 
 class Renderer
 {
@@ -33,14 +36,14 @@ public:
 	//copy assignment is deleted
 	void operator=(Renderer const&) = delete;
 	virtual ~Renderer();
-	void updateRenderInfo(std::vector<std::vector<GameTile>> tiles);
+	void updateRenderInfo(std::unique_ptr<Map>& map,float zoomLevel);
 	static Renderer& getRenderer();
 	void stopRenderer();
 private:
 	Renderer();
 
-	std::vector<std::vector<GameTile>> m_tiles;
-	std::mutex m_tiles_mutex;
+	std::unique_ptr<Map> m_map;
+	std::mutex m_map_mutex;
 
 	ALLEGRO_DISPLAY* m_display = nullptr;
 

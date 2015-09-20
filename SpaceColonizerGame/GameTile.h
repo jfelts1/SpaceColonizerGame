@@ -7,6 +7,7 @@ James Felts 2015
 #include <iostream>
 #include "Utils/SpriteUtils.h"
 #include "Point.h"
+#include "Vector.h"
 #define TILE_SPRITE_SIZE 10
 
 /*
@@ -19,9 +20,40 @@ class GameTile
 public:
 	GameTile(float x = 0, float y = 0,const char* filename = "Data/Images/Tiles/RedTile.png");
 	virtual ~GameTile();
-	void render(float scale);
+	void render(const float scale)const;
+	//copy constructor
+	GameTile(const GameTile& orig)
+	{
+		m_sprite = orig.m_sprite;
+		m_pos = orig.m_pos;
+	}
+	//copy assignment
+	GameTile& operator=(const GameTile& orig)
+	{
+		if (this != &orig)
+		{
+			m_sprite = orig.m_sprite;
+			m_pos = orig.m_pos;
+		}
+		return *this;
+	}
+	inline void shiftX(const float x)
+	{
+		m_pos.x += x;
+	}
+	inline void shiftY(const float y)
+	{
+		m_pos.y += y;
+	}
+	inline void shift(const Utils::Vector shift)
+	{
+		shiftX(shift.getX());
+		shiftY(shift.getY());
+		//std::cout << m_pos.x << "," << m_pos.y << std::endl;
+	}
+	float getX()const { return m_pos.x; }
+	float getY()const { return m_pos.y; }
 private:
-	std::string m_file;
 	ALLEGRO_BITMAP* m_sprite;
 	Point m_pos;
 };

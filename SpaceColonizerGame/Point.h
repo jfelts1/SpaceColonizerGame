@@ -2,7 +2,7 @@
 James Felts 2015
 */
 #ifndef POINT_H
-#define POINT_T
+#define POINT_H
 
 #include <allegro5/allegro.h>
 #include "Vector.h"
@@ -72,11 +72,11 @@ struct Point
 		return ret;
 	}
 
-	void getCurMousePos(ALLEGRO_MOUSE_EVENT mouse)
+	/*void getCurMousePos(ALLEGRO_MOUSE_EVENT mouse)
 	{
 		x = mouse.x;
 		y = mouse.y;
-	}
+	}*/
 
 	float x = 0;
 	float y = 0;

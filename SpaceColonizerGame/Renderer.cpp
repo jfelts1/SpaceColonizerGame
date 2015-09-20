@@ -18,10 +18,12 @@ Renderer::~Renderer()
 	
 }
 
-void Renderer::updateRenderInfo(std::vector<std::vector<GameTile>> tiles)
+void Renderer::updateRenderInfo(std::unique_ptr<Map>& map,float zoomLevel)
 {
-	std::lock_guard<std::mutex> lock(m_tiles_mutex);
-	m_tiles = tiles;
+	m_map_mutex.lock();
+	m_map = std::move(map);
+	m_zoomLevel = zoomLevel;
+	m_map_mutex.unlock();
 }
 
 void Renderer::initRenderer()
@@ -41,13 +43,13 @@ void Renderer::startRenderer()
 {
 	while (m_render)
 	{
-		for (auto i : m_tiles)
+		al_clear_to_color(BLACK);
+		m_map_mutex.lock();
+		if (m_map != nullptr)
 		{
-			for (auto tile : i)
-			{
-				tile.render(m_zoomLevel);
-			}
+			m_map->render(m_zoomLevel);
 		}
+		m_map_mutex.unlock();
 		/*auto startTime = high_resolution_clock::now();
 
 		auto endTime = high_resolution_clock::now();
@@ -68,8 +70,8 @@ Renderer& Renderer::getRenderer()
 void Renderer::stopRenderer()
 {
 	m_render = false;
-	if (m_thread.joinable())
-	{
+	//if (m_thread.joinable())
+	//{
 		try
 		{
 			m_thread.join();
@@ -78,6 +80,6 @@ void Renderer::stopRenderer()
 		{
 			std::cerr << e.what() << std::endl;
 		}
-	}
+	//}
 }
 

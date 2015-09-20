@@ -7,9 +7,9 @@ using std::string;
 using std::vector;
 using std::array;
 
-std::vector<std::vector<GameTile>> Utils::loadMap(const std::string filepath)
+std::shared_ptr<Map> Utils::loadMap(const std::string filepath)
 {
-	vector<vector<GameTile>> ret;
+	vector<vector<GameTile>> tiles;
 	vector<string> texturePaths;
 	vector<string> mapData;
 	string rawString;
@@ -41,10 +41,10 @@ std::vector<std::vector<GameTile>> Utils::loadMap(const std::string filepath)
 			tileRow.push_back(GameTile(j, i, texturePaths[val].c_str()));
 			j++;
 		}
-		ret.push_back(tileRow);
+		tiles.push_back(tileRow);
 	}
+	return std::make_shared<Map>(tiles);
 
-	return ret;
 }
 
 

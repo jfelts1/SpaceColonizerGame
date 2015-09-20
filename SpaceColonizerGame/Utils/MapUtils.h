@@ -9,10 +9,12 @@ James Felts 2015
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <memory>
 #include "../GameTile.h"
 #include "SpriteUtils.h"
 #include "FileUtils.h"
 #include "StringUtils.h"
+#include "../Map.h"
 
 /*
 Map format is as follows
@@ -21,7 +23,7 @@ List of textures that are going to be used in the map, starting with BEGINTEXTUR
 
 data format
 number=Path to texture;
-with no spaces
+with no spaces and the numbers are in sequence (0,1,2,3,4,etc)
 
 ex
 BEGINTEXTUREDEFS
@@ -52,7 +54,7 @@ the file ends with an empty line
 
 namespace Utils
 {
-	std::vector<std::vector<GameTile>> loadMap(const std::string filepath);
+	std::shared_ptr<Map> loadMap(const std::string filepath);
 }
 
 

@@ -11,21 +11,32 @@ GameWorld::GameWorld()
 		fprintf(stderr, "failed to create event queue\n");
 	}
 	m_mouseEventSource = al_get_mouse_event_source();
-	m_keyboardEventSource = al_get_keyboard_event_source();
-	al_register_event_source(m_events, m_mouseEventSource);
-	al_register_event_source(m_events, m_keyboardEventSource);
 
-	m_tiles = Utils::loadMap("Data/Maps/TestMap/TestMap.txt");
-	Renderer::getRenderer().updateRenderInfo(m_tiles);
+	al_register_event_source(m_events, m_mouseEventSource);
+
+
+	//init the renderer by calling it's get function
+	GET_RENDERER;
+	GET_KEYBINDS;
+	m_map = Utils::loadMap("Data/Maps/TestMap/TestMap.txt");
 }
 
 GameWorld::~GameWorld()
 {
-	//Renderer::getRenderer().~Renderer();
-	Renderer::getRenderer().stopRenderer();
+	GET_RENDERER.stopRenderer();
+	GET_KEYBINDS.shutDownKeyBinds();
 	al_unregister_event_source(m_events, m_mouseEventSource);
-	al_unregister_event_source(m_events, m_keyboardEventSource);
+	
 	al_destroy_event_queue(m_events);
+}
+
+void GameWorld::update()
+{
+	Utils::Vector vec = m_cam.update();
+	m_map->update(vec);
+	//create a copy before sending it off to the renderer since the renderer runs on another thread
+	std::unique_ptr<Map> copy = m_map->makeUniqueCopy();
+	GET_RENDERER.updateRenderInfo(copy,m_zoomLevel);
 }
 
 
