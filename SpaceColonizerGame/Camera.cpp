@@ -8,11 +8,11 @@ Camera::Camera()
 
 }
 
-Camera::~Camera()
+Camera::~Camera() noexcept
 {
 }
 
-Utils::Vector Camera::update()
+Utils::Vector Camera::update() noexcept
 {
 	Utils::Vector ret;
 	if (GET_KEYBINDS.upPressed())

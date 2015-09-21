@@ -57,7 +57,7 @@ void Renderer::startRenderer()
 		al_flip_display();
 		std::this_thread::sleep_for(std::chrono::milliseconds(16));
 	}
-	//since the display was created on the render thread the display must be destroyed on the current thread
+	//since the display was created on the render thread the display must be destroyed on the render thread
 	al_destroy_display(m_display);
 }
 

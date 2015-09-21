@@ -21,7 +21,7 @@ GameWorld::GameWorld()
 	m_map = Utils::loadMap("Data/Maps/TestMap/TestMap.txt");
 }
 
-GameWorld::~GameWorld()
+GameWorld::~GameWorld() noexcept
 {
 	GET_RENDERER.stopRenderer();
 	GET_KEYBINDS.shutDownKeyBinds();
@@ -30,7 +30,7 @@ GameWorld::~GameWorld()
 	al_destroy_event_queue(m_events);
 }
 
-void GameWorld::update()
+void GameWorld::update() noexcept
 {
 	Utils::Vector vec = m_cam.update();
 	m_map->update(vec);

@@ -13,10 +13,10 @@ class Camera
 {
 public:
 	Camera();
-	virtual ~Camera();
+	virtual ~Camera() noexcept;
 
 	//returns the vector that is used to shift the world view
-	Utils::Vector update();
+	Utils::Vector update() noexcept;
 private:
 	//this is used to track the displacment of the world view
 	Point m_pos;

@@ -62,8 +62,8 @@ public:
 	}
 	virtual ~Map();
 
-	void update(const Utils::Vector shift);
-	void render(const float zoomLevel)const;
+	void update(const Utils::Vector shift) noexcept;
+	void render(const float zoomLevel)const noexcept;
 
 	//allows the forcing of creation a copy that can only be owned by one thing
 	std::unique_ptr<Map> makeUniqueCopy()const;

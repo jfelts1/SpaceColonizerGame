@@ -19,7 +19,7 @@ std::string Utils::getStringBetweenTwoStrings(const std::string rawString,const 
 	return ret;
 }
 
-int Utils::findFirstStringInString(const std::string rawString, const std::string lookFor,int start)
+int Utils::findFirstStringInString(const std::string rawString, const std::string lookFor,int start) noexcept
 {
 	int len = (int)lookFor.size();
 	const char* rawStr = rawString.c_str();

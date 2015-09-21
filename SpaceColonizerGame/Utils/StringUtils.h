@@ -21,7 +21,7 @@ namespace Utils
 	std::string getStringBetweenTwoStrings(const std::string str,const std::string stringOne,const std::string stringTwo);
 	//finds the first time a string appears in another string
 	//returns -1 if nothing is found
-	int findFirstStringInString(const std::string str, const std::string lookFor,const int startAt = 0);
+	int findFirstStringInString(const std::string str, const std::string lookFor,const int startAt = 0) noexcept;
 	//returns the substring of the passed in string use instead of substr when determining the count parameter of substr is hard
 	//throws range_error
 	std::string subString(const std::string str, const int start, const int end);

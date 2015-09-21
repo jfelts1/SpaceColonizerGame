@@ -20,7 +20,7 @@ class GameTile
 public:
 	GameTile(float x = 0, float y = 0,const char* filename = "Data/Images/Tiles/RedTile.png");
 	virtual ~GameTile();
-	void render(const float scale)const;
+	void render(const float scale)const noexcept;
 	//copy constructor
 	GameTile(const GameTile& orig)
 	{
@@ -37,22 +37,22 @@ public:
 		}
 		return *this;
 	}
-	inline void shiftX(const float x)
+	inline void shiftX(const float x) noexcept
 	{
 		m_pos.x += x;
 	}
-	inline void shiftY(const float y)
+	inline void shiftY(const float y) noexcept
 	{
 		m_pos.y += y;
 	}
-	inline void shift(const Utils::Vector shift)
+	inline void shift(const Utils::Vector shift) noexcept
 	{
 		shiftX(shift.getX());
 		shiftY(shift.getY());
 		//std::cout << m_pos.x << "," << m_pos.y << std::endl;
 	}
-	float getX()const { return m_pos.x; }
-	float getY()const { return m_pos.y; }
+	float getX()const noexcept{ return m_pos.x; }
+	float getY()const noexcept{ return m_pos.y; }
 private:
 	ALLEGRO_BITMAP* m_sprite;
 	Point m_pos;

@@ -13,7 +13,7 @@ GameTile::~GameTile()
 {
 }
 
-void GameTile::render(float scale)const
+void GameTile::render(float scale)const noexcept
 {
 	//std::cout << m_file << std::endl;
 	al_draw_scaled_rotated_bitmap(m_sprite, TILE_SPRITE_SIZE, TILE_SPRITE_SIZE, m_pos.x*scale, m_pos.y*scale, scale, scale, 0, 0);

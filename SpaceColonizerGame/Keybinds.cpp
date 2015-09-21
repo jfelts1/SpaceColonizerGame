@@ -20,18 +20,18 @@ KeyBinds & KeyBinds::getKeyBinds()
 	return m_keyBinds;
 }
 
-KeyBinds::~KeyBinds()
+KeyBinds::~KeyBinds() noexcept
 {
 	
 }
 
-void KeyBinds::shutDownKeyBinds()
+void KeyBinds::shutDownKeyBinds() noexcept
 {
 	al_unregister_event_source(m_events, m_keyboardEventSource);
 	al_destroy_event_queue(m_events);
 }
 
-void KeyBinds::update()
+void KeyBinds::update() noexcept
 {
 
 	while (!al_is_event_queue_empty(m_events))

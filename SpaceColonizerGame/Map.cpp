@@ -15,7 +15,7 @@ Map::~Map()
 {
 }
 
-void Map::update(const Utils::Vector shift)
+void Map::update(const Utils::Vector shift) noexcept
 {
 	for (int i = 0;i < m_tiles->size();i++)
 	{
@@ -27,7 +27,7 @@ void Map::update(const Utils::Vector shift)
 	std::cout <<shift.getX()<<","<<shift.getY()<<" Gametile[0][0] "<< m_tiles->at(0).at(0).getX() << "," << m_tiles->at(0).at(0).getY() << std::endl;
 }
 
-void Map::render(const float zoomLevel)const
+void Map::render(const float zoomLevel)const noexcept
 {
 	for (auto i : *m_tiles.get())
 	{

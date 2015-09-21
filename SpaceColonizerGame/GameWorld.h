@@ -26,8 +26,8 @@ class GameWorld
 {
 public:
 	GameWorld();
-	virtual ~GameWorld();
-	void update();
+	virtual ~GameWorld() noexcept;
+	void update() noexcept;
 
 private:
 	ALLEGRO_EVENT_QUEUE* m_events = nullptr;
