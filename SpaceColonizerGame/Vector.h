@@ -7,16 +7,16 @@ James Felts 2015
 #include <cmath>
 namespace Utils
 {
-	struct Vector
+	struct Vector2D
 	{
-		friend inline std::ostream& operator<<(std::ostream& out, const Vector& vect)
+		friend inline std::ostream& operator<<(std::ostream& out, const Vector2D& vect)
 		{
 			out << "(" << vect.m_x << "," << vect.m_y << ")";
 			return out;
 		}
 
-		constexpr Vector() = default;
-		virtual ~Vector() noexcept{}
+		constexpr Vector2D() = default;
+		virtual ~Vector2D() noexcept{}
 		float getX()const noexcept{ return m_x; }
 		float getY()const noexcept{ return m_y; }
 		void setX(float x) noexcept
@@ -40,19 +40,39 @@ namespace Utils
 			}
 		}
 
-		Vector operator+(const Vector& rhs)
+		Vector2D operator+(const Vector2D& rhs)const noexcept
 		{
-			Vector ret;
+			Vector2D ret;
 			ret.setX(this->getX() + rhs.getX());
 			ret.setY(this->getY() + rhs.getY());
 			return ret;
 		}
 
-		Vector& operator+=(const Vector& rhs)
+		Vector2D& operator+=(const Vector2D& rhs)noexcept
 		{
 			setX(this->getX() + rhs.getX());
 			setY(this->getY() + rhs.getY());
 			return *this;
+		}
+
+		Vector2D operator-(const Vector2D& rhs)const noexcept
+		{
+			Vector2D ret;
+			ret.setX(this->getX() - rhs.getX());
+			ret.setY(this->getY() - rhs.getY());
+			return ret;
+		}
+
+		Vector2D& operator-=(const Vector2D& rhs)noexcept
+		{
+			setX(this->getX() - rhs.getX());
+			setY(this->getY() - rhs.getY());
+			return *this;
+		}
+
+		float dotProduct(const Vector2D&rhs)const noexcept
+		{
+			return this->m_x*rhs.m_x + this->m_y*rhs.m_y;
 		}
 
 	private:

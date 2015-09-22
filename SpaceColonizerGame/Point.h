@@ -69,7 +69,7 @@ struct Point
 		return *this;
 	}
 
-	Point operator+(const Utils::Vector rhs)
+	Point operator+(const Utils::Vector2D rhs)
 	{
 		Point ret(this->x + rhs.getX(), this->y + rhs.getY());
 		return ret;

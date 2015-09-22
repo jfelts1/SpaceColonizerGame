@@ -9,8 +9,7 @@ Camera::Camera()
 }
 
 Camera::~Camera() noexcept
-{
-}
+{}
 
 
 void Camera::update() noexcept

@@ -19,20 +19,18 @@ public:
 	Camera();
 	virtual ~Camera() noexcept;
 	float getZoomLevel()const noexcept { return m_zoomLevel; }
-	Utils::Vector getCameraShift() const noexcept { return m_cameraShift; }
-
 	//returns the vector that is used to shift the world view
+	Utils::Vector2D getCameraShift() const noexcept { return m_cameraShift; }
+
 	void update() noexcept;
 private:
 	//this is used to track the displacment of the world view
-	Utils::Vector m_cameraShift;
+	Utils::Vector2D m_cameraShift;
 	float m_zoomLevel = 1;
 
-	inline void updateCameraShift()noexcept
+	inline void updateCameraShift() noexcept
 	{
-		//m_cameraShift.setX(0);
-		//m_cameraShift.setY(0);
-		Utils::Vector curShift;
+		Utils::Vector2D curShift;
 		if (GET_KEYBINDS.upPressed())
 		{
 			curShift.setY(curShift.getY() - SHIFT_SPEED);
@@ -51,7 +49,7 @@ private:
 		}
 		curShift.truncate(SHIFT_SPEED);
 		m_cameraShift += curShift;
-		std::cout << "curShift"<<curShift <<" camShift"<<m_cameraShift<< std::endl;
+		//std::cout << "curShift"<<curShift <<" camShift"<<m_cameraShift<< std::endl;
 
 	}
 

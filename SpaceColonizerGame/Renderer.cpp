@@ -21,6 +21,8 @@ void Renderer::updateRenderInfo(std::unique_ptr<Map>& map)
 {
 	m_map_mutex.lock();
 	m_map = std::move(map);
+	//shifting the map to where the camera is done here since it causes major flickering issues when placed in the render loop
+	m_map->shift(m_cam.getCameraShift());
 	m_map_mutex.unlock();
 }
 
@@ -80,7 +82,6 @@ void Renderer::render()
 
 	if (m_map != nullptr)
 	{
-		m_map->shift(m_cam.getCameraShift());
 		m_map->loadTextures();
 		al_hold_bitmap_drawing(true);
 		m_map->render(m_zoomLevel);
@@ -97,6 +98,6 @@ void Renderer::render()
 		fps = 60;
 	}
 	//std::cout << "fps: " << fps << std::endl;
-	//std::cout << "Render Time: " << renderTime << std::endl;
+	std::cout << "Render Time: " << renderTime << std::endl;
 }
 

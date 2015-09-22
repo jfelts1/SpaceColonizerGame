@@ -3,11 +3,12 @@ James Felts 2015
 */
 #include "GameTile.h"
 
-GameTile::GameTile(const float x, const float y,std::string filename)
+GameTile::GameTile(const float x, const float y,const std::string filename, const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags)
 {
 	//m_sprite = Utils::getSprite(filename);
 	m_pos = Point(x*TILE_SPRITE_SIZE, y*TILE_SPRITE_SIZE);
 	m_spriteFilename = filename;
+	m_terrainFlags = terrainFlags;
 }
 
 GameTile::~GameTile()

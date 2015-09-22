@@ -38,7 +38,7 @@ std::shared_ptr<Map> Utils::loadMap(const std::string filepath)
 		{
 			int val;
 			strStream >> val;
-			tileRow.push_back(GameTile(j, i, texturePaths[val]));
+			tileRow.push_back(GameTile(j, i, texturePaths[val],0));
 			j++;
 		}
 		tiles.push_back(tileRow);

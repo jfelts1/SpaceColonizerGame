@@ -15,7 +15,7 @@ Map::~Map()
 {
 }
 
-void Map::shift(const Utils::Vector shift) noexcept
+void Map::shift(const Utils::Vector2D shift) noexcept
 {
 	for (size_t i = 0;i < m_tiles->size();i++)
 	{
