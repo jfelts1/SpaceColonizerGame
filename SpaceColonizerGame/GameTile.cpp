@@ -22,10 +22,9 @@ void GameTile::render(float scale)noexcept
 
 void GameTile::loadTextures() noexcept
 {
-	if (m_test == false)
+	if (m_sprite == nullptr)
 	{
 		m_sprite = Utils::getSprite(m_spriteFilename.c_str());
-		m_test = true;
 	}
 }
 

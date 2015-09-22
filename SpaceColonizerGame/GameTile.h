@@ -21,8 +21,8 @@ class GameTile
 
 	friend inline std::ostream& operator<<(std::ostream& out, const GameTile& tile)
 	{
-		//int* tmp = (int*)tile.m_sprite;
-		out << "Pos" << tile.m_pos << " spriteFile = " << tile.m_spriteFilename << " m_test " << ((tile.m_test) ? "true" : "false");
+		int* tmp = (int*)tile.m_sprite;
+		out << "Pos" << tile.m_pos << " spriteFile = " << tile.m_spriteFilename <<" sprite add"<<tmp;
 		return out;
 	}
 public:
@@ -36,7 +36,6 @@ public:
 		m_sprite = orig.m_sprite;
 		m_pos = orig.m_pos;
 		m_spriteFilename = orig.m_spriteFilename;
-		m_test = orig.m_test;
 	}
 	//copy assignment
 	GameTile& operator=(const GameTile& orig)
@@ -46,7 +45,6 @@ public:
 			m_sprite = orig.m_sprite;
 			m_pos = orig.m_pos;
 			m_spriteFilename = orig.m_spriteFilename;
-			m_test = orig.m_test;
 		}
 		return *this;
 	}
@@ -69,6 +67,5 @@ private:
 	std::string m_spriteFilename;
 	ALLEGRO_BITMAP* m_sprite = nullptr;
 	Point m_pos;
-	bool m_test = false;
 };
 #endif

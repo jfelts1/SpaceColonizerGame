@@ -59,8 +59,7 @@ std::unique_ptr<Map> Map::makeUniqueCopy()const
 		std::vector<GameTile> tmp;
 		for (auto tile : i)
 		{
-			const GameTile temp = GameTile(tile);
-			tmp.push_back(temp);
+			tmp.push_back(tile);
 		}
 		tiles.push_back(tmp);
 	}

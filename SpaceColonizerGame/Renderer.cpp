@@ -29,6 +29,7 @@ void Renderer::updateRenderInfo(std::unique_ptr<Map>& map,float zoomLevel)
 
 void Renderer::initRenderer()
 {
+	al_set_new_display_option(ALLEGRO_VSYNC, 1, ALLEGRO_SUGGEST);
 	m_display = al_create_display(SCREEN_SIZE_X, SCREEN_SIZE_Y);
 	if (m_display == nullptr)
 	{
@@ -86,10 +87,9 @@ void Renderer::render()
 	}
 	m_map_mutex.unlock();
 
-	al_flip_display();
 	auto endTime = high_resolution_clock::now();
 	auto renderTime = duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
-	std::this_thread::sleep_for(std::chrono::milliseconds(16 - renderTime));
+	al_flip_display();
 	//std::cout << "Render Time: " << renderTime << std::endl;
 }
 
