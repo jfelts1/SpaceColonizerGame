@@ -63,7 +63,7 @@ public:
 	virtual ~Map();
 
 	void shift(const Utils::Vector2D shift) noexcept;
-	void update() noexcept;
+	bool update() noexcept;
 	void loadTextures()noexcept;
 	void render(const float zoomLevel, const int screenSizeX, const int screenSizeY)const noexcept;
 

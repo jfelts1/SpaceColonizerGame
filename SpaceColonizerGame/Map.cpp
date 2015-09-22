@@ -19,16 +19,18 @@ void Map::shift(const Utils::Vector2D shift) noexcept
 {
 	for (size_t i = 0;i < m_tiles->size();i++)
 	{
-		for (size_t j = 0;j < m_tiles->at(i).size();j++)
+		size_t tmp = m_tiles->at(i).size();
+		for (size_t j = 0;j < tmp;j++)
 		{
 			m_tiles->at(i).at(j).shift(shift);
 		}
 	}
 }
 
-void Map::update() noexcept
+bool Map::update() noexcept
 {
 	
+	return false;
 	//std::cout <<shift.getX()<<","<<shift.getY()<<" Gametile[0][0] "<< m_tiles->at(0).at(0).getX() << "," << m_tiles->at(0).at(0).getY() << std::endl;
 }
 
@@ -62,15 +64,25 @@ void Map::render(const float zoomLevel, const int screenSizeX, const int screenS
 std::unique_ptr<Map> Map::makeUniqueCopy()const
 {
 	std::vector<std::vector<GameTile>> tiles;
-	//tiles.reserve(m_tiles->size()+1);
-	for (auto i : *m_tiles.get())
+	/*for (auto i : *m_tiles.get())
 	{
 		std::vector<GameTile> tmp;
-		//tmp.reserve(i.size()+1);
 		for (auto tile :i)
 		{
 			//GameTile temp = m_tiles->at(i).at(j);
 			tmp.push_back(tile);
+		}
+		tiles.push_back(tmp);
+	}*/
+
+	//tiles.resize(m_tiles->size());
+	for (size_t i = 0;i < m_tiles->size();i++)
+	{
+		std::vector<GameTile> tmp;
+		//tmp.resize(m_tiles->at(i).size());
+		for (size_t j = 0;j < m_tiles->at(i).size();j++)
+		{
+			tmp.push_back(m_tiles->at(i).at(j));
 		}
 		tiles.push_back(tmp);
 	}

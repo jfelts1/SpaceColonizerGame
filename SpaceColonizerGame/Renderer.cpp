@@ -85,6 +85,7 @@ void Renderer::render()
 	if (m_map != nullptr)
 	{
 		m_map->loadTextures();
+		m_map->shift(m_cam.getCurShift());
 		al_hold_bitmap_drawing(true);
 		m_map->render(m_zoomLevel,screenSizeX,screenSizeY);
 		al_hold_bitmap_drawing(false);

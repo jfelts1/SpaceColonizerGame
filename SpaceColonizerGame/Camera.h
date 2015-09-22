@@ -21,11 +21,13 @@ public:
 	float getZoomLevel()const noexcept { return m_zoomLevel; }
 	//returns the vector that is used to shift the world view
 	Utils::Vector2D getCameraShift() const noexcept { return m_cameraShift; }
+	Utils::Vector2D getCurShift() const noexcept { return m_curShift; }
 
 	void update() noexcept;
 private:
 	//this is used to track the displacment of the world view
 	Utils::Vector2D m_cameraShift;
+	Utils::Vector2D m_curShift;
 	float m_zoomLevel = 1;
 
 	inline void updateCameraShift() noexcept
@@ -48,6 +50,7 @@ private:
 			curShift.setX(curShift.getX() + SHIFT_SPEED);
 		}
 		curShift.truncate(SHIFT_SPEED);
+		m_curShift = curShift;
 		m_cameraShift += curShift;
 		//std::cout << "curShift"<<curShift <<" camShift"<<m_cameraShift<< std::endl;
 

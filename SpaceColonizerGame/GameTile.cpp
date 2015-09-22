@@ -2,8 +2,8 @@
 James Felts 2015
 */
 #include "GameTile.h"
-
-static GameTileHelper m_gameTileHelperAra[MAX_TILE_TEXTURES];
+//raw static array for performance reasons
+static GameTileHelper m_gameTileHelperAra[MAX_NUMBER_TILE_TEXTURES];
 static short m_usedTileTextures = 0;
 
 GameTile::GameTile(const float x, const float y, const short gameTileSpriteId, const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags)
@@ -33,7 +33,7 @@ void GameTile::loadTextures() noexcept
 
 void GameTile::loadTileHelper(const std::string filename,const short index) noexcept
 {
-	if (m_usedTileTextures < MAX_TILE_TEXTURES && m_usedTileTextures == index)
+	if (m_usedTileTextures < MAX_NUMBER_TILE_TEXTURES && m_usedTileTextures == index)
 	{
 		m_gameTileHelperAra[m_usedTileTextures] = GameTileHelper(filename);
 		m_usedTileTextures++;

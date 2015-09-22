@@ -13,7 +13,7 @@ James Felts 2015
 #include "Vector.h"
 #include "GameTileHelper.h"
 #define TERRAIN_FLAGS_SIZE 16
-#define MAX_TILE_TEXTURES 1024
+#define MAX_NUMBER_TILE_TEXTURES 1024
 
 
 /*

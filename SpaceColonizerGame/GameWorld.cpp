@@ -10,6 +10,8 @@ GameWorld::GameWorld()
 	GET_KEYBINDS;
 	GET_MOUSEBINDS;
 	m_map = Utils::loadMap("Data/Maps/TestMap/TestMap.txt");
+	std::unique_ptr<Map> copy = m_map->makeUniqueCopy();
+	GET_RENDERER.updateRenderInfo(copy);
 }
 
 GameWorld::~GameWorld() noexcept
@@ -22,10 +24,14 @@ GameWorld::~GameWorld() noexcept
 
 void GameWorld::update() noexcept
 {
-	m_map->update();
-	//create a copy before sending it off to the renderer since the renderer runs on another thread
-	std::unique_ptr<Map> copy = m_map->makeUniqueCopy();
-	GET_RENDERER.updateRenderInfo(copy);
+	bool mapUpdated = m_map->update();
+	//only send new map info to the renderer if the map has changed
+	if (mapUpdated)
+	{
+		//create a copy before sending it off to the renderer since the renderer runs on another thread
+		std::unique_ptr<Map> copy = m_map->makeUniqueCopy();
+		GET_RENDERER.updateRenderInfo(copy);
+	}
 }
 
 
