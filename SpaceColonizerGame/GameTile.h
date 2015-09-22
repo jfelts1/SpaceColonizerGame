@@ -31,6 +31,7 @@ class GameTile
 		return out;
 	}
 public:
+	GameTile() = default;
 	GameTile(const float x, const float y,const short gameTileSpriteId,const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags);
 	virtual ~GameTile();
 	void render(const float scale)const noexcept;

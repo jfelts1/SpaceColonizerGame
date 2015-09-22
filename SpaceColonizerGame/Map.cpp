@@ -37,13 +37,23 @@ void Map::loadTextures() noexcept
 	GameTile::loadTextures();
 }
 
-void Map::render(const float zoomLevel)const noexcept
+void Map::render(const float zoomLevel, const int screenSizeX, const int screenSizeY)const noexcept
 {
+	int padding = 50;
+	float screenSizeXScaledWithPadding = screenSizeX/zoomLevel + padding;
+	float screenSizeYScaledWithPadding = screenSizeY/zoomLevel + padding;
+	//std::cout << screenSizeXScaledWithPadding << "," << screenSizeYScaledWithPadding << std::endl;
 	for (auto i : *m_tiles.get())
 	{
 		for (auto tile: i)
 		{
-			tile.render(zoomLevel);
+			int tileX = tile.getX();
+			int tileY = tile.getY();
+			
+			if (tileX > 0 - padding && tileY > 0 - padding && tileX < screenSizeXScaledWithPadding && tileY < screenSizeYScaledWithPadding)
+			{
+				tile.render(zoomLevel);
+			}
 		}
 	}
 	//std::cout << m_tiles->at(0).at(0) << std::endl;
@@ -52,11 +62,14 @@ void Map::render(const float zoomLevel)const noexcept
 std::unique_ptr<Map> Map::makeUniqueCopy()const
 {
 	std::vector<std::vector<GameTile>> tiles;
+	//tiles.reserve(m_tiles->size()+1);
 	for (auto i : *m_tiles.get())
 	{
 		std::vector<GameTile> tmp;
-		for (auto tile : i)
+		//tmp.reserve(i.size()+1);
+		for (auto tile :i)
 		{
+			//GameTile temp = m_tiles->at(i).at(j);
 			tmp.push_back(tile);
 		}
 		tiles.push_back(tmp);

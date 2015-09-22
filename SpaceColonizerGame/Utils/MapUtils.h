@@ -23,7 +23,7 @@ List of textures that are going to be used in the map, starting with BEGINTEXTUR
 
 data format
 number=Path to texture;
-with no spaces and the numbers are in sequence (0,1,2,3,4,etc)
+with no spaces and the numbers are in sequence (0,1,2,3,4,etc) up to a maximum of 1024
 
 ex
 BEGINTEXTUREDEFS

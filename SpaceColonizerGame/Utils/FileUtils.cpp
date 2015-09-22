@@ -23,7 +23,7 @@ std::string Utils::readFileAsText(std::string filepath)
 	}
 
 	fin.close();
-	std::cout << rawString << std::endl;
+	//std::cout << rawString << std::endl;
 
 	return rawString;
 }

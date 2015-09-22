@@ -65,7 +65,7 @@ public:
 	void shift(const Utils::Vector2D shift) noexcept;
 	void update() noexcept;
 	void loadTextures()noexcept;
-	void render(const float zoomLevel)const noexcept;
+	void render(const float zoomLevel, const int screenSizeX, const int screenSizeY)const noexcept;
 
 	//allows the forcing of creation a copy that can only be owned by one thing
 	std::unique_ptr<Map> makeUniqueCopy()const;

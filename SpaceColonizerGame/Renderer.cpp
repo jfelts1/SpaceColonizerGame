@@ -79,12 +79,14 @@ void Renderer::render()
 	m_cam.update();
 	m_zoomLevel = m_cam.getZoomLevel();
 	m_map_mutex.lock();
+	int screenSizeY = (int)al_get_display_height(m_display);
+	int screenSizeX = (int)al_get_display_width(m_display);
 
 	if (m_map != nullptr)
 	{
 		m_map->loadTextures();
 		al_hold_bitmap_drawing(true);
-		m_map->render(m_zoomLevel);
+		m_map->render(m_zoomLevel,screenSizeX,screenSizeY);
 		al_hold_bitmap_drawing(false);
 	}
 	m_map_mutex.unlock();

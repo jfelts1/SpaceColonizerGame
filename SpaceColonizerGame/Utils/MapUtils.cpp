@@ -42,9 +42,11 @@ std::shared_ptr<Map> Utils::loadMap(const std::string filepath)
 			GameTile::loadTileHelper(texturePaths[val],val);
 			tileRow.push_back(GameTile(j, i, val, tmp));
 			j++;
+			tileRow.shrink_to_fit();
 		}
 		tiles.push_back(tileRow);
 	}
+	tiles.shrink_to_fit();
 	return std::make_shared<Map>(tiles);
 
 }
