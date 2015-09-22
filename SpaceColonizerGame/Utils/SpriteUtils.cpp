@@ -5,7 +5,7 @@ James Felts 2015
 
 namespace Utils
 {
-	std::map<const char*, ALLEGRO_BITMAP*> spriteMap;
+	std::map<std::string, ALLEGRO_BITMAP*> spriteMap;
 	std::mutex spriteMap_mutex;
 
 	ALLEGRO_BITMAP * getSprite(const char * filename)
