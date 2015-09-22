@@ -90,6 +90,12 @@ void Renderer::render()
 	auto endTime = high_resolution_clock::now();
 	auto renderTime = duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
 	al_flip_display();
+	float fps = 1000.0f / (float)renderTime;
+	if (fps > 60)
+	{
+		fps = 60;
+	}
+	//std::cout << "fps: " << fps << std::endl;
 	//std::cout << "Render Time: " << renderTime << std::endl;
 }
 

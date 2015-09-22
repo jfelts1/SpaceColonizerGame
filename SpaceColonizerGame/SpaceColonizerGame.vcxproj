@@ -134,6 +134,7 @@
     <ClCompile Include="Keybinds.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Mousebinds.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Utils\FileUtils.cpp" />
     <ClCompile Include="Utils\MapUtils.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="Keybinds.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Mousebinds.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Utils\FileUtils.h" />

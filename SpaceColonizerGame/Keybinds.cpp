@@ -21,9 +21,7 @@ KeyBinds & KeyBinds::getKeyBinds()
 }
 
 KeyBinds::~KeyBinds() noexcept
-{
-	
-}
+{}
 
 void KeyBinds::shutDownKeyBinds() noexcept
 {

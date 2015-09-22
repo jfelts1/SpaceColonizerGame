@@ -17,9 +17,9 @@ Map::~Map()
 
 void Map::update(const Utils::Vector shift) noexcept
 {
-	for (int i = 0;i < m_tiles->size();i++)
+	for (size_t i = 0;i < m_tiles->size();i++)
 	{
-		for (int j = 0;j < m_tiles->at(i).size();j++)
+		for (size_t j = 0;j < m_tiles->at(i).size();j++)
 		{
 			m_tiles->at(i).at(j).shift(shift);
 		}
@@ -29,9 +29,9 @@ void Map::update(const Utils::Vector shift) noexcept
 
 void Map::loadTextures() noexcept
 {
-	for (int i = 0;i < m_tiles->size();i++)
+	for (size_t i = 0;i < m_tiles->size();i++)
 	{
-		for (int j = 0;j < m_tiles->at(i).size();j++)
+		for (size_t j = 0;j < m_tiles->at(i).size();j++)
 		{
 			m_tiles->at(i).at(j).loadTextures();
 		}
@@ -47,8 +47,7 @@ void Map::render(const float zoomLevel)const noexcept
 			tile.render(zoomLevel);
 		}
 	}
-	std::cout << m_tiles->at(0).at(0) << std::endl;
-	//GameTile watch = m_tiles->at(0).at(0);
+	//std::cout << m_tiles->at(0).at(0) << std::endl;
 }
 
 std::unique_ptr<Map> Map::makeUniqueCopy()const

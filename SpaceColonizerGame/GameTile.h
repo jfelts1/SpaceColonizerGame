@@ -21,14 +21,14 @@ class GameTile
 
 	friend inline std::ostream& operator<<(std::ostream& out, const GameTile& tile)
 	{
-		int* tmp = (int*)tile.m_sprite;
-		out << "Pos" << tile.m_pos << " spriteFile = " << tile.m_spriteFilename <<" sprite add"<<tmp;
+		//int* tmp = (int*)tile.m_sprite;
+		out << "Pos" << tile.m_pos << " spriteFile = " << tile.m_spriteFilename;
 		return out;
 	}
 public:
-	GameTile(const float x = 0, const float y = 0,const char* filename = "Data/Images/Tiles/RedTile.png");
+	GameTile(const float x = 0, const float y = 0,std::string filename = "Data/Images/Tiles/RedTile.png");
 	virtual ~GameTile();
-	void render(const float scale)noexcept;
+	void render(const float scale)const noexcept;
 	void loadTextures()noexcept;
 	//copy constructor
 	GameTile(const GameTile& orig)

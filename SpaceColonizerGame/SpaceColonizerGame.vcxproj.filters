@@ -48,6 +48,9 @@
     <ClCompile Include="Keybinds.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mousebinds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorDefines.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Keybinds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mousebinds.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

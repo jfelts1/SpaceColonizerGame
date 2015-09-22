@@ -17,7 +17,7 @@ James Felts 2015
 
 namespace Utils
 {
-	extern ALLEGRO_BITMAP* getSprite(const char* filename);
+	extern ALLEGRO_BITMAP* getSprite(std::string filename);
 	void cleanSpriteMap();
 }
 

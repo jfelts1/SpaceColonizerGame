@@ -16,11 +16,13 @@ public:
 	virtual ~KeyBinds() noexcept;
 	void shutDownKeyBinds() noexcept;
 	void update() noexcept;
-	bool upPressed()const noexcept{ return m_upHeld; }
-	bool leftPressed()const noexcept{ return m_leftHeld; }
-	bool rightPressed()const noexcept{ return m_rightHeld; }
-	bool downPressed()const noexcept{ return m_downHeld; }
-	bool quitPressed()const noexcept{ return m_quitHeld; }
+
+	bool upPressed()const noexcept		{ return m_upHeld; }
+	bool leftPressed()const noexcept	{ return m_leftHeld; }
+	bool rightPressed()const noexcept	{ return m_rightHeld; }
+	bool downPressed()const noexcept	{ return m_downHeld; }
+
+	bool quitPressed()const noexcept	{ return m_quitHeld; }
 
 private:
 	KeyBinds();

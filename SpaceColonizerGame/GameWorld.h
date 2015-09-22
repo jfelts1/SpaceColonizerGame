@@ -21,6 +21,7 @@ James Felts 2015
 #include "Map.h"
 #include "Camera.h"
 #include "Keybinds.h"
+#include "Mousebinds.h"
 
 class GameWorld
 {
@@ -30,8 +31,6 @@ public:
 	void update() noexcept;
 
 private:
-	ALLEGRO_EVENT_QUEUE* m_events = nullptr;
-	ALLEGRO_EVENT_SOURCE* m_mouseEventSource = nullptr;
 	
 	float m_zoomLevel = 1;
 	std::shared_ptr<Map> m_map;

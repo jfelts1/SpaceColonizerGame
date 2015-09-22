@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 		{
 			auto startTime = high_resolution_clock::now();
 			GET_KEYBINDS.update();
+			GET_MOUSEBINDS.update();
 			world->update();
 			auto endTime = high_resolution_clock::now();
 			auto gameTickTime = duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
