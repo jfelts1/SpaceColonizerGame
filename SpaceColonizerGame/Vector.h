@@ -9,7 +9,13 @@ namespace Utils
 {
 	struct Vector
 	{
-		constexpr Vector() {}
+		friend inline std::ostream& operator<<(std::ostream& out, const Vector& vect)
+		{
+			out << "(" << vect.m_x << "," << vect.m_y << ")";
+			return out;
+		}
+
+		constexpr Vector() = default;
 		virtual ~Vector() noexcept{}
 		float getX()const noexcept{ return m_x; }
 		float getY()const noexcept{ return m_y; }
@@ -32,6 +38,21 @@ namespace Utils
 				m_y = m_y*ratio;
 				m_x = m_x*ratio;
 			}
+		}
+
+		Vector operator+(const Vector& rhs)
+		{
+			Vector ret;
+			ret.setX(this->getX() + rhs.getX());
+			ret.setY(this->getY() + rhs.getY());
+			return ret;
+		}
+
+		Vector& operator+=(const Vector& rhs)
+		{
+			setX(this->getX() + rhs.getX());
+			setY(this->getY() + rhs.getY());
+			return *this;
 		}
 
 	private:

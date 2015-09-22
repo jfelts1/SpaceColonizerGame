@@ -31,7 +31,6 @@ void KeyBinds::shutDownKeyBinds() noexcept
 
 void KeyBinds::update() noexcept
 {
-
 	while (!al_is_event_queue_empty(m_events))
 	{
 		al_get_next_event(m_events, &m_event);
@@ -42,23 +41,33 @@ void KeyBinds::update() noexcept
 			m_keyboardEvent = m_event.keyboard;
 			if (m_keyboardEvent.keycode == m_up)
 			{
+				//m_upHeldMutex.lock();
 				m_upHeld = true;
+				//m_downHeldMutex.unlock();
 			}
 			else if (m_keyboardEvent.keycode == m_down)
 			{
+				//m_downHeldMutex.lock();
 				m_downHeld = true;
+				//m_downHeldMutex.unlock();
 			}
 			else if (m_keyboardEvent.keycode == m_left)
 			{
+				//m_leftHeldMutex.lock();
 				m_leftHeld = true;
+				//m_leftHeldMutex.unlock();
 			}
 			else if (m_keyboardEvent.keycode == m_right)
 			{
+				//m_rightHeldMutex.lock();
 				m_rightHeld = true;
+				//m_rightHeldMutex.unlock();
 			}
 			else if (m_keyboardEvent.keycode == m_quit)
 			{
+				//m_quitMutex.lock();
 				m_quitHeld = true;
+				//m_quitMutex.unlock();
 			}
 		}
 
@@ -68,23 +77,33 @@ void KeyBinds::update() noexcept
 			m_keyboardEvent = m_event.keyboard;
 			if (m_keyboardEvent.keycode == m_up)
 			{
+				//m_upHeldMutex.lock();
 				m_upHeld = false;
+				//m_downHeldMutex.unlock();
 			}
 			else if (m_keyboardEvent.keycode == m_down)
 			{
+				//m_downHeldMutex.lock();
 				m_downHeld = false;
+				//m_downHeldMutex.unlock();
 			}
 			else if (m_keyboardEvent.keycode == m_left)
 			{
+				//m_leftHeldMutex.lock();
 				m_leftHeld = false;
+				//m_leftHeldMutex.unlock();
 			}
 			else if (m_keyboardEvent.keycode == m_right)
 			{
+				//m_rightHeldMutex.lock();
 				m_rightHeld = false;
+				//m_rightHeldMutex.unlock();
 			}
 			else if (m_keyboardEvent.keycode == m_quit)
 			{
+				//m_quitMutex.lock();
 				m_quitHeld = false;
+				//m_quitMutex.unlock();
 			}
 		}
 	}

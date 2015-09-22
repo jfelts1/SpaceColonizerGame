@@ -25,31 +25,34 @@ public:
 	void update() noexcept;
 private:
 	//this is used to track the displacment of the world view
-	Point m_pos;
 	Utils::Vector m_cameraShift;
 	float m_zoomLevel = 1;
+
 	inline void updateCameraShift()noexcept
 	{
-		m_cameraShift.setX(0);
-		m_cameraShift.setY(0);
+		//m_cameraShift.setX(0);
+		//m_cameraShift.setY(0);
+		Utils::Vector curShift;
 		if (GET_KEYBINDS.upPressed())
 		{
-			m_cameraShift.setY(m_cameraShift.getY() - SHIFT_SPEED);
+			curShift.setY(curShift.getY() - SHIFT_SPEED);
 		}
 		if (GET_KEYBINDS.downPressed())
 		{
-			m_cameraShift.setY(m_cameraShift.getY() + SHIFT_SPEED);
+			curShift.setY(curShift.getY() + SHIFT_SPEED);
 		}
 		if (GET_KEYBINDS.leftPressed())
 		{
-			m_cameraShift.setX(m_cameraShift.getX() - SHIFT_SPEED);
+			curShift.setX(curShift.getX() - SHIFT_SPEED);
 		}
 		if (GET_KEYBINDS.rightPressed())
 		{
-			m_cameraShift.setX(m_cameraShift.getX() + SHIFT_SPEED);
+			curShift.setX(curShift.getX() + SHIFT_SPEED);
 		}
-		m_cameraShift.truncate(SHIFT_SPEED);
-		m_pos = m_pos + m_cameraShift;
+		curShift.truncate(SHIFT_SPEED);
+		m_cameraShift += curShift;
+		std::cout << "curShift"<<curShift <<" camShift"<<m_cameraShift<< std::endl;
+
 	}
 
 	inline void updateZoomLevel() noexcept

@@ -34,6 +34,6 @@ private:
 	
 	float m_zoomLevel = 1;
 	std::shared_ptr<Map> m_map;
-	Camera m_cam;
+	//Camera m_cam;
 };
 #endif

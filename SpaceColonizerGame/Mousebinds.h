@@ -7,6 +7,7 @@ James Felts 2015
 #include <vector>
 #include <iostream>
 #include <cstdio>
+#include <mutex>
 #include "Point.h"
 #define GET_MOUSEBINDS Mousebinds::getMousebinds()
 

@@ -23,13 +23,13 @@ GameWorld::~GameWorld() noexcept
 
 void GameWorld::update() noexcept
 {
-	m_cam.update();
-	m_zoomLevel = m_cam.getZoomLevel();
+	//m_cam.update();
+	//m_zoomLevel = m_cam.getZoomLevel();
 	//std::cout << m_zoomLevel << std::endl;
-	m_map->update(m_cam.getCameraShift());
+	//m_map->update(m_cam.getCameraShift());
 	//create a copy before sending it off to the renderer since the renderer runs on another thread
 	std::unique_ptr<Map> copy = m_map->makeUniqueCopy();
-	GET_RENDERER.updateRenderInfo(copy,m_zoomLevel);
+	GET_RENDERER.updateRenderInfo(copy);
 }
 
 

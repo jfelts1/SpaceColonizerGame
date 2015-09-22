@@ -23,6 +23,7 @@ James Felts 2015
 #include "GameTile.h"
 #include "ColorDefines.h"
 #include "Map.h"
+#include "Camera.h"
 #define SCREEN_SIZE_X 1280
 #define SCREEN_SIZE_Y 720
 #define GET_RENDERER Renderer::getRenderer()
@@ -36,7 +37,7 @@ public:
 	//copy assignment is deleted
 	void operator=(Renderer const&) = delete;
 	virtual ~Renderer();
-	void updateRenderInfo(std::unique_ptr<Map>& map,float zoomLevel);
+	void updateRenderInfo(std::unique_ptr<Map>& map);
 	static Renderer& getRenderer();
 	void stopRenderer();
 	void render();
@@ -47,6 +48,7 @@ private:
 	std::mutex m_map_mutex;
 
 	ALLEGRO_DISPLAY* m_display = nullptr;
+	Camera m_cam;
 
 	std::thread m_thread;
 	//used to tell the render thread whether it should keep looping

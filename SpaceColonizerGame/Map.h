@@ -62,7 +62,8 @@ public:
 	}
 	virtual ~Map();
 
-	void update(const Utils::Vector shift) noexcept;
+	void shift(const Utils::Vector shift) noexcept;
+	void update() noexcept;
 	void loadTextures()noexcept;
 	void render(const float zoomLevel)const noexcept;
 

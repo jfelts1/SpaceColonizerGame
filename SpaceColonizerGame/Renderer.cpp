@@ -15,15 +15,12 @@ Renderer::Renderer()
 }
 
 Renderer::~Renderer()
-{
-	
-}
+{}
 
-void Renderer::updateRenderInfo(std::unique_ptr<Map>& map,float zoomLevel)
+void Renderer::updateRenderInfo(std::unique_ptr<Map>& map)
 {
 	m_map_mutex.lock();
 	m_map = std::move(map);
-	m_zoomLevel = zoomLevel;
 	m_map_mutex.unlock();
 }
 
@@ -77,9 +74,13 @@ void Renderer::render()
 {
 	auto startTime = high_resolution_clock::now();
 	al_clear_to_color(BLACK);
+	m_cam.update();
+	m_zoomLevel = m_cam.getZoomLevel();
 	m_map_mutex.lock();
+
 	if (m_map != nullptr)
 	{
+		m_map->shift(m_cam.getCameraShift());
 		m_map->loadTextures();
 		al_hold_bitmap_drawing(true);
 		m_map->render(m_zoomLevel);
