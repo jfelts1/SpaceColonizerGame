@@ -5,6 +5,7 @@ James Felts 2015
 #define GAMETILE_H
 #include <string>
 #include <iostream>
+#include <thread>
 #include "Utils/SpriteUtils.h"
 #include "Point.h"
 #include "Vector.h"
@@ -17,15 +18,25 @@ so make each texture file be 10 pixels by 10 pixels
 
 class GameTile
 {
+
+	friend inline std::ostream& operator<<(std::ostream& out, const GameTile& tile)
+	{
+		//int* tmp = (int*)tile.m_sprite;
+		out << "Pos" << tile.m_pos << " spriteFile = " << tile.m_spriteFilename << " m_test " << ((tile.m_test) ? "true" : "false");
+		return out;
+	}
 public:
-	GameTile(float x = 0, float y = 0,const char* filename = "Data/Images/Tiles/RedTile.png");
+	GameTile(const float x = 0, const float y = 0,const char* filename = "Data/Images/Tiles/RedTile.png");
 	virtual ~GameTile();
-	void render(const float scale)const noexcept;
+	void render(const float scale)noexcept;
+	void loadTextures()noexcept;
 	//copy constructor
 	GameTile(const GameTile& orig)
 	{
 		m_sprite = orig.m_sprite;
 		m_pos = orig.m_pos;
+		m_spriteFilename = orig.m_spriteFilename;
+		m_test = orig.m_test;
 	}
 	//copy assignment
 	GameTile& operator=(const GameTile& orig)
@@ -34,6 +45,8 @@ public:
 		{
 			m_sprite = orig.m_sprite;
 			m_pos = orig.m_pos;
+			m_spriteFilename = orig.m_spriteFilename;
+			m_test = orig.m_test;
 		}
 		return *this;
 	}
@@ -49,12 +62,13 @@ public:
 	{
 		shiftX(shift.getX());
 		shiftY(shift.getY());
-		//std::cout << m_pos.x << "," << m_pos.y << std::endl;
 	}
 	float getX()const noexcept{ return m_pos.x; }
 	float getY()const noexcept{ return m_pos.y; }
 private:
-	ALLEGRO_BITMAP* m_sprite;
+	std::string m_spriteFilename;
+	ALLEGRO_BITMAP* m_sprite = nullptr;
 	Point m_pos;
+	bool m_test = false;
 };
 #endif

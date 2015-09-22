@@ -33,8 +33,8 @@ int main(int argc, char **argv)
 			auto endTime = high_resolution_clock::now();
 			auto gameTickTime = duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
 			std::this_thread::sleep_for(std::chrono::milliseconds(MS_PER_TICK - gameTickTime));
+			//std::cout << "Game Tick Time" << gameTickTime << std::endl;
 		}
-
 		
 		delete world;
 		shutdownGame();

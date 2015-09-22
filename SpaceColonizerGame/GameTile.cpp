@@ -3,19 +3,29 @@ James Felts 2015
 */
 #include "GameTile.h"
 
-GameTile::GameTile(float x, float y,const char* filename)
+GameTile::GameTile(const float x, const float y,const char* filename)
 {
-	m_sprite = Utils::getSprite(filename);
+	//m_sprite = Utils::getSprite(filename);
 	m_pos = Point(x*TILE_SPRITE_SIZE, y*TILE_SPRITE_SIZE);
+	m_spriteFilename = std::string(filename);
 }
 
 GameTile::~GameTile()
 {
+	
 }
 
-void GameTile::render(float scale)const noexcept
+void GameTile::render(float scale)noexcept
 {
-	//std::cout << m_file << std::endl;
 	al_draw_scaled_rotated_bitmap(m_sprite, TILE_SPRITE_SIZE, TILE_SPRITE_SIZE, m_pos.x*scale, m_pos.y*scale, scale, scale, 0, 0);
+}
+
+void GameTile::loadTextures() noexcept
+{
+	if (m_test == false)
+	{
+		m_sprite = Utils::getSprite(m_spriteFilename.c_str());
+		m_test = true;
+	}
 }
 

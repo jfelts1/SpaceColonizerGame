@@ -10,6 +10,9 @@ James Felts 2015
 #include <vector>
 #include <string>
 #include <iostream>
+#include <thread>
+#include <mutex>
+#include <set>
 #include "StringUtils.h"
 
 namespace Utils

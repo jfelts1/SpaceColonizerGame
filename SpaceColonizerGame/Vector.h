@@ -9,7 +9,7 @@ namespace Utils
 {
 	struct Vector
 	{
-		Vector() {}
+		constexpr Vector() {}
 		virtual ~Vector() noexcept{}
 		float getX()const noexcept{ return m_x; }
 		float getY()const noexcept{ return m_y; }

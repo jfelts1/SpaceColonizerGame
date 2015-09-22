@@ -11,6 +11,7 @@ using std::chrono::duration_cast;
 Renderer::Renderer()
 {
 	m_thread = std::thread(&Renderer::initRenderer, this);
+	//initRenderer();
 }
 
 Renderer::~Renderer()
@@ -43,19 +44,7 @@ void Renderer::startRenderer()
 {
 	while (m_render)
 	{
-		al_clear_to_color(BLACK);
-		m_map_mutex.lock();
-		if (m_map != nullptr)
-		{
-			m_map->render(m_zoomLevel);
-		}
-		m_map_mutex.unlock();
-		/*auto startTime = high_resolution_clock::now();
-
-		auto endTime = high_resolution_clock::now();
-		auto renderTime = duration_cast<std::chrono::milliseconds>(endTime - startTime).count();*/
-		al_flip_display();
-		std::this_thread::sleep_for(std::chrono::milliseconds(16));
+		render();
 	}
 	//since the display was created on the render thread the display must be destroyed on the render thread
 	al_destroy_display(m_display);
@@ -81,5 +70,26 @@ void Renderer::stopRenderer()
 			std::cerr << e.what() << std::endl;
 		}
 	//}
+}
+
+void Renderer::render()
+{
+	auto startTime = high_resolution_clock::now();
+	al_clear_to_color(BLACK);
+	m_map_mutex.lock();
+	if (m_map != nullptr)
+	{
+		m_map->loadTextures();
+		al_hold_bitmap_drawing(true);
+		m_map->render(m_zoomLevel);
+		al_hold_bitmap_drawing(false);
+	}
+	m_map_mutex.unlock();
+
+	al_flip_display();
+	auto endTime = high_resolution_clock::now();
+	auto renderTime = duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+	std::this_thread::sleep_for(std::chrono::milliseconds(16 - renderTime));
+	//std::cout << "Render Time: " << renderTime << std::endl;
 }
 

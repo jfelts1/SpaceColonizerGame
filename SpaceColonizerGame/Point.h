@@ -5,15 +5,18 @@ James Felts 2015
 #define POINT_H
 
 #include <allegro5/allegro.h>
+#include <iostream>
 #include "Vector.h"
 
 struct Point
 {
-	Point(float x = 0, float y = 0) 
+	friend inline std::ostream& operator<<(std::ostream& out, const Point& point)
 	{
-		this->x = x;
-		this->y = y;
+		out << "(" << point.x << "," << point.y << ")";
+		return out;
 	}
+	constexpr Point(const float x = 0, const float y = 0):x(x),y(y)
+	{}
 
 	virtual ~Point() {}
 

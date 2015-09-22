@@ -11,7 +11,7 @@ class Map
 {
 public:
 	Map();
-	Map(std::vector<std::vector<GameTile>> tiles);
+	Map(const std::vector<std::vector<GameTile>> tiles);
 	//copy constructor
 	Map(const Map& orig) = delete;
 	/*{
@@ -63,6 +63,7 @@ public:
 	virtual ~Map();
 
 	void update(const Utils::Vector shift) noexcept;
+	void loadTextures()noexcept;
 	void render(const float zoomLevel)const noexcept;
 
 	//allows the forcing of creation a copy that can only be owned by one thing

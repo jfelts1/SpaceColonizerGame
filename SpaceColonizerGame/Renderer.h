@@ -39,6 +39,7 @@ public:
 	void updateRenderInfo(std::unique_ptr<Map>& map,float zoomLevel);
 	static Renderer& getRenderer();
 	void stopRenderer();
+	void render();
 private:
 	Renderer();
 
