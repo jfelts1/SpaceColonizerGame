@@ -5,7 +5,7 @@ James Felts 2015
 
 using std::string;
 
-std::string Utils::getStringBetweenTwoStrings(const std::string rawString,const std::string stringOne,const std::string stringTwo)
+std::string Utils::getStringBetweenTwoStrings(const std::string& rawString,const std::string& stringOne,const std::string& stringTwo)
 {
 	string ret;
 	int beg, end;
@@ -19,7 +19,7 @@ std::string Utils::getStringBetweenTwoStrings(const std::string rawString,const 
 	return ret;
 }
 
-int Utils::findFirstStringInString(const std::string rawString, const std::string lookFor,int start) noexcept
+int Utils::findFirstStringInString(const std::string& rawString, const std::string& lookFor,int start) noexcept
 {
 	int len = (int)lookFor.size();
 	const char* rawStr = rawString.c_str();
@@ -36,7 +36,7 @@ int Utils::findFirstStringInString(const std::string rawString, const std::strin
 	return -1;
 }
 
-std::string Utils::subString(const std::string str, const int start, const int end)
+std::string Utils::subString(const std::string& str, const int start, const int end)
 {
 	string ret;
 	if (end < start)
@@ -58,7 +58,7 @@ std::string Utils::subString(const std::string str, const int start, const int e
 	return ret;
 }
 
-std::vector<std::string> Utils::splitString(const std::string str, const char delim)
+std::vector<std::string> Utils::splitString(const std::string& str, const char delim)
 {
 	std::vector<string> ret;
 	//-1 makes the code simpler

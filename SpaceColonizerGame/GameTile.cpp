@@ -3,29 +3,39 @@ James Felts 2015
 */
 #include "GameTile.h"
 
-GameTile::GameTile(const float x, const float y,const std::string filename, const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags)
+static GameTileHelper m_gameTileHelperAra[MAX_TILE_TEXTURES];
+static short m_usedTileTextures = 0;
+
+GameTile::GameTile(const float x, const float y, const short gameTileSpriteId, const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags)
 {
 	//m_sprite = Utils::getSprite(filename);
 	m_pos = Point(x*TILE_SPRITE_SIZE, y*TILE_SPRITE_SIZE);
-	m_spriteFilename = filename;
+	//m_spriteFilename = filename;
+	m_gameTileSpriteId = gameTileSpriteId;
 	m_terrainFlags = terrainFlags;
 }
 
 GameTile::~GameTile()
-{
-	
-}
+{}
 
 void GameTile::render(float scale)const noexcept
 {
-	al_draw_scaled_rotated_bitmap(m_sprite, TILE_SPRITE_SIZE, TILE_SPRITE_SIZE, m_pos.x*scale, m_pos.y*scale, scale, scale, 0, 0);
+	m_gameTileHelperAra[m_gameTileSpriteId].render(m_pos, scale);
 }
 
 void GameTile::loadTextures() noexcept
 {
-	if (m_sprite == nullptr)
+	for (int i = 0;i <= m_usedTileTextures;i++)
 	{
-		m_sprite = Utils::getSprite(m_spriteFilename);
+		m_gameTileHelperAra[i].loadTextures();
 	}
 }
 
+void GameTile::loadTileHelper(const std::string filename,const short index) noexcept
+{
+	if (m_usedTileTextures < MAX_TILE_TEXTURES && m_usedTileTextures == index)
+	{
+		m_gameTileHelperAra[m_usedTileTextures] = GameTileHelper(filename);
+		m_usedTileTextures++;
+	}
+}

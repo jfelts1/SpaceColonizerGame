@@ -18,15 +18,15 @@ typedef wchar_t wchar;
 namespace Utils
 {
 	//returns the substring nested between two other strings
-	std::string getStringBetweenTwoStrings(const std::string str,const std::string stringOne,const std::string stringTwo);
+	std::string getStringBetweenTwoStrings(const std::string& str,const std::string& stringOne,const std::string& stringTwo);
 	//finds the first time a string appears in another string
 	//returns -1 if nothing is found
-	int findFirstStringInString(const std::string str, const std::string lookFor,const int startAt = 0) noexcept;
+	int findFirstStringInString(const std::string& str, const std::string& lookFor,const int startAt = 0) noexcept;
 	//returns the substring of the passed in string use instead of substr when determining the count parameter of substr is hard
 	//throws range_error
-	std::string subString(const std::string str, const int start, const int end);
+	std::string subString(const std::string& str, const int start, const int end);
 	//returns a vector of strings from an original string split on the given delimitor
-	std::vector<std::string> splitString(const std::string str, const char delim);
+	std::vector<std::string> splitString(const std::string& str, const char delim);
 
 	//returns the passed string with whitespace removed from the begining
 	inline std::string ltrim(std::string& str)

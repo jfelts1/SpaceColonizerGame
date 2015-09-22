@@ -34,13 +34,7 @@ void Map::update() noexcept
 
 void Map::loadTextures() noexcept
 {
-	for (size_t i = 0;i < m_tiles->size();i++)
-	{
-		for (size_t j = 0;j < m_tiles->at(i).size();j++)
-		{
-			m_tiles->at(i).at(j).loadTextures();
-		}
-	}
+	GameTile::loadTextures();
 }
 
 void Map::render(const float zoomLevel)const noexcept

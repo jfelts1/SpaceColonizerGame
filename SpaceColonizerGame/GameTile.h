@@ -11,45 +11,71 @@ James Felts 2015
 #include "Utils/SpriteUtils.h"
 #include "Point.h"
 #include "Vector.h"
-#define TILE_SPRITE_SIZE 10
+#include "GameTileHelper.h"
 #define TERRAIN_FLAGS_SIZE 16
+#define MAX_TILE_TEXTURES 1024
+
 
 /*
 each tile is 10 by 10
 so make each texture file be 10 pixels by 10 pixels
 */
 
+
 class GameTile
 {
-
 	friend inline std::ostream& operator<<(std::ostream& out, const GameTile& tile)
 	{
 		//int* tmp = (int*)tile.m_sprite;
-		out << "Pos" << tile.m_pos << " spriteFile = " << tile.m_spriteFilename;
+		out << "Pos" << tile.m_pos;
 		return out;
 	}
 public:
-	GameTile(const float x, const float y,const std::string filename,const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags);
+	GameTile(const float x, const float y,const short gameTileSpriteId,const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags);
 	virtual ~GameTile();
 	void render(const float scale)const noexcept;
-	void loadTextures()noexcept;
+
+	static void loadTextures()noexcept;
+	static void loadTileHelper(const std::string filename,const short index) noexcept;
+	
 	//copy constructor
 	GameTile(const GameTile& orig)
 	{
-		m_sprite = orig.m_sprite;
+		//m_sprite = orig.m_sprite;
 		m_pos = orig.m_pos;
-		m_spriteFilename = orig.m_spriteFilename;
+		//m_spriteFilename = orig.m_spriteFilename;
 		m_terrainFlags = orig.m_terrainFlags;
+		m_gameTileSpriteId = orig.m_gameTileSpriteId;
 	}
+
 	//copy assignment
 	GameTile& operator=(const GameTile& orig)
 	{
 		if (this != &orig)
 		{
-			m_sprite = orig.m_sprite;
+			//m_sprite = orig.m_sprite;
 			m_pos = orig.m_pos;
-			m_spriteFilename = orig.m_spriteFilename;
+			//m_spriteFilename = orig.m_spriteFilename;
 			m_terrainFlags = orig.m_terrainFlags;
+			m_gameTileSpriteId = orig.m_gameTileSpriteId;
+		}
+		return *this;
+	}
+
+	//move constructor
+	GameTile(GameTile&& orig)noexcept:m_pos(std::move(orig.m_pos)), m_terrainFlags(std::move(orig.m_terrainFlags))
+	{
+		m_gameTileSpriteId = orig.m_gameTileSpriteId;
+	}
+
+	//move assignment
+	GameTile& operator=(GameTile&& orig)noexcept
+	{
+		if (this != &orig)
+		{
+			m_pos = std::move(orig.m_pos);
+			m_terrainFlags = std::move(orig.m_terrainFlags);
+			m_gameTileSpriteId = orig.m_gameTileSpriteId;
 		}
 		return *this;
 	}
@@ -74,8 +100,6 @@ public:
 	bool isRoughTerrain()const noexcept { return m_terrainFlags[2]; }
 	bool isMildTerrain()const noexcept { return m_terrainFlags[3]; }
 private:
-	std::string m_spriteFilename;
-	ALLEGRO_BITMAP* m_sprite = nullptr;
 	Point m_pos;
 	//bit position format right to left
 	// 0 = water
@@ -83,5 +107,7 @@ private:
 	// 2 = rough terrain
 	// 3 = mild terrain
 	std::bitset<TERRAIN_FLAGS_SIZE> m_terrainFlags;
+
+	short m_gameTileSpriteId;
 };
 #endif
