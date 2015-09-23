@@ -15,9 +15,8 @@ James Felts 2015
 #define TERRAIN_FLAGS_SIZE 16
 #define MAX_NUMBER_TILE_TEXTURES 1024
 
-
 /*
-each tile is 10 by 10
+each tile is 32 by 32
 so make each texture file be 10 pixels by 10 pixels
 */
 

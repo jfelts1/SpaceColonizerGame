@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="GameTile.cpp" />
     <ClCompile Include="GameTileHelper.cpp" />
     <ClCompile Include="GameWorld.cpp" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Chunk.h" />
     <ClInclude Include="ColorDefines.h" />
     <ClInclude Include="GameTile.h" />
     <ClInclude Include="GameTileHelper.h" />
