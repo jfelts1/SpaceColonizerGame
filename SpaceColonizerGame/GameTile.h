@@ -50,7 +50,7 @@ public:
 	}
 
 	//copy assignment
-	GameTile& operator=(const GameTile& orig)
+	GameTile& operator=(const GameTile& orig) noexcept
 	{
 		if (this != &orig)
 		{

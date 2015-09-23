@@ -9,7 +9,7 @@ James Felts 2015
 #include "Vector.h"
 #include "Mousebinds.h"
 
-#define SHIFT_SPEED 10
+#define SHIFT_SPEED 32
 #define ZOOM_SPEED 0.125
 #define MAX_ZOOM 3.0f
 #define MIN_ZOOM 0.25f

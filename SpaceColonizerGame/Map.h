@@ -62,10 +62,10 @@ public:
 	}
 	virtual ~Map();
 
-	void shift(const Utils::Vector2D shift) noexcept;
+	//void shift(const Utils::Vector2D shift) noexcept;
 	bool update() noexcept;
 	void loadTextures()noexcept;
-	void render(const float zoomLevel, const int screenSizeX, const int screenSizeY)const noexcept;
+	void render(const float zoomLevel, const int screenSizeX, const int screenSizeY,const Utils::Vector2D shift)const noexcept;
 
 	//allows the forcing of creation a copy that can only be owned by one thing
 	std::unique_ptr<Map> makeUniqueCopy()const;

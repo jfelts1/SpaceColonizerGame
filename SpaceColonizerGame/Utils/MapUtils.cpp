@@ -32,6 +32,7 @@ std::shared_ptr<Map> Utils::loadMap(const std::string filepath)
 	for (int i = 0;i < (int)mapData.size();i++)
 	{
 		j = 0;
+		//size_t len = (mapData[i].size() - 1) / 2;
 		vector<GameTile> tileRow;
 		strStream = std::istringstream(mapData[i]);
 		while (!strStream.eof())
@@ -40,11 +41,11 @@ std::shared_ptr<Map> Utils::loadMap(const std::string filepath)
 			strStream >> val;
 			std::bitset<TERRAIN_FLAGS_SIZE> tmp = 0;
 			GameTile::loadTileHelper(texturePaths[val],val);
-			tileRow.push_back(GameTile(j, i, val, tmp));
+			tileRow.emplace_back(GameTile(j, i, val, tmp));
 			j++;
 			tileRow.shrink_to_fit();
 		}
-		tiles.push_back(tileRow);
+		tiles.emplace_back(tileRow);
 	}
 	tiles.shrink_to_fit();
 	return std::make_shared<Map>(tiles);

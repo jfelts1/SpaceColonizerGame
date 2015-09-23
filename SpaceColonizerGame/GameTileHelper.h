@@ -7,7 +7,7 @@ James Felts 2015
 #include "Utils/SpriteUtils.h"
 #include "Point.h"
 #include "Vector.h"
-#define TILE_SPRITE_SIZE 10
+#define TILE_SPRITE_SIZE 32
 
 class GameTileHelper
 {

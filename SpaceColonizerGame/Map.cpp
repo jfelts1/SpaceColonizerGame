@@ -15,17 +15,17 @@ Map::~Map()
 {
 }
 
-void Map::shift(const Utils::Vector2D shift) noexcept
+/*void Map::shift(const Utils::Vector2D shift) noexcept
 {
 	for (size_t i = 0;i < m_tiles->size();i++)
 	{
-		size_t tmp = m_tiles->at(i).size();
+		size_t tmp = m_tiles->operator[](i).size();
 		for (size_t j = 0;j < tmp;j++)
 		{
-			m_tiles->at(i).at(j).shift(shift);
+			m_tiles->operator[](i).operator[](j).shift(shift);
 		}
 	}
-}
+}*/
 
 bool Map::update() noexcept
 {
@@ -39,22 +39,26 @@ void Map::loadTextures() noexcept
 	GameTile::loadTextures();
 }
 
-void Map::render(const float zoomLevel, const int screenSizeX, const int screenSizeY)const noexcept
+void Map::render(const float zoomLevel, const int screenSizeX, const int screenSizeY,const Utils::Vector2D shift)const noexcept
 {
 	int padding = 50;
 	float screenSizeXScaledWithPadding = screenSizeX/zoomLevel + padding;
 	float screenSizeYScaledWithPadding = screenSizeY/zoomLevel + padding;
 	//std::cout << screenSizeXScaledWithPadding << "," << screenSizeYScaledWithPadding << std::endl;
-	for (auto i : *m_tiles.get())
+	size_t len = m_tiles->size();
+	for (size_t i = 0;i < len;i++)
 	{
-		for (auto tile: i)
+		size_t len2 = m_tiles->operator[](i).size();
+		for (size_t j = 0;j < len2;j++)
 		{
-			int tileX = tile.getX();
-			int tileY = tile.getY();
-			
+			GameTile tmp = m_tiles->operator[](i).operator[](j);
+			tmp.shift(shift);
+			int tileX = tmp.getX();
+			int tileY = tmp.getY();
+
 			if (tileX > 0 - padding && tileY > 0 - padding && tileX < screenSizeXScaledWithPadding && tileY < screenSizeYScaledWithPadding)
 			{
-				tile.render(zoomLevel);
+				tmp.render(zoomLevel);
 			}
 		}
 	}
@@ -64,27 +68,15 @@ void Map::render(const float zoomLevel, const int screenSizeX, const int screenS
 std::unique_ptr<Map> Map::makeUniqueCopy()const
 {
 	std::vector<std::vector<GameTile>> tiles;
-	/*for (auto i : *m_tiles.get())
-	{
-		std::vector<GameTile> tmp;
-		for (auto tile :i)
-		{
-			//GameTile temp = m_tiles->at(i).at(j);
-			tmp.push_back(tile);
-		}
-		tiles.push_back(tmp);
-	}*/
-
-	//tiles.resize(m_tiles->size());
 	for (size_t i = 0;i < m_tiles->size();i++)
 	{
 		std::vector<GameTile> tmp;
 		//tmp.resize(m_tiles->at(i).size());
 		for (size_t j = 0;j < m_tiles->at(i).size();j++)
 		{
-			tmp.push_back(m_tiles->at(i).at(j));
+			tmp.emplace_back(m_tiles->at(i).at(j));
 		}
-		tiles.push_back(tmp);
+		tiles.emplace_back(tmp);
 	}
 	std::unique_ptr<Map> copy = std::make_unique<Map>(tiles);
 	return copy;
