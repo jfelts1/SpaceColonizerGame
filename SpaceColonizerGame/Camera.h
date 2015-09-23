@@ -35,19 +35,19 @@ private:
 		Utils::Vector2D curShift;
 		if (GET_KEYBINDS.upPressed())
 		{
-			curShift.setY(curShift.getY() - SHIFT_SPEED);
+			curShift.setY(curShift.getY() + SHIFT_SPEED);
 		}
 		if (GET_KEYBINDS.downPressed())
 		{
-			curShift.setY(curShift.getY() + SHIFT_SPEED);
+			curShift.setY(curShift.getY() - SHIFT_SPEED);
 		}
 		if (GET_KEYBINDS.leftPressed())
 		{
-			curShift.setX(curShift.getX() - SHIFT_SPEED);
+			curShift.setX(curShift.getX() + SHIFT_SPEED);
 		}
 		if (GET_KEYBINDS.rightPressed())
 		{
-			curShift.setX(curShift.getX() + SHIFT_SPEED);
+			curShift.setX(curShift.getX() - SHIFT_SPEED);
 		}
 		curShift.truncate(SHIFT_SPEED);
 		m_curShift = curShift;

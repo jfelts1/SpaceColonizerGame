@@ -14,40 +14,10 @@ public:
 	Map(const std::vector<std::vector<GameTile>> tiles);
 	//copy constructor
 	Map(const Map& orig) = delete;
-	/*{
-		std::vector<std::vector<GameTile>> tiles;
-		for (auto i : *orig.m_tiles.get())
-		{
-			std::vector<GameTile> tmp;
-			for (auto tile : i)
-			{
-				const GameTile temp = GameTile(tile);
-				tmp.push_back(temp);
-			}
-			tiles.push_back(tmp);
-		}
-		m_tiles = std::make_unique<std::vector<std::vector<GameTile>>>(tiles);
-	}*/
+
 	//copy assignement
 	Map& operator=(const Map& orig) = delete;
-	/*{
-		if (&orig != this)
-		{
-			std::vector<std::vector<GameTile>> tiles;
-			for (auto i : *orig.m_tiles.get())
-			{
-				std::vector<GameTile> tmp;
-				for (auto tile : i)
-				{
-					const GameTile temp = GameTile(tile);
-					tmp.push_back(temp);
-				}
-				tiles.push_back(tmp);
-			}
-			m_tiles = std::make_unique<std::vector<std::vector<GameTile>>>(tiles);
-		}
-		return *this;
-	}*/
+
 	//move constructor
 	Map(Map&& orig)noexcept: m_tiles(std::move(orig.m_tiles))
 	{}
@@ -62,7 +32,6 @@ public:
 	}
 	virtual ~Map();
 
-	//void shift(const Utils::Vector2D shift) noexcept;
 	bool update() noexcept;
 	void loadTextures()noexcept;
 	void render(const float zoomLevel, const int screenSizeX, const int screenSizeY,const Utils::Vector2D shift)const noexcept;
@@ -70,6 +39,6 @@ public:
 	//allows the forcing of creation a copy that can only be owned by one thing
 	std::unique_ptr<Map> makeUniqueCopy()const;
 private:
-	std::unique_ptr<std::vector<std::vector<GameTile>>> m_tiles;
+	std::vector<std::vector<GameTile>> m_tiles;
 };
 #endif
