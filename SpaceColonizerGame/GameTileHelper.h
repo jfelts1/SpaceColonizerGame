@@ -45,7 +45,7 @@ public:
 		return *this;
 	}
 	virtual ~GameTileHelper();
-	void render(const Point pos,const float scale) noexcept;
+	void render(const float x, const float y,const float scale) noexcept;
 	void loadTextures()noexcept;
 private:
 	std::string m_spriteFilename;

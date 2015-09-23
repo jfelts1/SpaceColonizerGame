@@ -34,7 +34,7 @@ public:
 	GameTile() = default;
 	GameTile(const float x, const float y,const short gameTileSpriteId,const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags);
 	virtual ~GameTile();
-	void render(const float scale)const noexcept;
+	void render(const float scale,const float x, const float y)const noexcept;
 
 	static void loadTextures()noexcept;
 	static void loadTileHelper(const std::string filename,const short index) noexcept;

@@ -11,7 +11,7 @@ class Map
 {
 public:
 	Map();
-	Map(const std::vector<std::vector<GameTile>> tiles);
+	Map(const std::vector<GameTile> tiles);
 	//copy constructor
 	Map(const Map& orig) = delete;
 
@@ -39,6 +39,6 @@ public:
 	//allows the forcing of creation a copy that can only be owned by one thing
 	std::unique_ptr<Map> makeUniqueCopy()const;
 private:
-	std::vector<std::vector<GameTile>> m_tiles;
+	std::vector<GameTile> m_tiles;
 };
 #endif

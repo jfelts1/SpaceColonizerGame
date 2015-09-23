@@ -18,9 +18,9 @@ GameTile::GameTile(const float x, const float y, const short gameTileSpriteId, c
 GameTile::~GameTile()
 {}
 
-void GameTile::render(float scale)const noexcept
+void GameTile::render(float scale, const float x, const float y)const noexcept
 {
-	m_gameTileHelperAra[m_gameTileSpriteId].render(m_pos, scale);
+	m_gameTileHelperAra[m_gameTileSpriteId].render(x,y, scale);
 }
 
 void GameTile::loadTextures() noexcept

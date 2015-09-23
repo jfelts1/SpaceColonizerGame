@@ -13,9 +13,9 @@ GameTileHelper::~GameTileHelper()
 }
 
 
-void GameTileHelper::render(const Point pos, float scale)noexcept
+void GameTileHelper::render(const float x, const float y, float scale)noexcept
 {
-	al_draw_scaled_rotated_bitmap(m_sprite, TILE_SPRITE_SIZE, TILE_SPRITE_SIZE, pos.x*scale, pos.y*scale, scale, scale, 0, 0);
+	al_draw_scaled_rotated_bitmap(m_sprite, TILE_SPRITE_SIZE, TILE_SPRITE_SIZE, x*scale, y*scale, scale, scale, 0, 0);
 }
 
 void GameTileHelper::loadTextures() noexcept

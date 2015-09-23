@@ -9,7 +9,7 @@ using std::array;
 
 std::shared_ptr<Map> Utils::loadMap(const std::string filepath)
 {
-	vector<vector<GameTile>> tiles;
+	vector<GameTile> tiles;
 	vector<string> texturePaths;
 	vector<string> mapData;
 	string rawString;
@@ -33,7 +33,6 @@ std::shared_ptr<Map> Utils::loadMap(const std::string filepath)
 	{
 		j = 0;
 		//size_t len = (mapData[i].size() - 1) / 2;
-		vector<GameTile> tileRow;
 		strStream = std::istringstream(mapData[i]);
 		while (!strStream.eof())
 		{
@@ -41,11 +40,9 @@ std::shared_ptr<Map> Utils::loadMap(const std::string filepath)
 			strStream >> val;
 			std::bitset<TERRAIN_FLAGS_SIZE> tmp = 0;
 			GameTile::loadTileHelper(texturePaths[val],val);
-			tileRow.emplace_back(GameTile(j, i, val, tmp));
+			tiles.emplace_back(GameTile(j, i, val, tmp));
 			j++;
-			tileRow.shrink_to_fit();
 		}
-		tiles.emplace_back(tileRow);
 	}
 	tiles.shrink_to_fit();
 	return std::make_shared<Map>(tiles);
