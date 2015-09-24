@@ -16,14 +16,15 @@ James Felts 2015
 #include "Vector.h"
 #include "GameTileHelper.h"
 #define GAMETILES_PER_ROW 32
+#define GAMETILES_PER_COL 32
 class Chunk
 {
 public:
 	Chunk();
 	virtual ~Chunk();
-	void createChunkSprite()noexcept;
+	void createChunkSprite() noexcept;
 private:
-	std::array<GameTile, 1024> m_tilesInChunk;
+	std::array<GameTile, GAMETILES_PER_COL*GAMETILES_PER_ROW> m_tilesInChunk;
 	//the position of the upper left most tile
 	Point m_pos;
 

@@ -14,7 +14,6 @@ public:
 	Map(const std::vector<GameTile> tiles);
 	//copy constructor
 	Map(const Map& orig) = delete;
-
 	//copy assignement
 	Map& operator=(const Map& orig) = delete;
 
