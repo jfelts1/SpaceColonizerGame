@@ -26,7 +26,7 @@ public:
 private:
 	std::array<GameTile, GAMETILES_PER_COL*GAMETILES_PER_ROW> m_tilesInChunk;
 	//the position of the upper left most tile
-	Point m_pos;
+	Point<float> m_pos;
 
 	ALLEGRO_BITMAP* m_chunkSprite = nullptr;
 };

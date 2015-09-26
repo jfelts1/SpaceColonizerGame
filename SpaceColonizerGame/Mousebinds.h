@@ -19,7 +19,7 @@ public:
 	virtual ~Mousebinds() noexcept;
 	void shutdownMouseBinds() noexcept;
 
-	Point getMousePos()const noexcept				{ return m_mousePos; }
+	Point<float> getMousePos()const noexcept		{ return m_mousePos; }
 	
 	bool leftMouseClicked() const noexcept			{ return m_mouseLeftClick; }
 	bool leftMouseHeld()const noexcept				{ return m_mouseLeftClickHeld; }
@@ -43,7 +43,7 @@ private:
 	ALLEGRO_EVENT_SOURCE* m_mouseEventSource = nullptr;
 	ALLEGRO_EVENT m_event;
 	ALLEGRO_MOUSE_EVENT m_mouseEvent;
-	Point m_mousePos;
+	Point<float> m_mousePos;
 	int m_mouseWheel = 0;
 	int m_mouseWheelChange = 0;
 	

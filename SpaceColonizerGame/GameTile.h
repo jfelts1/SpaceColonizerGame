@@ -100,7 +100,7 @@ public:
 	bool isRoughTerrain()const noexcept { return m_terrainFlags[2]; }
 	bool isMildTerrain()const noexcept { return m_terrainFlags[3]; }
 private:
-	Point m_pos;
+	Point<float> m_pos;
 	//bit position format right to left
 	// 0 = water
 	// 1 = unbuildable terrain

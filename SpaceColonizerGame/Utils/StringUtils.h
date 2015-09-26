@@ -32,7 +32,7 @@ namespace Utils
 	inline std::string ltrim(std::string& str)
 	{
 		int i = 0;
-		while (isspace(str.front()))
+		while (isspace((unsigned char)str.front()))
 		{
 			str.erase(i, 1);
 			i++;
@@ -42,7 +42,7 @@ namespace Utils
 	//returns the passed string with whitespace removed from the end
 	inline std::string rtrim(std::string& str)
 	{
-		while (isspace(str.back()))
+		while (isspace((unsigned char)str.back()))
 		{
 			str.pop_back();
 		}

@@ -9,7 +9,7 @@ static short m_usedTileTextures = 0;
 GameTile::GameTile(const float x, const float y, const short gameTileSpriteId, const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags)
 {
 	//m_sprite = Utils::getSprite(filename);
-	m_pos = Point(x*TILE_SPRITE_SIZE, y*TILE_SPRITE_SIZE);
+	m_pos = Point<float>(x*TILE_SPRITE_SIZE, y*TILE_SPRITE_SIZE);
 	//m_spriteFilename = filename;
 	m_gameTileSpriteId = gameTileSpriteId;
 	m_terrainFlags = terrainFlags;

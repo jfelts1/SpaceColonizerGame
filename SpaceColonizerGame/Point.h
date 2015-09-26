@@ -6,16 +6,19 @@ James Felts 2015
 
 #include <allegro5/allegro.h>
 #include <iostream>
+#include <type_traits>
 #include "Vector.h"
 
+template<typename T>
 struct Point
 {
+	static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value,"T must be a numeric type");
 	friend inline std::ostream& operator<<(std::ostream& out, const Point& point)
 	{
 		out << "(" << point.x << "," << point.y << ")";
 		return out;
 	}
-	constexpr Point(const float x = 0, const float y = 0):x(x),y(y)
+	constexpr Point(const T x = 0, const T y = 0) :x(x), y(y)
 	{}
 
 	virtual ~Point() {}
@@ -62,7 +65,7 @@ struct Point
 	}
 
 	//set both the x and y component to the given number
-	Point& operator=(const float val)
+	Point& operator=(const T val)
 	{
 		x = val;
 		y = val;
@@ -75,13 +78,7 @@ struct Point
 		return ret;
 	}
 
-	/*void getCurMousePos(ALLEGRO_MOUSE_EVENT mouse)
-	{
-		x = mouse.x;
-		y = mouse.y;
-	}*/
-
-	float x = 0;
-	float y = 0;
+	T x = 0;
+	T y = 0;
 };
 #endif
