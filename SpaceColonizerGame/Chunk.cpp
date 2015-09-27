@@ -17,6 +17,6 @@ Chunk::~Chunk()
 
 void Chunk::createChunkSprite() noexcept
 {
-	m_chunkSprite = al_create_bitmap(1024, 1024);
+	m_chunkSprite = al_create_bitmap(DESIRED_TEXTURE_SIZE, DESIRED_TEXTURE_SIZE);
 	//fill in the sprite with the gameTiles
 }

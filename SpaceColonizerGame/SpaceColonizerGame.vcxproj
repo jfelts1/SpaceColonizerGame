@@ -165,6 +165,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Utils\FileUtils.h" />
     <ClInclude Include="Utils\MapUtils.h" />
+    <ClInclude Include="Utils\NumberIsPowerOf2.h" />
     <ClInclude Include="Utils\SpriteUtils.h" />
     <ClInclude Include="Utils\StringUtils.h" />
     <ClInclude Include="Vector.h" />
