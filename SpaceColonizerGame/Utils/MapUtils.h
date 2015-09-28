@@ -10,11 +10,12 @@ James Felts 2015
 #include <fstream>
 #include <sstream>
 #include <memory>
-#include "../GameTile.h"
+//#include "../GameTile.h"
 #include "SpriteUtils.h"
 #include "FileUtils.h"
 #include "StringUtils.h"
 #include "../Map.h"
+#include "../Chunk.h"
 
 /*
 Map format is as follows
@@ -55,6 +56,15 @@ the file ends with an empty line
 namespace Utils
 {
 	std::shared_ptr<Map> loadMap(const std::string filepath);
+	namespace SpecicalMapUtils
+	{
+		//breaks the gametile info into GAMETILES_PER_COL sized chunks
+		std::array<std::vector<GameTile>, GAMETILES_PER_COL> getRowDataPerChunk(const std::vector<std::vector<GameTile>> tiles);
+		//returns a vector containing the raw chunk data for all the chunks in the game
+		std::vector<std::array<std::array<GameTile, GAMETILES_PER_COL>, GAMETILES_PER_ROW>> getChunkData(const std::array<std::vector<GameTile>, GAMETILES_PER_COL> rowDataPerChunk);
+		//grabs the first GAMETILES_PER_ROW or the remaining data from that row is contains less than GAMETILES_PER_ROW from the given data for each row of rowDataPerChunk and returns it
+		std::array<std::array<GameTile, GAMETILES_PER_COL>, GAMETILES_PER_ROW> getChunk(const std::array<std::vector<GameTile>, GAMETILES_PER_COL> rowDataPerChunk);
+	}
 }
 
 

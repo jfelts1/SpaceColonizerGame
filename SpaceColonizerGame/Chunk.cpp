@@ -3,10 +3,6 @@ James Felts 2015
 */
 #include "Chunk.h"
 
-Chunk::Chunk()
-{
-}
-
 Chunk::~Chunk()
 {
 	if (m_chunkSprite != nullptr)
