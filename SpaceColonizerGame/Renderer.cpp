@@ -30,7 +30,9 @@ void Renderer::initRenderer()
 	m_display = al_create_display(SCREEN_SIZE_X, SCREEN_SIZE_Y);
 	if (m_display == nullptr)
 	{
-		fprintf(stderr, "failed to create display!\n");
+		auto msg = "failed to create display!\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 	}
 	al_clear_to_color(BLACK);
 	m_refreshRate = al_get_display_refresh_rate(m_display);
@@ -65,7 +67,7 @@ void Renderer::stopRenderer()
 		}
 		catch (std::system_error& e)
 		{
-			std::cerr << e.what() << std::endl;
+			GET_LOG.writeToLog(e.what());
 		}
 	//}
 }
@@ -74,8 +76,10 @@ void Renderer::render()
 {
 	auto startTime = high_resolution_clock::now();
 	al_clear_to_color(BLACK);
+
 	m_cam.update();
 	m_zoomLevel = m_cam.getZoomLevel();
+
 	m_map_mutex.lock();
 	int screenSizeY = (int)al_get_display_height(m_display);
 	int screenSizeX = (int)al_get_display_width(m_display);
@@ -83,9 +87,9 @@ void Renderer::render()
 	if (m_map != nullptr)
 	{
 		m_map->loadTextures();
-		al_hold_bitmap_drawing(true);
-		m_map->render(m_zoomLevel,screenSizeX,screenSizeY,m_cam.getCameraShift());
-		al_hold_bitmap_drawing(false);
+		//al_hold_bitmap_drawing(true);
+		m_map->render(m_zoomLevel,screenSizeX,screenSizeY,m_cam.getCameraShift(),m_display);
+		//al_hold_bitmap_drawing(false);
 	}
 	m_map_mutex.unlock();
 

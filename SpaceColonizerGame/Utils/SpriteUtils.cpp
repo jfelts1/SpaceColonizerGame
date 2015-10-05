@@ -23,7 +23,10 @@ namespace Utils
 			spriteMap[filename] = al_load_bitmap(filename.c_str());
 			if (spriteMap[filename] == NULL)
 			{
-				std::cerr << "Error loading sprite: " << filename << std::endl;
+				std::string toLog = "Error loading sprite: ";
+				toLog.append(filename);
+				std::cerr << toLog << std::endl;
+				GET_LOG.writeToLog(toLog.c_str());
 			}
 			return spriteMap[filename];
 		}

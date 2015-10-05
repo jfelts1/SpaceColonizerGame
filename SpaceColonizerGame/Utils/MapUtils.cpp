@@ -6,109 +6,144 @@ James Felts 2015
 using std::string;
 using std::vector;
 using std::array;
+using std::istringstream;
 
-std::shared_ptr<Map> Utils::loadMap(const std::string filepath)
+std::unique_ptr<Map> Utils::loadMap(const std::string filepath)
 {
-	vector<vector<GameTile>> tiles;
-	vector<array<vector<GameTile>, GAMETILES_PER_COL>> tempArrays;
-	vector<array<array<GameTile, GAMETILES_PER_COL>, GAMETILES_PER_ROW>> chunkTempData;
 	vector<Chunk> chunks;
-	vector<string> texturePaths;
-	vector<string> mapData;
+	texturePathsDefs texturePaths;
+	chunkDataStrings mapData;
+	terrainGameTileFlags terrainFlags;
+
 	string rawString;
 	string texureDefs;
 	string mapDataStr;
+	string terrainFlagsStr;
 	rawString = Utils::readFileAsText(filepath);
 
 	texureDefs = Utils::getStringBetweenTwoStrings(rawString, "BEGINTEXTUREDEFS", "ENDTEXTUREDEFS");
-	mapDataStr = Utils::getStringBetweenTwoStrings(rawString, "BEGINTEXTUREMAP", "ENDTEXTUREMAP");
+	mapDataStr = Utils::getStringBetweenTwoStrings(rawString, "BEGINCHUNKTEXDATA", "ENDCHUNKTEXDATA");
 
-	texturePaths = Utils::splitString(texureDefs, ';');
-	//remove the number= from the begining of each string
-	for (int i = 0;i < (int)texturePaths.size();i++)
-	{
-		Utils::OddlySpecificUtils::removeNumberEqualsFromBeginingOfString(texturePaths[i]);
-	}
-	mapData = Utils::splitString(mapDataStr, ';');
-	std::istringstream strStream;
-	int j;
-	for (int i = 0;i < (int)mapData.size();i++)
-	{
-		j = 0;
-		//size_t widthOfMap = (mapData[i].size() - 1) / 2;
-		vector<GameTile> tileRow;
-		strStream = std::istringstream(mapData[i]);
-		while (!strStream.eof())
-		{
-			int val;
-			strStream >> val;
-			std::bitset<TERRAIN_FLAGS_SIZE> tmp = 0;
-			GameTile::loadTileHelper(texturePaths[val],val);
-			tileRow.emplace_back(GameTile(j, i, val, tmp));
-			j++;
-		}
-		tiles.push_back(tileRow);
-	}
+	//handle texure definitions
+	textureDefsStrings texturePathsTmp = Utils::splitString(texureDefs, ';');
+	texturePaths = Utils::SpecicalMapUtils::getTexturePathArray(texturePathsTmp);
+	texturePathsTmp.clear();
 
-	vector<vector<GameTile>> tmp;
-	for (size_t i = 0;i < tiles.size();i++)
-	{
-		if (i%GAMETILES_PER_COL == 0 && i >0)
-		{
-			tempArrays.emplace_back(Utils::SpecicalMapUtils::getRowDataPerChunk(tmp));
-		}
-		tmp.emplace_back(tiles[i]);
-		if (i == tiles.size() - 1)
-		{
-			tempArrays.emplace_back(Utils::SpecicalMapUtils::getRowDataPerChunk(tmp));
-		}
-	}
-	for (auto& rowsOfChunck : tempArrays)
-	{
-		chunkTempData = Utils::SpecicalMapUtils::getChunkData(rowsOfChunck);
-		for (auto& chunk : chunkTempData)
-		{
-			chunks.emplace_back(chunk);
-		}
-	}
+	//handle terrainFlags
+	chunkTerrainFlagsStrings chuTerFlgsStrs = Utils::SpecicalMapUtils::getTerrainFlagsStrings(terrainFlagsStr);
+	terrainFlags = Utils::SpecicalMapUtils::getTerrainFlags(chuTerFlgsStrs);
+	chuTerFlgsStrs.clear();
 
+	//handle chunks
+	mapData = Utils::splitString(mapDataStr, 'P');
+	chunks = Utils::SpecicalMapUtils::getChunks(mapData,texturePaths,terrainFlags);
 	chunks.shrink_to_fit();
 
-	//return std::make_shared<Map>(tiles);
-
+	return std::make_unique<Map>(chunks);
 }
 
-std::array<std::vector<GameTile>, GAMETILES_PER_COL> Utils::SpecicalMapUtils::getRowDataPerChunk(const std::vector<std::vector<GameTile>> tiles)
+Utils::texturePathsDefs Utils::SpecicalMapUtils::getTexturePathArray(const textureDefsStrings& texDefsStrs)
 {
-	array<vector<GameTile>, GAMETILES_PER_COL> ret;
-	for (size_t i = 0;i < tiles.size();i++)
+	texturePathsDefs ret;
+	short textureIndex;
+	istringstream texStrStream;
+	try
 	{
-		ret[i] = tiles[i];
+		for (auto texPath : texDefsStrs)
+		{
+			textureIndex = -1;
+			texStrStream = istringstream(texPath);
+			texStrStream >> textureIndex;
+			if (textureIndex < 0 || textureIndex>MAX_NUMBER_TILE_TEXTURES - 1)
+			{
+				throw std::out_of_range("MapUtils.cpp getTexturePathArray: the number attached to the texure is out of range.");
+			}
+			Utils::removeUpToChar(texPath, '=');
+			ret[textureIndex] = std::move(texPath);
+		}
+	}
+	catch (std::invalid_argument& e)
+	{
+		GET_LOG.writeToLog(e.what());
+	}
+	catch (std::out_of_range& e)
+	{
+		GET_LOG.writeToLog(e.what());
 	}
 	return ret;
 }
 
-std::vector<array<array<GameTile, GAMETILES_PER_COL>, GAMETILES_PER_ROW>> Utils::SpecicalMapUtils::getChunkData(const std::array<std::vector<GameTile>, GAMETILES_PER_COL> rowDataPerChunk)
+std::vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& chuDatStr, const texturePathsDefs& texPathDefs, const terrainGameTileFlags& chuTerFlgs)
 {
-	vector<array<array<GameTile, GAMETILES_PER_COL>, GAMETILES_PER_ROW>> ret;
-	std::array<std::vector<GameTile>, GAMETILES_PER_COL> remainingRowDataPerChunk;
-	size_t chunkNum = 0;
-	
+	vector<Chunk> ret;
+	istringstream chunkStrStream;
+	vector<string> tmp;
+	chunkData chuDat;
+	GameTile temp;
+	float x, y;
+	int val;
+	int chunkIndex = 0;
+	try
+	{
+		for (int j = 0;j < chuDatStr.size();j++)
+		{
+			chunkIndex = 0;
+			//break the chunk string into 33 rows a position and 32 data rows
+			tmp = Utils::splitString(chuDatStr[j], ';');
+			//get the position data
+			chunkStrStream = istringstream(tmp[0]);
+			chunkStrStream >> x;
+			chunkStrStream >> y;
+			//read the chunk data
+			for (int i = 1;i < tmp.size();i++)
+			{
+				val = 0;
+				chunkStrStream = istringstream(tmp[i]);
+				//read each chunk row one tile at a time
+				while (!chunkStrStream.eof())
+				{
+					chunkStrStream >> val;
+					if (val <0 || val > MAX_NUMBER_TILE_TEXTURES - 1)
+					{
+						throw std::out_of_range("MapUtils.cpp getChunks: the number to look up the texture is out of range.");
+					}
+					//load the texture into the tileHelper array
+					GameTile::loadTileHelper(texPathDefs[val], val);
+					chuDat[chunkIndex] = GameTile(chunkIndex%GAMETILES_PER_ROW, chunkIndex / GAMETILES_PER_COL, val);
+					chunkIndex++;
+				}
+			}
+			//set the terrain flags for each tile of the chunk
+			/*for (int i = 0;i < MAX_NUMBER_TILE_TEXTURES;i++)
+			{
+				chuDat[i].loadTerainFlags(chuTerFlgs[j][i]);
+			}*/
+			ret.emplace_back(Chunk(chuDat, Point<float>(x*DESIRED_TEXTURE_SIZE, y*DESIRED_TEXTURE_SIZE)));
+		}
+	}
+	catch (std::out_of_range& e)
+	{
+		GET_LOG.writeToLog(e.what());
+	}
 
 	return ret;
 }
 
-std::array<std::array<GameTile, GAMETILES_PER_COL>, GAMETILES_PER_ROW> Utils::SpecicalMapUtils::getChunk(const std::array<std::vector<GameTile>, GAMETILES_PER_COL> rowDataPerChunk)
+//placeholder stubs since the actualy flags aren't part of the map format yet
+Utils::chunkTerrainFlagsStrings Utils::SpecicalMapUtils::getTerrainFlagsStrings(const std::string & terrainFlags)
 {
-	array<array<GameTile, GAMETILES_PER_COL>, GAMETILES_PER_ROW> ret;
-	size_t i = 0;
-	for (auto& row : rowDataPerChunk)
+	return chunkTerrainFlagsStrings();
+}
+
+Utils::terrainGameTileFlags Utils::SpecicalMapUtils::getTerrainFlags(const chunkTerrainFlagsStrings & chuTerFlgsStrs)
+{
+	terrainGameTileFlags ret;
+	for (auto& chunk : ret)
 	{
-		for (size_t j = 0;j < row.size()&&j<GAMETILES_PER_ROW;j++)
+		for (auto& til : chunk)
 		{
-			ret[j][i] = row[j];
+			til = std::bitset<TERRAIN_FLAGS_SIZE>();
 		}
-		i++;
 	}
 	return ret;
 }

@@ -19,7 +19,7 @@ std::string Utils::getStringBetweenTwoStrings(const std::string& rawString,const
 	return ret;
 }
 
-int Utils::findFirstStringInString(const std::string& rawString, const std::string& lookFor,int start) noexcept
+int Utils::findFirstStringInString(const std::string& rawString, const std::string& lookFor,int start)
 {
 	int len = (int)lookFor.size();
 	const char* rawStr = rawString.c_str();
@@ -69,7 +69,10 @@ std::vector<std::string> Utils::splitString(const std::string& str, const char d
 	while (delimPos != std::string::npos)
 	{
 		tmp = Utils::trim(str.substr(prev+1, delimPos-(prev+1)));
-		ret.push_back(tmp);
+		if (tmp != "")
+		{
+			ret.push_back(tmp);
+		}
 		prev = (int)delimPos;
 		delimPos = (int)str.find_first_of(delim, prev + 1);
 	}

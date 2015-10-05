@@ -6,11 +6,6 @@ James Felts 2015
 Map::Map()
 {}
 
-Map::Map(const std::vector<GameTile> tiles)
-{
-	m_tiles = tiles;
-}
-
 Map::~Map()
 {
 }
@@ -26,16 +21,16 @@ void Map::loadTextures() noexcept
 	GameTile::loadTextures();
 }
 
-void Map::render(const float zoomLevel, const int screenSizeX, const int screenSizeY,const Utils::Vector2D shift) const noexcept
+void Map::render(const float zoomLevel, const int screenSizeX, const int screenSizeY,const Utils::Vector2D shift, ALLEGRO_DISPLAY* display) noexcept
 {
-	int padding = 50;
+	/*int padding = 50;
 	float screenSizeXScaledWithPadding = screenSizeX/zoomLevel + padding;
 	float screenSizeYScaledWithPadding = screenSizeY/zoomLevel + padding;
 	//std::cout << screenSizeXScaledWithPadding << "," << screenSizeYScaledWithPadding << std::endl;
 	float x_shift = shift.getX();
 	float y_shift = shift.getY();
 
-	for (auto& tile: m_tiles)
+	for (auto& tile: m_chunks)
 	{
 		int tileX = tile.getX()+x_shift;
 		int tileY = tile.getY()+y_shift;
@@ -44,19 +39,25 @@ void Map::render(const float zoomLevel, const int screenSizeX, const int screenS
 		{
 			tile.render(zoomLevel,tileX,tileY);
 		}
+	}*/
+
+	for (auto& chunk : m_chunks)
+	{
+		chunk.createChunkSprite(display);
+		chunk.render(zoomLevel);
 	}
 }
 
 std::unique_ptr<Map> Map::makeUniqueCopy() const
 {
-	std::vector<GameTile> tiles;
+	std::vector<Chunk> chunks;
 
-	for (auto& tile:m_tiles)
+	for (auto& chunk: m_chunks)
 	{
-		tiles.emplace_back(tile);
+		chunks.emplace_back(chunk);
 	}
-	tiles.shrink_to_fit();
-	std::unique_ptr<Map> copy = std::make_unique<Map>(tiles);
+	chunks.shrink_to_fit();
+	std::unique_ptr<Map> copy = std::make_unique<Map>(chunks);
 	return copy;
 }
 

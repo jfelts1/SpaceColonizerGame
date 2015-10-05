@@ -157,6 +157,7 @@
     <ClCompile Include="Mousebinds.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Utils\FileUtils.cpp" />
+    <ClCompile Include="Utils\LogUtils.cpp" />
     <ClCompile Include="Utils\MapUtils.cpp" />
     <ClCompile Include="Utils\SpriteUtils.cpp" />
     <ClCompile Include="Utils\StringUtils.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Utils\FileUtils.h" />
+    <ClInclude Include="Utils\LogUtils.h" />
     <ClInclude Include="Utils\MapUtils.h" />
     <ClInclude Include="Utils\NumberIsPowerOf2.h" />
     <ClInclude Include="Utils\SpriteUtils.h" />
@@ -185,7 +187,7 @@
     <Image Include="Data\Images\Tiles\RedTile.png" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Data\Maps\TestMap\TestMap.txt" />
+    <None Include="Data\Maps\TestMap\TestMap.gamemap" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

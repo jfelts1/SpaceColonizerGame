@@ -14,6 +14,7 @@ James Felts 2015
 #include <mutex>
 #include <set>
 #include "StringUtils.h"
+#include "LogUtils.h"
 
 namespace Utils
 {
