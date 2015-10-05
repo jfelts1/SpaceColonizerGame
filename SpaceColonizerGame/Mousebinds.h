@@ -8,6 +8,7 @@ James Felts 2015
 #include <iostream>
 #include <cstdio>
 #include <mutex>
+#include "Utils/LogUtils.h"
 #include "Point.h"
 #define GET_MOUSEBINDS Mousebinds::getMousebinds()
 

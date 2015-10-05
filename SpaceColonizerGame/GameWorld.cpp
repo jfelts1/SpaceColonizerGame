@@ -9,7 +9,7 @@ GameWorld::GameWorld()
 	GET_RENDERER;
 	GET_KEYBINDS;
 	GET_MOUSEBINDS;
-	m_map = Utils::loadMap("Data/Maps/TestMap/TestMap.txt");
+	m_map = Utils::loadMap("Data/Maps/TestMap/TestMap.gamemap");
 	std::unique_ptr<Map> copy = m_map->makeUniqueCopy();
 	GET_RENDERER.updateRenderInfo(copy);
 }

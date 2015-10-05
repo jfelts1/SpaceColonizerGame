@@ -18,7 +18,7 @@ void shutdownGame();
 
 int main(int argc, char **argv)
 {
-
+	GET_LOG;
 	bool success = initGame();
 	if (success)
 	{
@@ -48,59 +48,79 @@ bool initGame()
 {
 	if (!al_init())
 	{
-		fprintf(stderr, "failed to initialize allegro!\n");
+		auto msg = "failed to initialize allegro!\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 		return false;
 	}
 
 	if (!al_init_image_addon())
 	{
-		fprintf(stderr, "failed to initialize allegro image addon!\n");
+		auto msg = "failed to initialize allegro image addon!\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 		return false;
 	}
 
 	if (!al_init_primitives_addon())
 	{
-		fprintf(stderr, "failed to initialize allegro primitives addon!\n");
+		auto msg = "failed to initialize allegro primitives addon!\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 		return false;
 	}
 
 	if (!al_install_audio())
 	{
-		fprintf(stderr, "failed to install audio system\n");
+		auto msg = "failed to install audio system\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 		return false;
 	}
 
 	if (!al_init_acodec_addon())
 	{
-		fprintf(stderr, "failed to init audio codec system\n");
+		auto msg = "failed to init audio codec system\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 		return false;
 	}
 
 	if (!al_reserve_samples(25))
 	{
-		fprintf(stderr, "failed to reserve audio samples\n");
+		auto msg = "failed to reserve audio samples\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 		return false;
 	}
 
 	if (!al_install_mouse())
 	{
-		fprintf(stderr, "no mouse found!\n");
+		auto msg = "no mouse found!\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 		return false;
 	}
 
 	if (!al_install_keyboard())
 	{
-		fprintf(stderr, "no keyboard found!\n");
+		auto msg = "no keyboard found!\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 		return false;
 	}
 	if (!al_init_font_addon())
 	{
-		fprintf(stderr, "unable to init fonts\n");
+		auto msg = "unable to init fonts\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 		return false;
 	}
 	if (!al_init_ttf_addon())
 	{
-		fprintf(stderr, "unable to init ttf fonts\n");
+		auto msg = "unable to init ttf fonts\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 		return false;
 	}
 

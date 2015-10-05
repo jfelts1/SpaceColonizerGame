@@ -6,6 +6,7 @@ James Felts 2015
 #include <allegro5/allegro.h>
 #include <vector>
 #include <iostream>
+#include "Utils/LogUtils.h"
 #define GET_KEYBINDS KeyBinds::getKeyBinds()
 
 //singleton class that handles keyboard input

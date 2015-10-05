@@ -8,7 +8,9 @@ KeyBinds::KeyBinds()
 	m_events = al_create_event_queue();
 	if (m_events == nullptr)
 	{
-		fprintf(stderr, "failed to create event queue\n");
+		auto msg = "failed to create event queue\n";
+		fprintf(stderr, msg);
+		GET_LOG.writeToLog(msg);
 	}
 	m_keyboardEventSource = al_get_keyboard_event_source();
 	al_register_event_source(m_events, m_keyboardEventSource);

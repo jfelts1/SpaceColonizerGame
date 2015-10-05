@@ -57,6 +57,9 @@
     <ClCompile Include="Chunk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\LogUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorDefines.h">
@@ -110,6 +113,9 @@
     <ClInclude Include="Utils\NumberIsPowerOf2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\LogUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Data\Images\Tiles\RedTile.png">
@@ -120,8 +126,8 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Data\Maps\TestMap\TestMap.txt">
+    <None Include="Data\Maps\TestMap\TestMap.gamemap">
       <Filter>Resource Files</Filter>
-    </Text>
+    </None>
   </ItemGroup>
 </Project>

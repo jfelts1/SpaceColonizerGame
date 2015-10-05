@@ -10,51 +10,34 @@ James Felts 2015
 #include <fstream>
 #include <sstream>
 #include <memory>
-#include "../GameTile.h"
 #include "SpriteUtils.h"
 #include "FileUtils.h"
 #include "StringUtils.h"
+#include "LogUtils.h"
 #include "../Map.h"
-
-/*
-Map format is as follows
-
-List of textures that are going to be used in the map, starting with BEGINTEXTUREDEFS, followed by the data, with ; seperating each row, followed by ENDTEXTUREDEFS at the end of the section
-
-data format
-number=Path to texture;
-with no spaces and the numbers are in sequence (0,1,2,3,4,etc) up to a maximum of 1024
-
-ex
-BEGINTEXTUREDEFS
-0=Data/Images/Tiles/BlueTile.png;
-1=Data/Images/Tiles/RedTile.png;
-ENDTEXTUREDEFS
-
-Placement of the various tiles on the map, starting with BEGINTEXTUREMAP, followed by the data, with ; seperating each row, followed by ENDTEXTUREMAP at the end of the section
-
-data format
-number space number space number;
-number space number space number;
-
-where the number corrisponds to one of the texture defs in the previous section
-
-ex
-BEGINTEXTUREMAP
-0 1 1 0 1 1 1 0 1 1 0 1 1 1 0 1 1 0 1 1 0;
-0 1 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1;
-1 0 1 0 1 1 1 0 1 1 0 1 0 1 0 1 0 1 0 1 0;
-1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1;
-ENDTEXTUREMAP
-
-
-the file ends with an empty line
-
-*/
+#include "../Chunk.h"
 
 namespace Utils
 {
-	std::shared_ptr<Map> loadMap(const std::string filepath);
+	typedef std::array<std::string, MAX_NUMBER_TILE_TEXTURES> texturePathsDefs;
+	typedef std::vector<std::string> textureDefsStrings;
+
+	typedef std::vector<std::string> chunkDataStrings;
+
+	typedef std::vector<std::string> chunkTerrainFlagsStrings;
+	typedef std::vector<std::array<std::bitset<TERRAIN_FLAGS_SIZE>, GAMETILES_PER_ROW*GAMETILES_PER_COL>> terrainGameTileFlags;
+
+	static_assert(MAX_NUMBER_TILE_TEXTURES == GAMETILES_PER_COL*GAMETILES_PER_ROW, "MAX_NUMBER_TILE_TEXTURES must equal GAMETILES_PER_COL*GAMETILES_PER_ROW");
+
+	std::unique_ptr<Map> loadMap(const std::string filepath);
+	namespace SpecicalMapUtils
+	{
+		texturePathsDefs getTexturePathArray(const textureDefsStrings& texDefsStrs);
+		//constructs the chunks from the given data
+		std::vector<Chunk> getChunks(const chunkDataStrings& chuDatStr,const texturePathsDefs& texPathDefs, const terrainGameTileFlags& chuTerFlgs);
+		chunkTerrainFlagsStrings getTerrainFlagsStrings(const std::string& terrainFlags);
+		terrainGameTileFlags getTerrainFlags(const chunkTerrainFlagsStrings& chuTerFlgsStrs);
+	}
 }
 
 

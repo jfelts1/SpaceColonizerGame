@@ -5,27 +5,27 @@ James Felts 2015
 #define MAP_H
 #include <memory>
 #include <vector>
-#include "GameTile.h"
+#include "Chunk.h"
 #include "Vector.h"
 class Map
 {
 public:
 	Map();
-	Map(const std::vector<GameTile> tiles);
+	Map(const std::vector<Chunk> chunks) : m_chunks(chunks) {};
 	//copy constructor
 	Map(const Map& orig) = delete;
 	//copy assignement
 	Map& operator=(const Map& orig) = delete;
 
 	//move constructor
-	Map(Map&& orig)noexcept: m_tiles(std::move(orig.m_tiles))
+	Map(Map&& orig)noexcept: m_chunks(std::move(orig.m_chunks))
 	{}
 	//move assignment
 	Map& operator=(Map&& orig)
 	{
 		if (&orig != this)
 		{
-			m_tiles = std::move(orig.m_tiles);
+			m_chunks = std::move(orig.m_chunks);
 		}
 		return *this;
 	}
@@ -33,11 +33,11 @@ public:
 
 	bool update() noexcept;
 	void loadTextures()noexcept;
-	void render(const float zoomLevel, const int screenSizeX, const int screenSizeY,const Utils::Vector2D shift)const noexcept;
+	void render(const float zoomLevel, const int screenSizeX, const int screenSizeY,const Utils::Vector2D shift,ALLEGRO_DISPLAY* display)noexcept;
 
 	//allows the forcing of creation a copy that can only be owned by one thing
 	std::unique_ptr<Map> makeUniqueCopy()const;
 private:
-	std::vector<GameTile> m_tiles;
+	std::vector<Chunk> m_chunks;
 };
 #endif

@@ -12,6 +12,7 @@ James Felts 2015
 #include <stdexcept>
 #include <memory>
 #include <vector>
+#include "LogUtils.h"
 
 typedef wchar_t wchar;
 
@@ -21,7 +22,7 @@ namespace Utils
 	std::string getStringBetweenTwoStrings(const std::string& str,const std::string& stringOne,const std::string& stringTwo);
 	//finds the first time a string appears in another string
 	//returns -1 if nothing is found
-	int findFirstStringInString(const std::string& str, const std::string& lookFor,const int startAt = 0) noexcept;
+	int findFirstStringInString(const std::string& str, const std::string& lookFor,const int startAt = 0);
 	//returns the substring of the passed in string use instead of substr when determining the count parameter of substr is hard
 	//throws range_error
 	std::string subString(const std::string& str, const int start, const int end);
@@ -31,20 +32,34 @@ namespace Utils
 	//returns the passed string with whitespace removed from the begining
 	inline std::string ltrim(std::string& str)
 	{
-		int i = 0;
-		while (isspace((unsigned char)str.front()))
+		if (str != "")
 		{
-			str.erase(i, 1);
-			i++;
+			int i = 0;
+			while (str.size()>0 && isspace((unsigned char)str.front()))
+			{
+				str.erase(i, 1);
+				i++;
+			}
+		}
+		else
+		{
+			GET_LOG.writeToLog("ltrim: can't trim empty string.");
 		}
 		return str;
 	}
 	//returns the passed string with whitespace removed from the end
 	inline std::string rtrim(std::string& str)
 	{
-		while (isspace((unsigned char)str.back()))
+		if (str != "")
 		{
-			str.pop_back();
+			while (str.size()>0 && isspace((unsigned char)str.back()))
+			{
+				str.pop_back();
+			}
+		}
+		else
+		{
+			GET_LOG.writeToLog("rtrim: can't trim empty string.");
 		}
 		return str;
 	}
@@ -56,16 +71,19 @@ namespace Utils
 		return str;
 	}
 	
-	namespace OddlySpecificUtils
+	//removes everything up to and including the first instance of the given character
+	//throws invalid_argument
+	inline void removeUpToChar(std::string& str,const char ch)
 	{
-		//removes the number= from the begining of a string
-		inline std::string removeNumberEqualsFromBeginingOfString(std::string& textureDef)
+		size_t pos = str.find_first_of(ch, 0);
+		if (pos == std::string::npos)
 		{
-			size_t pos = textureDef.find_first_of('=', 0);
-			textureDef = textureDef.substr(pos + 1);
-			return textureDef;
+			throw std::invalid_argument("removeUpToChar: given character is not in the given string.");
 		}
-
+		else
+		{
+			str = str.substr(pos + 1);
+		}
 	}
 }
 

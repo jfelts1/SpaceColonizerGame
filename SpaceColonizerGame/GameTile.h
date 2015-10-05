@@ -15,12 +15,6 @@ James Felts 2015
 #define TERRAIN_FLAGS_SIZE 16
 #define MAX_NUMBER_TILE_TEXTURES 1024
 
-/*
-each tile is 32 by 32
-so make each texture file be 10 pixels by 10 pixels
-*/
-
-
 class GameTile
 {
 	friend inline std::ostream& operator<<(std::ostream& out, const GameTile& tile)
@@ -31,9 +25,11 @@ class GameTile
 	}
 public:
 	GameTile() = default;
-	GameTile(const float x, const float y,const short gameTileSpriteId,const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags);
+	GameTile(const float x, const float y,const short gameTileSpriteId);
+	void loadTerainFlags(const std::bitset<TERRAIN_FLAGS_SIZE> terrainFlags);
 	virtual ~GameTile();
 	void render(const float scale,const float x, const float y)const noexcept;
+	void render(const float scale)const noexcept;
 
 	static void loadTextures()noexcept;
 	static void loadTileHelper(const std::string filename,const short index) noexcept;
@@ -100,6 +96,7 @@ public:
 	bool isRoughTerrain()const noexcept { return m_terrainFlags[2]; }
 	bool isMildTerrain()const noexcept { return m_terrainFlags[3]; }
 private:
+	//position relative to the chunk the tile is within
 	Point<float> m_pos;
 	//bit position format right to left
 	// 0 = water

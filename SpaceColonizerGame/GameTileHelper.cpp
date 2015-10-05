@@ -20,7 +20,7 @@ void GameTileHelper::render(const float x, const float y, float scale)noexcept
 
 void GameTileHelper::loadTextures() noexcept
 {
-	if (m_sprite == nullptr)
+	if (m_sprite == nullptr && m_spriteFilename != "")
 	{
 		m_sprite = Utils::getSprite(m_spriteFilename);
 	}
