@@ -16,14 +16,13 @@ James Felts 2015
 #include "Point.h"
 #include "Vector.h"
 #include "GameTileHelper.h"
+#include "ColorDefines.h"
 #define GAMETILES_PER_ROW 32
 #define GAMETILES_PER_COL 32
 #define DESIRED_TEXTURE_SIZE 1024
 typedef std::array<GameTile, GAMETILES_PER_COL*GAMETILES_PER_ROW> chunkData;
 
-/*
- * Use Chunks and A Sieve based on the position of the camera to reduce the number of render calls to around 6 or so
- * */
+
 class Chunk
 {
 	static_assert(Utils::numberIsPowerOf2<DESIRED_TEXTURE_SIZE>::value,"DESIRED_TEXTURE_SIZE must be a power of 2.");

@@ -13,6 +13,7 @@ James Felts 2015
 #include <memory>
 #include <vector>
 #include "LogUtils.h"
+#include "../GameExceptions.h"
 
 typedef wchar_t wchar;
 
@@ -24,7 +25,7 @@ namespace Utils
 	//returns -1 if nothing is found
 	int findFirstStringInString(const std::string& str, const std::string& lookFor,const int startAt = 0);
 	//returns the substring of the passed in string use instead of substr when determining the count parameter of substr is hard
-	//throws range_error
+	//throws game_range_error
 	std::string subString(const std::string& str, const int start, const int end);
 	//returns a vector of strings from an original string split on the given delimitor
 	std::vector<std::string> splitString(const std::string& str, const char delim);
@@ -43,7 +44,7 @@ namespace Utils
 		}
 		else
 		{
-			GET_LOG.writeToLog("ltrim: can't trim empty string.");
+			GET_LOG.writeToLog("Can't trim empty string.","StringUtils.h","ltrim",Utils::Warning);
 		}
 		return str;
 	}
@@ -59,7 +60,7 @@ namespace Utils
 		}
 		else
 		{
-			GET_LOG.writeToLog("rtrim: can't trim empty string.");
+			GET_LOG.writeToLog("Can't trim empty string.","StringUtils.h","rtrim",Utils::Warning);
 		}
 		return str;
 	}
@@ -72,13 +73,13 @@ namespace Utils
 	}
 	
 	//removes everything up to and including the first instance of the given character
-	//throws invalid_argument
+	//throws game_invalid_argument
 	inline void removeUpToChar(std::string& str,const char ch)
 	{
 		size_t pos = str.find_first_of(ch, 0);
 		if (pos == std::string::npos)
 		{
-			throw std::invalid_argument("removeUpToChar: given character is not in the given string.");
+			throw Exceptions::game_invalid_argument("removeUpToChar,Given character is not in the given string.","StringUtils.h","removeUpToChar");
 		}
 		else
 		{

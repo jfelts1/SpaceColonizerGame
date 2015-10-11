@@ -26,7 +26,7 @@ namespace Utils
 				std::string toLog = "Error loading sprite: ";
 				toLog.append(filename);
 				std::cerr << toLog << std::endl;
-				GET_LOG.writeToLog(toLog.c_str());
+				GET_LOG.writeToLog(toLog.c_str(),"SpriteUtils.cpp","getSprite",Utils::Error);
 			}
 			return spriteMap[filename];
 		}

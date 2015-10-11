@@ -41,15 +41,15 @@ std::string Utils::subString(const std::string& str, const int start, const int 
 	string ret;
 	if (end < start)
 	{
-		throw std::range_error("subString: start must be smaller than end");
+		throw Exceptions::game_range_error("Start must be smaller than end","StringUtils.cpp","subString");
 	}
 	else if (end == start)
 	{
-		throw std::range_error("subString: start can't equal end");
+		throw Exceptions::game_range_error("Start can't equal end", "StringUtils.cpp", "subString");
 	}
 	else if (start < 0)
 	{
-		throw std::range_error("subString: start must be larger than 0");
+		throw Exceptions::game_range_error("Start must be larger than 0","StringUtils.cpp","subString");
 	}
 	for (int i = start;i < end;i++)
 	{

@@ -49,78 +49,78 @@ bool initGame()
 	if (!al_init())
 	{
 		auto msg = "failed to initialize allegro!\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr,"%s\n", msg);
+		GET_LOG.writeToLog(msg,"main.cpp","initGame",Utils::Critical);
 		return false;
 	}
 
 	if (!al_init_image_addon())
 	{
 		auto msg = "failed to initialize allegro image addon!\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr, "%s\n", msg);
+		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
 		return false;
 	}
 
 	if (!al_init_primitives_addon())
 	{
 		auto msg = "failed to initialize allegro primitives addon!\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr, "%s\n", msg);
+		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
 		return false;
 	}
 
 	if (!al_install_audio())
 	{
 		auto msg = "failed to install audio system\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr, "%s\n", msg);
+		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
 		return false;
 	}
 
 	if (!al_init_acodec_addon())
 	{
 		auto msg = "failed to init audio codec system\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr, "%s\n", msg);
+		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
 		return false;
 	}
 
 	if (!al_reserve_samples(25))
 	{
 		auto msg = "failed to reserve audio samples\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr, "%s\n", msg);
+		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
 		return false;
 	}
 
 	if (!al_install_mouse())
 	{
 		auto msg = "no mouse found!\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr, "%s\n", msg);
+		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
 		return false;
 	}
 
 	if (!al_install_keyboard())
 	{
 		auto msg = "no keyboard found!\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr, "%s\n", msg);
+		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
 		return false;
 	}
 	if (!al_init_font_addon())
 	{
 		auto msg = "unable to init fonts\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr, "%s\n", msg);
+		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
 		return false;
 	}
 	if (!al_init_ttf_addon())
 	{
 		auto msg = "unable to init ttf fonts\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr, "%s\n", msg);
+		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
 		return false;
 	}
 

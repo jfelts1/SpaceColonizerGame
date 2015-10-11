@@ -8,9 +8,9 @@ KeyBinds::KeyBinds()
 	m_events = al_create_event_queue();
 	if (m_events == nullptr)
 	{
-		auto msg = "failed to create event queue\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		auto msg = "Keybinds.cpp:Keybinds(): Failed to create event queue\n";
+		fprintf(stderr,"%s\n", msg);
+		GET_LOG.writeToLog(msg,"Keybinds.cpp","KeyBinds()",Utils::Critical);
 	}
 	m_keyboardEventSource = al_get_keyboard_event_source();
 	al_register_event_source(m_events, m_keyboardEventSource);

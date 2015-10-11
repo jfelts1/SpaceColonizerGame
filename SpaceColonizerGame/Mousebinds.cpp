@@ -9,8 +9,8 @@ Mousebinds::Mousebinds()
 	if (m_events == nullptr)
 	{
 		auto msg = "failed to create event queue\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		fprintf(stderr,"%s\n", msg);
+		GET_LOG.writeToLog(msg,"Mousebinds.cpp","MouseBinds()",Utils::Critical);
 	}
 	m_mouseEventSource = al_get_mouse_event_source();
 

@@ -11,7 +11,6 @@ using std::chrono::duration_cast;
 Renderer::Renderer()
 {
 	m_thread = std::thread(&Renderer::initRenderer, this);
-	//initRenderer();
 }
 
 Renderer::~Renderer()
@@ -30,9 +29,9 @@ void Renderer::initRenderer()
 	m_display = al_create_display(SCREEN_SIZE_X, SCREEN_SIZE_Y);
 	if (m_display == nullptr)
 	{
-		auto msg = "failed to create display!\n";
-		fprintf(stderr, msg);
-		GET_LOG.writeToLog(msg);
+		auto msg = "Failed to create display!\n";
+		fprintf(stderr,"%s\n", msg);
+		GET_LOG.writeToLog(msg,"Renderer.cpp","initRenderer",Utils::Critical);
 	}
 	al_clear_to_color(BLACK);
 	m_refreshRate = al_get_display_refresh_rate(m_display);
@@ -67,7 +66,7 @@ void Renderer::stopRenderer()
 		}
 		catch (std::system_error& e)
 		{
-			GET_LOG.writeToLog(e.what());
+			GET_LOG.writeToLog(e.what(),"Renderer.cpp","stopRenderer",Utils::Critical);
 		}
 	//}
 }

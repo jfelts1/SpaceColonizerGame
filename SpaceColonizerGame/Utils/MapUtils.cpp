@@ -56,19 +56,15 @@ Utils::texturePathsDefs Utils::SpecicalMapUtils::getTexturePathArray(const textu
 			texStrStream >> textureIndex;
 			if (textureIndex < 0 || textureIndex>MAX_NUMBER_TILE_TEXTURES - 1)
 			{
-				throw std::out_of_range("MapUtils.cpp getTexturePathArray: the number attached to the texure is out of range.");
+				throw Exceptions::game_out_of_range("the number attached to the texure is out of range.","MapUtils.cpp","getTexturePathArray");
 			}
 			Utils::removeUpToChar(texPath, '=');
 			ret[textureIndex] = std::move(texPath);
 		}
 	}
-	catch (std::invalid_argument& e)
+	catch (Exceptions::game_invalid_argument& e)
 	{
-		GET_LOG.writeToLog(e.what());
-	}
-	catch (std::out_of_range& e)
-	{
-		GET_LOG.writeToLog(e.what());
+		GET_LOG.writeToLog(e.what(),"MapUtils.cpp","getTexturePathArray",Utils::Error,e.getThrowingFile(),e.getThrowingFunction());
 	}
 	return ret;
 }
@@ -83,48 +79,42 @@ std::vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& ch
 	float x, y;
 	int val;
 	int chunkIndex = 0;
-	try
+	for (int j = 0;j < chuDatStr.size();j++)
 	{
-		for (int j = 0;j < chuDatStr.size();j++)
+		chunkIndex = 0;
+		//break the chunk string into 33 rows a position and 32 data rows
+		tmp = Utils::splitString(chuDatStr[j], ';');
+		//get the position data
+		chunkStrStream = istringstream(tmp[0]);
+		chunkStrStream >> x;
+		chunkStrStream >> y;
+		//read the chunk data
+		for (int i = 1;i < tmp.size();i++)
 		{
-			chunkIndex = 0;
-			//break the chunk string into 33 rows a position and 32 data rows
-			tmp = Utils::splitString(chuDatStr[j], ';');
-			//get the position data
-			chunkStrStream = istringstream(tmp[0]);
-			chunkStrStream >> x;
-			chunkStrStream >> y;
-			//read the chunk data
-			for (int i = 1;i < tmp.size();i++)
+			val = 0;
+			chunkStrStream = istringstream(tmp[i]);
+			//read each chunk row one tile at a time
+			while (!chunkStrStream.eof())
 			{
-				val = 0;
-				chunkStrStream = istringstream(tmp[i]);
-				//read each chunk row one tile at a time
-				while (!chunkStrStream.eof())
+				chunkStrStream >> val;
+				if (val <0 || val > MAX_NUMBER_TILE_TEXTURES - 1)
 				{
-					chunkStrStream >> val;
-					if (val <0 || val > MAX_NUMBER_TILE_TEXTURES - 1)
-					{
-						throw std::out_of_range("MapUtils.cpp getChunks: the number to look up the texture is out of range.");
-					}
-					//load the texture into the tileHelper array
-					GameTile::loadTileHelper(texPathDefs[val], val);
-					chuDat[chunkIndex] = GameTile(chunkIndex%GAMETILES_PER_ROW, chunkIndex / GAMETILES_PER_COL, val);
-					chunkIndex++;
+					throw Exceptions::game_out_of_range("The number to look up the texture is out of range.","MapUtils.cpp","getChunks");
 				}
+				//load the texture into the tileHelper array
+				GameTile::loadTileHelper(texPathDefs[val], val);
+				chuDat[chunkIndex] = GameTile(chunkIndex%GAMETILES_PER_ROW, chunkIndex / GAMETILES_PER_COL, val);
+				chunkIndex++;
 			}
-			//set the terrain flags for each tile of the chunk
-			/*for (int i = 0;i < MAX_NUMBER_TILE_TEXTURES;i++)
-			{
-				chuDat[i].loadTerainFlags(chuTerFlgs[j][i]);
-			}*/
-			ret.emplace_back(Chunk(chuDat, Point<float>(x*DESIRED_TEXTURE_SIZE, y*DESIRED_TEXTURE_SIZE)));
 		}
+		//set the terrain flags for each tile of the chunk
+		/*for (int i = 0;i < MAX_NUMBER_TILE_TEXTURES;i++)
+		{
+			chuDat[i].loadTerainFlags(chuTerFlgs[j][i]);
+		}*/
+		ret.emplace_back(Chunk(chuDat, Point<float>(x*DESIRED_TEXTURE_SIZE, y*DESIRED_TEXTURE_SIZE)));
 	}
-	catch (std::out_of_range& e)
-	{
-		GET_LOG.writeToLog(e.what());
-	}
+
 
 	return ret;
 }

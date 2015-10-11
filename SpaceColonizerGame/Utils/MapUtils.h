@@ -14,6 +14,7 @@ James Felts 2015
 #include "FileUtils.h"
 #include "StringUtils.h"
 #include "LogUtils.h"
+#include "../GameExceptions.h"
 #include "../Map.h"
 #include "../Chunk.h"
 
@@ -34,6 +35,7 @@ namespace Utils
 	{
 		texturePathsDefs getTexturePathArray(const textureDefsStrings& texDefsStrs);
 		//constructs the chunks from the given data
+		//throws game_out_of_range
 		std::vector<Chunk> getChunks(const chunkDataStrings& chuDatStr,const texturePathsDefs& texPathDefs, const terrainGameTileFlags& chuTerFlgs);
 		chunkTerrainFlagsStrings getTerrainFlagsStrings(const std::string& terrainFlags);
 		terrainGameTileFlags getTerrainFlags(const chunkTerrainFlagsStrings& chuTerFlgsStrs);

@@ -75,19 +75,23 @@ public:
 		}
 		return *this;
 	}
+
 	inline void shiftX(const float x) noexcept
 	{
 		m_pos.x += x;
 	}
+
 	inline void shiftY(const float y) noexcept
 	{
 		m_pos.y += y;
 	}
+
 	inline void shift(const Utils::Vector2D shift) noexcept
 	{
 		shiftX(shift.getX());
 		shiftY(shift.getY());
 	}
+
 	float getX()const noexcept{ return m_pos.x; }
 	float getY()const noexcept{ return m_pos.y; }
 

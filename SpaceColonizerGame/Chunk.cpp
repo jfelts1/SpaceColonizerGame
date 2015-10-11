@@ -40,6 +40,6 @@ void Chunk::render(const float scale) const noexcept
 	}
 	else
 	{
-		GET_LOG.writeToLog("Chunk.cpp render: Unable to render chunk, sprite not found");
+		GET_LOG.writeToLog("Unable to render chunk, sprite not found","Chunk.cpp","render",Utils::Error);
 	}
 }
