@@ -33,10 +33,39 @@ class Chunk
 
 public:
 	Chunk(const chunkData& chuDat, const Point<float>& pos) :m_tilesInChunk(chuDat), m_pos(pos) {};
+	//copy ctor
+	Chunk(const Chunk& orig) noexcept 
+	{
+		m_tilesInChunk = orig.m_tilesInChunk;
+		m_pos = orig.m_pos;
+	}
+	//copy assign
+	Chunk& operator=(const Chunk& orig)noexcept
+	{
+		if (this != &orig)
+		{
+			m_tilesInChunk = orig.m_tilesInChunk;
+			m_pos = orig.m_pos;
+		}
+		return *this;
+	}
+	//move ctor
+	Chunk(Chunk&& orig)noexcept:m_tilesInChunk(std::move(orig.m_tilesInChunk)),m_pos(std::move(orig.m_pos))
+	{
+
+	}
+	//move assign
+	Chunk& operator=(Chunk&& orig)noexcept
+	{
+		if (this != &orig)
+		{
+			m_tilesInChunk = std::move(orig.m_tilesInChunk);
+			m_pos = std::move(orig.m_pos);
+		}
+		return *this;
+	}
 	virtual ~Chunk();
-	void createChunkSprite(ALLEGRO_DISPLAY* display) noexcept;
-	void destroyChunkSprite() noexcept;
-	void render(const float scale)const noexcept;
+	void render(const float scale, Utils::Vector2D vect)const noexcept;
 	const float getX()const noexcept { return m_pos.x; }
 	const float getY()const noexcept { return m_pos.y; }
 private:
@@ -44,6 +73,5 @@ private:
 	//the position relative to the world
 	Point<float> m_pos;
 
-	ALLEGRO_BITMAP* m_chunkSprite = nullptr;
 };
 #endif

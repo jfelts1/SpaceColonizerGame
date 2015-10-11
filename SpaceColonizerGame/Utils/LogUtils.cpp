@@ -56,6 +56,7 @@ void Utils::LogUtils::writeToLog(const char* msg, const char* file, const char* 
 		toLog.append(exceptFile);
 		toLog.push_back(':');
 		toLog.append(exceptFunction);
+		toLog.push_back('\n');
 		m_logFile.write(toLog.c_str(), toLog.size());
 	}
 	else

@@ -20,6 +20,7 @@ typedef wchar_t wchar;
 namespace Utils
 {
 	//returns the substring nested between two other strings
+	//throws game_invalid_argument
 	std::string getStringBetweenTwoStrings(const std::string& str,const std::string& stringOne,const std::string& stringTwo);
 	//finds the first time a string appears in another string
 	//returns -1 if nothing is found
@@ -86,6 +87,8 @@ namespace Utils
 			str = str.substr(pos + 1);
 		}
 	}
+
+	std::string removeAllWhiteSpace(const std::string& str) noexcept;
 }
 
 #endif

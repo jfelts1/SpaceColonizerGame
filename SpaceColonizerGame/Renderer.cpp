@@ -11,6 +11,7 @@ using std::chrono::duration_cast;
 Renderer::Renderer()
 {
 	m_thread = std::thread(&Renderer::initRenderer, this);
+	GET_LOG.writeToLog("Spawned render thread", "Renderer.cpp", "Renderer()",Utils::Info);
 }
 
 Renderer::~Renderer()
@@ -63,6 +64,7 @@ void Renderer::stopRenderer()
 		try
 		{
 			m_thread.join();
+			GET_LOG.writeToLog("Joined render thread", "Renderer.cpp", "stopRenderer", Utils::Info);
 		}
 		catch (std::system_error& e)
 		{

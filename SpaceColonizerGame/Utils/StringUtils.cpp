@@ -10,10 +10,19 @@ std::string Utils::getStringBetweenTwoStrings(const std::string& rawString,const
 	string ret;
 	int beg, end;
 	beg = Utils::findFirstStringInString(rawString, stringOne);
+	if (beg == -1)
+	{
+		throw Exceptions::game_invalid_argument("stringOne not in the rawString", "StringUtils.cpp", "getStringBetweenTwoStrings");
+	}
 	end = Utils::findFirstStringInString(rawString, stringTwo,beg);
+	if (end == -1)
+	{
+		throw Exceptions::game_invalid_argument("stringTwo not in the rawString", "StringUtils.cpp", "getStringBetweenTwoStrings");
+	}
 	//std::cout << beg << " " << end << std::endl;
 	//using subString instead of substr since substr's count paramenter would need need to vary when near the end of rawString in a way that would be annoying
 	ret = Utils::subString(rawString, beg + (int)stringOne.size(), end);
+	ret = Utils::removeAllWhiteSpace(ret);
 	//std::cout << ret << std::endl;
 
 	return ret;
@@ -21,16 +30,19 @@ std::string Utils::getStringBetweenTwoStrings(const std::string& rawString,const
 
 int Utils::findFirstStringInString(const std::string& rawString, const std::string& lookFor,int start)
 {
-	int len = (int)lookFor.size();
-	const char* rawStr = rawString.c_str();
-	const char* lookStr = lookFor.c_str();
-	int end = (int)rawString.size();
-	for (int i = start;i < end;i++)
+	if (lookFor != "")
 	{
-		//taking advantage of pointer math to search through the string
-		if (strncmp(rawStr + i, lookStr, len)==0)
+		int len = (int)lookFor.size();
+		const char* rawStr = rawString.c_str();
+		const char* lookStr = lookFor.c_str();
+		int end = (int)rawString.size();
+		for (int i = start;i < end;i++)
 		{
-			return i;
+			//taking advantage of pointer math to search through the string
+			if (strncmp(rawStr + i, lookStr, len)==0)
+			{
+				return i;
+			}
 		}
 	}
 	return -1;
@@ -77,6 +89,19 @@ std::vector<std::string> Utils::splitString(const std::string& str, const char d
 		delimPos = (int)str.find_first_of(delim, prev + 1);
 	}
 
+	return ret;
+}
+
+std::string Utils::removeAllWhiteSpace(const std::string & str) noexcept
+{
+	string ret;
+	for (auto& ch : str)
+	{
+		if (!isspace(ch))
+		{
+			ret.push_back(ch);
+		}
+	}
 	return ret;
 }
 

@@ -45,9 +45,8 @@ void Map::render(const float zoomLevel, const int screenSizeX, const int screenS
 	* TODO  cull chucks based on the position of the camera to reduce the number of render calls
 	*/
 	for (auto& chunk : m_chunks)
-	{
-		chunk.createChunkSprite(display);
-		chunk.render(zoomLevel);
+	{	
+		chunk.render(zoomLevel,shift);
 	}
 }
 
