@@ -4,6 +4,8 @@ James Felts 2015
 #include "StringUtils.h"
 
 using std::string;
+using std::vector;
+using std::pair;
 
 std::string Utils::getStringBetweenTwoStrings(const std::string& rawString,const std::string& stringOne,const std::string& stringTwo)
 {
@@ -19,11 +21,8 @@ std::string Utils::getStringBetweenTwoStrings(const std::string& rawString,const
 	{
 		throw Exceptions::game_invalid_argument("stringTwo not in the rawString", "StringUtils.cpp", "getStringBetweenTwoStrings");
 	}
-	//std::cout << beg << " " << end << std::endl;
-	//using subString instead of substr since substr's count paramenter would need need to vary when near the end of rawString in a way that would be annoying
 	ret = Utils::subString(rawString, beg + (int)stringOne.size(), end);
-	ret = Utils::removeAllWhiteSpace(ret);
-	//std::cout << ret << std::endl;
+	Utils::trim(ret);
 
 	return ret;
 }
@@ -38,7 +37,6 @@ int Utils::findFirstStringInString(const std::string& rawString, const std::stri
 		int end = (int)rawString.size();
 		for (int i = start;i < end;i++)
 		{
-			//taking advantage of pointer math to search through the string
 			if (strncmp(rawStr + i, lookStr, len)==0)
 			{
 				return i;
@@ -61,7 +59,11 @@ std::string Utils::subString(const std::string& str, const int start, const int 
 	}
 	else if (start < 0)
 	{
-		throw Exceptions::game_range_error("Start must be larger than 0","StringUtils.cpp","subString");
+		throw Exceptions::game_range_error("Start must be larger than or equal to 0","StringUtils.cpp","subString");
+	}
+	else if (end > str.size() || start > str.size())
+	{
+		throw Exceptions::game_range_error("Start or End can't be past the end of the string", "StringUtils.cpp", "subString");
 	}
 	for (int i = start;i < end;i++)
 	{
@@ -72,21 +74,35 @@ std::string Utils::subString(const std::string& str, const int start, const int 
 
 std::vector<std::string> Utils::splitString(const std::string& str, const char delim)
 {
-	std::vector<string> ret;
-	//-1 makes the code simpler
-	int prev = -1;
+	vector<string> ret;
+
+	vector<pair<size_t, size_t>> segmentBegAndEndPos;
+	size_t prev = 0;
 	size_t delimPos = 0;
-	delimPos = str.find_first_of(delim, 0);
-	string tmp;
-	while (delimPos != std::string::npos)
+	delimPos = str.find_first_of(delim, prev);
+	if (delimPos == string::npos)
 	{
-		tmp = Utils::trim(str.substr(prev+1, delimPos-(prev+1)));
-		if (tmp != "")
+		throw Exceptions::game_invalid_argument("Given delim is not in the given string.", "StringUtils.cpp", "splitString");
+	}
+	segmentBegAndEndPos.emplace_back(pair<size_t, size_t>(prev, delimPos));
+
+	while (delimPos != string::npos)
+	{
+		prev = delimPos;
+		delimPos = str.find_first_of(delim, prev+1);
+		if (delimPos != string::npos)
 		{
-			ret.push_back(tmp);
+			segmentBegAndEndPos.emplace_back(pair<size_t, size_t>(prev+1, delimPos));
 		}
-		prev = (int)delimPos;
-		delimPos = (int)str.find_first_of(delim, prev + 1);
+	}
+
+	segmentBegAndEndPos.emplace_back(pair<size_t,size_t>(prev + 1, str.size()));
+	string tmp;
+	for (auto& i : segmentBegAndEndPos)
+	{
+		tmp = Utils::subString(str, i.first, i.second);
+		Utils::trim(tmp);
+		ret.emplace_back(tmp);
 	}
 
 	return ret;

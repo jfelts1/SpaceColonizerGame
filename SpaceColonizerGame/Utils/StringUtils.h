@@ -12,6 +12,7 @@ James Felts 2015
 #include <stdexcept>
 #include <memory>
 #include <vector>
+#include <utility>
 #include "LogUtils.h"
 #include "../GameExceptions.h"
 
@@ -28,29 +29,31 @@ namespace Utils
 	//returns the substring of the passed in string use instead of substr when determining the count parameter of substr is hard
 	//throws game_range_error
 	std::string subString(const std::string& str, const int start, const int end);
-	//returns a vector of strings from an original string split on the given delimitor
+	//returns a vector of strings from the original string split on the given delimitor
+	//throws game_invalid_argument
 	std::vector<std::string> splitString(const std::string& str, const char delim);
+	//returns a string with all the whitespace removed from the given string
+	std::string removeAllWhiteSpace(const std::string& str) noexcept;
 
-	//returns the passed string with whitespace removed from the begining
-	inline std::string ltrim(std::string& str)
+	//removes whitespace from the begining of the given string
+	inline void ltrim(std::string& str)
 	{
 		if (str != "")
 		{
-			int i = 0;
+			//int i = 0;
 			while (str.size()>0 && isspace((unsigned char)str.front()))
 			{
-				str.erase(i, 1);
-				i++;
+				str.erase(0, 1);
+				//i++;
 			}
 		}
 		else
 		{
 			GET_LOG.writeToLog("Can't trim empty string.","StringUtils.h","ltrim",Utils::Warning);
 		}
-		return str;
 	}
-	//returns the passed string with whitespace removed from the end
-	inline std::string rtrim(std::string& str)
+	//removes whitespace from the end of the given string
+	inline void rtrim(std::string& str)
 	{
 		if (str != "")
 		{
@@ -63,14 +66,12 @@ namespace Utils
 		{
 			GET_LOG.writeToLog("Can't trim empty string.","StringUtils.h","rtrim",Utils::Warning);
 		}
-		return str;
 	}
-	//returns the passed string with whitespace removed from the begining and end
-	inline std::string trim(std::string str)
+	//removes whitespace from the begining and end of the given string
+	inline void trim(std::string& str)
 	{
 		Utils::ltrim(str);
 		Utils::rtrim(str);
-		return str;
 	}
 	
 	//removes everything up to and including the first instance of the given character
@@ -80,7 +81,7 @@ namespace Utils
 		size_t pos = str.find_first_of(ch, 0);
 		if (pos == std::string::npos)
 		{
-			throw Exceptions::game_invalid_argument("removeUpToChar,Given character is not in the given string.","StringUtils.h","removeUpToChar");
+			throw Exceptions::game_invalid_argument("Given character is not in the given string.","StringUtils.h","removeUpToChar");
 		}
 		else
 		{
@@ -88,7 +89,6 @@ namespace Utils
 		}
 	}
 
-	std::string removeAllWhiteSpace(const std::string& str) noexcept;
 }
 
 #endif
