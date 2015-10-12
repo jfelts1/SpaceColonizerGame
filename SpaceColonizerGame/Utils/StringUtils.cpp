@@ -84,7 +84,11 @@ std::vector<std::string> Utils::splitString(const std::string& str, const char d
 	{
 		throw Exceptions::game_invalid_argument("Given delim is not in the given string.", "StringUtils.cpp", "splitString");
 	}
-	segmentBegAndEndPos.emplace_back(pair<size_t, size_t>(prev, delimPos));
+	//handle the delim being at position 0 by not making a range to substring later
+	if (delimPos != 0)
+	{
+		segmentBegAndEndPos.emplace_back(pair<size_t, size_t>(prev, delimPos));
+	}
 
 	while (delimPos != string::npos)
 	{
@@ -100,7 +104,10 @@ std::vector<std::string> Utils::splitString(const std::string& str, const char d
 	string tmp;
 	for (auto& i : segmentBegAndEndPos)
 	{
-		tmp = Utils::subString(str, i.first, i.second);
+		if (i.first != i.second)
+		{
+			tmp = Utils::subString(str, i.first, i.second);
+		}
 		Utils::trim(tmp);
 		ret.emplace_back(tmp);
 	}

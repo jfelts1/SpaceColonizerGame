@@ -89,7 +89,7 @@ std::vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& ch
 		chunkStrStream >> x;
 		chunkStrStream >> y;
 		//read the chunk data
-		for (int i = 1;i < tmp.size();i++)
+		for (int i = 1;i < tmp.size()-1;i++)
 		{
 			val = 0;
 			chunkStrStream = istringstream(tmp[i]);

@@ -213,6 +213,14 @@ abcde)";
 				Assert::AreEqual(expected.at(i), Utils::splitString(testData, ':').at(i));
 			}
 
+			testData = R"(:12345:67890:abcde)";
+			expectedLen = expected.size();
+			Assert::AreEqual(expectedLen, Utils::splitString(testData, ':').size());
+			for (size_t i = 0;i < expectedLen;i++)
+			{
+				Assert::AreEqual(expected.at(i), Utils::splitString(testData, ':').at(i));
+			}
+
 			bool except = false;
 			try
 			{

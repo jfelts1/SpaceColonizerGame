@@ -1,0 +1,3 @@
+[Info]:Mon Oct 12 10:32:34 2015:Renderer.cpp:Renderer():Spawned render thread::
+[Info]:Mon Oct 12 10:32:34 2015:GameWorld.cpp:GameWorld():Done loading Map::
+[Info]:Mon Oct 12 10:32:41 2015:Renderer.cpp:stopRenderer:Joined render thread::
