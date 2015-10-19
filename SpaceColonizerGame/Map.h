@@ -18,14 +18,14 @@ public:
 	Map& operator=(const Map& orig) = delete;
 
 	//move constructor
-	Map(Map&& orig)noexcept: m_chunks(std::move(orig.m_chunks))
+	Map(Map&& orig)noexcept: m_chunks(move(orig.m_chunks))
 	{}
 	//move assignment
 	Map& operator=(Map&& orig)
 	{
 		if (&orig != this)
 		{
-			m_chunks = std::move(orig.m_chunks);
+			m_chunks = move(orig.m_chunks);
 		}
 		return *this;
 	}

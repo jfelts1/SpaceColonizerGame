@@ -8,7 +8,7 @@ using std::vector;
 using std::array;
 using std::istringstream;
 
-std::unique_ptr<Map> Utils::loadMap(const std::string filepath)
+std::unique_ptr<Map> Utils::loadMap(const string filepath)
 {
 	vector<Chunk> chunks;
 	texturePathsDefs texturePaths;
@@ -19,24 +19,24 @@ std::unique_ptr<Map> Utils::loadMap(const std::string filepath)
 	string texureDefs;
 	string mapDataStr;
 	string terrainFlagsStr;
-	rawString = Utils::readFileAsText(filepath);
+	rawString = readFileAsText(filepath);
 
-	texureDefs = Utils::getStringBetweenTwoStrings(rawString, "BEGINTEXTUREDEFS", "ENDTEXTUREDEFS");
-	mapDataStr = Utils::getStringBetweenTwoStrings(rawString, "BEGINCHUNKTEXDATA", "ENDCHUNKTEXDATA");
+	texureDefs = getStringBetweenTwoStrings(rawString, "BEGINTEXTUREDEFS", "ENDTEXTUREDEFS");
+	mapDataStr = getStringBetweenTwoStrings(rawString, "BEGINCHUNKTEXDATA", "ENDCHUNKTEXDATA");
 
 	//handle texure definitions
-	textureDefsStrings texturePathsTmp = Utils::splitString(texureDefs, ';');
-	texturePaths = Utils::SpecicalMapUtils::getTexturePathArray(texturePathsTmp);
+	textureDefsStrings texturePathsTmp = splitString(texureDefs, ';');
+	texturePaths = SpecicalMapUtils::getTexturePathArray(texturePathsTmp);
 	texturePathsTmp.clear();
 
 	//handle terrainFlags
-	chunkTerrainFlagsStrings chuTerFlgsStrs = Utils::SpecicalMapUtils::getTerrainFlagsStrings(terrainFlagsStr);
-	terrainFlags = Utils::SpecicalMapUtils::getTerrainFlags(chuTerFlgsStrs);
+	chunkTerrainFlagsStrings chuTerFlgsStrs = SpecicalMapUtils::getTerrainFlagsStrings(terrainFlagsStr);
+	terrainFlags = SpecicalMapUtils::getTerrainFlags(chuTerFlgsStrs);
 	chuTerFlgsStrs.clear();
 
 	//handle chunks
-	mapData = Utils::splitString(mapDataStr, 'P');
-	chunks = Utils::SpecicalMapUtils::getChunks(mapData,texturePaths,terrainFlags);
+	mapData = splitString(mapDataStr, 'P');
+	chunks = SpecicalMapUtils::getChunks(mapData,texturePaths,terrainFlags);
 	chunks.shrink_to_fit();
 
 	return std::make_unique<Map>(chunks);
@@ -58,18 +58,18 @@ Utils::texturePathsDefs Utils::SpecicalMapUtils::getTexturePathArray(const textu
 			{
 				throw Exceptions::game_out_of_range("the number attached to the texure is out of range.","MapUtils.cpp","getTexturePathArray");
 			}
-			Utils::removeUpToChar(texPath, '=');
-			ret[textureIndex] = std::move(texPath);
+			removeUpToChar(texPath, '=');
+			ret[textureIndex] = move(texPath);
 		}
 	}
 	catch (Exceptions::game_invalid_argument& e)
 	{
-		GET_LOG.writeToLog(e.what(),"MapUtils.cpp","getTexturePathArray",Utils::Error,e.getThrowingFile(),e.getThrowingFunction());
+		GET_LOG.writeToLog(e.what(),"MapUtils.cpp","getTexturePathArray",Error,e.getThrowingFile(),e.getThrowingFunction());
 	}
 	return ret;
 }
 
-std::vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& chuDatStr, const texturePathsDefs& texPathDefs, const terrainGameTileFlags& chuTerFlgs)
+vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& chuDatStr, const texturePathsDefs& texPathDefs, const terrainGameTileFlags& chuTerFlgs)
 {
 	vector<Chunk> ret;
 	istringstream chunkStrStream;
@@ -83,7 +83,7 @@ std::vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& ch
 	{
 		chunkIndex = 0;
 		//break the chunk string into 33 rows a position and 32 data rows
-		tmp = Utils::splitString(chuDatStr[j], ';');
+		tmp = splitString(chuDatStr[j], ';');
 		//get the position data
 		chunkStrStream = istringstream(tmp[0]);
 		chunkStrStream >> x;
@@ -120,7 +120,7 @@ std::vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& ch
 }
 
 //placeholder stubs since the actualy flags aren't part of the map format yet
-Utils::chunkTerrainFlagsStrings Utils::SpecicalMapUtils::getTerrainFlagsStrings(const std::string & terrainFlags)
+Utils::chunkTerrainFlagsStrings Utils::SpecicalMapUtils::getTerrainFlagsStrings(const string & terrainFlags)
 {
 	return chunkTerrainFlagsStrings();
 }

@@ -7,7 +7,7 @@ James Felts 2015
 namespace Exceptions
 {
 	class game_domain_error :
-		public Exceptions::game_logic_error
+		public game_logic_error
 	{
 	public:
 		game_domain_error(const std::string msg, const std::string throwingFile, const std::string throwingFunction) noexcept;

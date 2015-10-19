@@ -7,7 +7,7 @@ James Felts 2015
 namespace Exceptions
 {
 	class game_runtime_error :
-		public Exceptions::game_exception
+		public game_exception
 	{
 	public:
 		game_runtime_error(const std::string msg, const std::string throwingFile, const std::string throwingFunction) noexcept;

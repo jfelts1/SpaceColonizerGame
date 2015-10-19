@@ -59,7 +59,7 @@ public:
 	}
 
 	//move constructor
-	GameTile(GameTile&& orig)noexcept:m_pos(std::move(orig.m_pos)), m_terrainFlags(std::move(orig.m_terrainFlags))
+	GameTile(GameTile&& orig)noexcept:m_pos(std::move(orig.m_pos)), m_terrainFlags(move(orig.m_terrainFlags))
 	{
 		m_gameTileSpriteId = orig.m_gameTileSpriteId;
 	}
@@ -70,7 +70,7 @@ public:
 		if (this != &orig)
 		{
 			m_pos = std::move(orig.m_pos);
-			m_terrainFlags = std::move(orig.m_terrainFlags);
+			m_terrainFlags = move(orig.m_terrainFlags);
 			m_gameTileSpriteId = orig.m_gameTileSpriteId;
 		}
 		return *this;

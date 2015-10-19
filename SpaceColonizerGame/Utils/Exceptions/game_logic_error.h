@@ -9,7 +9,7 @@ James Felts 2015
 namespace Exceptions
 {
 	class game_logic_error :
-		public Exceptions::game_exception
+		public game_exception
 	{
 	public:
 		game_logic_error(std::string msg, std::string throwingFile, std::string throwingFunction)noexcept;

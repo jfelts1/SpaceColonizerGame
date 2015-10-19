@@ -10,7 +10,7 @@ Utils::LogUtils::LogUtils()
 	m_logFile.open(m_file,m_logFile.out);
 }
 
-std::string Utils::LogUtils::getLogLevelString(const LogLevel level) const noexcept
+string Utils::LogUtils::getLogLevelString(const LogLevel level) const noexcept
 {
 	if (level == Info)
 	{
@@ -32,7 +32,7 @@ std::string Utils::LogUtils::getLogLevelString(const LogLevel level) const noexc
 
 Utils::LogUtils& Utils::LogUtils::getLog()
 {
-	static Utils::LogUtils m_log;
+	static LogUtils m_log;
 	return m_log;
 }
 
@@ -72,7 +72,7 @@ Utils::LogUtils::~LogUtils()
 }
 
 #define BUFFERSIZE 100
-std::string Utils::LogUtils::getCurTimeUTC() const noexcept
+string Utils::LogUtils::getCurTimeUTC() const noexcept
 {
 	string ret;
 	char buf[BUFFERSIZE] = "";

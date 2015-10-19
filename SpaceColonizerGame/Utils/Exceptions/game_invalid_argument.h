@@ -7,7 +7,7 @@ James Felts 2015
 namespace Exceptions
 {
 	class game_invalid_argument :
-		public Exceptions::game_logic_error
+		public game_logic_error
 	{
 	public:
 		game_invalid_argument(const std::string msg, const std::string throwingFile, const std::string throwingFunction)noexcept;

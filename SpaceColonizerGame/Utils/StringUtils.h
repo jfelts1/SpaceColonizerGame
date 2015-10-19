@@ -49,7 +49,7 @@ namespace Utils
 		}
 		else
 		{
-			GET_LOG.writeToLog("Can't trim empty string.","StringUtils.h","ltrim",Utils::Warning);
+			GET_LOG.writeToLog("Can't trim empty string.","StringUtils.h","ltrim",Warning);
 		}
 	}
 	//removes whitespace from the end of the given string
@@ -64,14 +64,14 @@ namespace Utils
 		}
 		else
 		{
-			GET_LOG.writeToLog("Can't trim empty string.","StringUtils.h","rtrim",Utils::Warning);
+			GET_LOG.writeToLog("Can't trim empty string.","StringUtils.h","rtrim",Warning);
 		}
 	}
 	//removes whitespace from the begining and end of the given string
 	inline void trim(std::string& str)
 	{
-		Utils::ltrim(str);
-		Utils::rtrim(str);
+		ltrim(str);
+		rtrim(str);
 	}
 	
 	//removes everything up to and including the first instance of the given character

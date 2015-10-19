@@ -7,7 +7,7 @@ James Felts 2015
 namespace Exceptions
 {
 	class game_out_of_range :
-		public Exceptions::game_logic_error
+		public game_logic_error
 	{
 	public:
 		game_out_of_range(const std::string msg, const std::string throwingFile, const std::string throwingFunction) noexcept;

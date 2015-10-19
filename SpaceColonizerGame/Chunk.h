@@ -50,7 +50,7 @@ public:
 		return *this;
 	}
 	//move ctor
-	Chunk(Chunk&& orig)noexcept:m_tilesInChunk(std::move(orig.m_tilesInChunk)),m_pos(std::move(orig.m_pos))
+	Chunk(Chunk&& orig)noexcept:m_tilesInChunk(move(orig.m_tilesInChunk)),m_pos(std::move(orig.m_pos))
 	{
 
 	}
@@ -59,7 +59,7 @@ public:
 	{
 		if (this != &orig)
 		{
-			m_tilesInChunk = std::move(orig.m_tilesInChunk);
+			m_tilesInChunk = move(orig.m_tilesInChunk);
 			m_pos = std::move(orig.m_pos);
 		}
 		return *this;

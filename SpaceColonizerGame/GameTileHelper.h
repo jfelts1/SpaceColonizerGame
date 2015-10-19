@@ -30,7 +30,7 @@ public:
 		return *this;
 	}
 	//move constructor
-	GameTileHelper(GameTileHelper&& orig)noexcept: m_spriteFilename(std::move(orig.m_spriteFilename))
+	GameTileHelper(GameTileHelper&& orig)noexcept: m_spriteFilename(move(orig.m_spriteFilename))
 	{
 		m_sprite = m_sprite;
 	}
@@ -39,7 +39,7 @@ public:
 	{
 		if (this != &orig)
 		{
-			m_spriteFilename = std::move(orig.m_spriteFilename);
+			m_spriteFilename = move(orig.m_spriteFilename);
 			m_sprite = orig.m_sprite;
 		}
 		return *this;

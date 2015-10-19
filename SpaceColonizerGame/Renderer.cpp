@@ -20,7 +20,7 @@ Renderer::~Renderer()
 void Renderer::updateRenderInfo(std::unique_ptr<Map>& map)
 {
 	m_map_mutex.lock();
-	m_map = std::move(map);
+	m_map = move(map);
 	m_map_mutex.unlock();
 }
 

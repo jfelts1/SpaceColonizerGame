@@ -7,27 +7,27 @@ using std::string;
 using std::vector;
 using std::pair;
 
-std::string Utils::getStringBetweenTwoStrings(const std::string& rawString,const std::string& stringOne,const std::string& stringTwo)
+string Utils::getStringBetweenTwoStrings(const string& rawString,const string& stringOne,const string& stringTwo)
 {
 	string ret;
 	int beg, end;
-	beg = Utils::findFirstStringInString(rawString, stringOne);
+	beg = findFirstStringInString(rawString, stringOne);
 	if (beg == -1)
 	{
 		throw Exceptions::game_invalid_argument("stringOne not in the rawString", "StringUtils.cpp", "getStringBetweenTwoStrings");
 	}
-	end = Utils::findFirstStringInString(rawString, stringTwo,beg);
+	end = findFirstStringInString(rawString, stringTwo,beg);
 	if (end == -1)
 	{
 		throw Exceptions::game_invalid_argument("stringTwo not in the rawString", "StringUtils.cpp", "getStringBetweenTwoStrings");
 	}
-	ret = Utils::subString(rawString, beg + static_cast<int>(stringOne.size()), end);
-	Utils::trim(ret);
+	ret = subString(rawString, beg + static_cast<int>(stringOne.size()), end);
+	trim(ret);
 
 	return ret;
 }
 
-int Utils::findFirstStringInString(const std::string& rawString, const std::string& lookFor,int start)
+int Utils::findFirstStringInString(const string& rawString, const string& lookFor,int start)
 {
 	if (lookFor != "")
 	{
@@ -46,7 +46,7 @@ int Utils::findFirstStringInString(const std::string& rawString, const std::stri
 	return -1;
 }
 
-std::string Utils::subString(const std::string& str, const int start, const int end)
+string Utils::subString(const string& str, const int start, const int end)
 {
 	string ret;
 	if (end < start)
@@ -72,7 +72,7 @@ std::string Utils::subString(const std::string& str, const int start, const int 
 	return ret;
 }
 
-std::vector<std::string> Utils::splitString(const std::string& str, const char delim)
+vector<string> Utils::splitString(const string& str, const char delim)
 {
 	vector<string> ret;
 
@@ -106,16 +106,16 @@ std::vector<std::string> Utils::splitString(const std::string& str, const char d
 	{
 		if (i.first != i.second)
 		{
-			tmp = Utils::subString(str, i.first, i.second);
+			tmp = subString(str, i.first, i.second);
 		}
-		Utils::trim(tmp);
+		trim(tmp);
 		ret.emplace_back(tmp);
 	}
 
 	return ret;
 }
 
-std::string Utils::removeAllWhiteSpace(const std::string & str) noexcept
+string Utils::removeAllWhiteSpace(const string & str) noexcept
 {
 	string ret;
 	for (auto& ch : str)

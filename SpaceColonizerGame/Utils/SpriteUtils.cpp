@@ -21,12 +21,12 @@ namespace Utils
 		else
 		{
 			spriteMap[filename] = al_load_bitmap(filename.c_str());
-			if (spriteMap[filename] == NULL)
+			if (spriteMap[filename] == nullptr)
 			{
 				std::string toLog = "Error loading sprite: ";
 				toLog.append(filename);
 				std::cerr << toLog << std::endl;
-				GET_LOG.writeToLog(toLog.c_str(),"SpriteUtils.cpp","getSprite",Utils::Error);
+				GET_LOG.writeToLog(toLog.c_str(),"SpriteUtils.cpp","getSprite",Error);
 			}
 			return spriteMap[filename];
 		}
