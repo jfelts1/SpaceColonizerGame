@@ -59,7 +59,7 @@ std::unique_ptr<Map> Map::makeUniqueCopy() const
 		chunks.emplace_back(chunk);
 	}
 	chunks.shrink_to_fit();
-	std::unique_ptr<Map> copy = std::make_unique<Map>(chunks);
+	auto copy = std::make_unique<Map>(chunks);
 	return copy;
 }
 

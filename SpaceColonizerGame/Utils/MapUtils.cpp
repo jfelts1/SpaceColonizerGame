@@ -78,8 +78,8 @@ std::vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& ch
 	GameTile temp;
 	float x, y;
 	int val;
-	int chunkIndex = 0;
-	for (int j = 0;j < chuDatStr.size();j++)
+	int chunkIndex;
+	for (auto j = 0;j < chuDatStr.size();j++)
 	{
 		chunkIndex = 0;
 		//break the chunk string into 33 rows a position and 32 data rows
@@ -89,7 +89,7 @@ std::vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& ch
 		chunkStrStream >> x;
 		chunkStrStream >> y;
 		//read the chunk data
-		for (int i = 1;i < tmp.size()-1;i++)
+		for (auto i = 1;i < tmp.size()-1;i++)
 		{
 			val = 0;
 			chunkStrStream = istringstream(tmp[i]);

@@ -19,12 +19,12 @@ void shutdownGame();
 int main(int argc, char **argv)
 {
 	GET_LOG;
-	bool success = initGame();
+	auto success = initGame();
 	if (success)
 	{
 		//using new and delete since relying on scoping to delete things causes the clean up of the GameWorld to happen after allegro has shutdown
 		//causing access violations
-		GameWorld* world =  new GameWorld();
+		auto world =  new GameWorld();
 		while (GET_KEYBINDS.quitPressed() == false)
 		{
 			auto startTime = high_resolution_clock::now();

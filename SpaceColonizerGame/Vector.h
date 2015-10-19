@@ -5,6 +5,8 @@ James Felts 2015
 #define VECTOR_H
 
 #include <cmath>
+#define VECTOR_EQUALITY_TOLERANCE_FACTOR 10000
+
 namespace Utils
 {
 	struct Vector2D
@@ -16,7 +18,50 @@ namespace Utils
 		}
 
 		constexpr Vector2D() = default;
+		Vector2D(const float x, const float y)noexcept : m_x(x), m_y(y)
+		{
+			updateMagnitude();
+		}
 		virtual ~Vector2D() noexcept{}
+
+		//copy ctor
+		Vector2D(const Vector2D& orig)noexcept
+		{
+			m_x = orig.m_x;
+			m_y = orig.m_y;
+			updateMagnitude();
+		}
+
+		//copy assign
+		Vector2D operator=(const Vector2D& orig)noexcept
+		{
+			if(this!=&orig)
+			{
+				m_x = orig.m_x;
+				m_y = orig.m_y;
+				updateMagnitude();
+			}
+			return *this;
+		}
+
+		//move ctor
+		Vector2D(Vector2D&& orig)noexcept:m_x(orig.m_x),m_y(orig.m_y)
+		{
+			updateMagnitude();
+		}
+
+		//move assign
+		Vector2D operator=(Vector2D&& orig)noexcept
+		{
+			if (this != &orig)
+			{
+				m_x = orig.m_x;
+				m_y = orig.m_y;
+				updateMagnitude();
+			}
+			return *this;
+		}
+
 		float getX()const noexcept{ return m_x; }
 		float getY()const noexcept{ return m_y; }
 		void setX(float x) noexcept
@@ -34,9 +79,10 @@ namespace Utils
 		{
 			if (m_magnitude > maxSize)
 			{
-				float ratio = maxSize / m_magnitude;
+				auto ratio = maxSize / m_magnitude;
 				m_y = m_y*ratio;
 				m_x = m_x*ratio;
+				updateMagnitude();
 			}
 		}
 
@@ -68,6 +114,31 @@ namespace Utils
 			setX(this->getX() - rhs.getX());
 			setY(this->getY() - rhs.getY());
 			return *this;
+		}
+
+		bool operator==(const Vector2D& rhs) const noexcept
+		{
+			//avoid floating point equality problems
+			auto x = static_cast<long long>(this->getX()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
+			auto y = static_cast<long long>(this->getY()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
+			auto rhsX = static_cast<long long>(rhs.getX()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
+			auto rhsY = static_cast<long long>(rhs.getY()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
+
+			if(x == rhsX && y == rhsY)
+			{
+				return true;
+			}
+			return false;
+		}
+
+		bool operator!=(const Vector2D& rhs) const noexcept
+		{
+			return !(*this == rhs);
+		}
+
+		bool equals(const Vector2D& rhs) const noexcept
+		{
+			return *this == rhs;
 		}
 
 		float dotProduct(const Vector2D&rhs)const noexcept

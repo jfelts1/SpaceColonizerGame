@@ -82,8 +82,8 @@ void Renderer::render()
 	m_zoomLevel = m_cam.getZoomLevel();
 
 	m_map_mutex.lock();
-	int screenSizeY = (int)al_get_display_height(m_display);
-	int screenSizeX = (int)al_get_display_width(m_display);
+	auto screenSizeY = static_cast<int>(al_get_display_height(m_display));
+	auto screenSizeX = static_cast<int>(al_get_display_width(m_display));
 
 	if (m_map != nullptr)
 	{
@@ -97,12 +97,12 @@ void Renderer::render()
 	auto endTime = high_resolution_clock::now();
 	auto renderTime = duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
 	al_flip_display();
-	float fps = 1000.0f / (float)renderTime;
+	auto fps = 1000.0f / static_cast<float>(renderTime);
 	if (fps > 60)
 	{
+		// ReSharper disable once CppAssignedValueIsNeverUsed
 		fps = 60;
 	}
-	//std::cout << "fps: " << fps << std::endl;
 	std::cout << "Render Time: " << renderTime << std::endl;
 }
 

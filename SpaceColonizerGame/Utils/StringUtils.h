@@ -41,7 +41,7 @@ namespace Utils
 		if (str != "")
 		{
 			//int i = 0;
-			while (str.size()>0 && isspace((unsigned char)str.front()))
+			while (str.size()>0 && isspace(static_cast<unsigned char>(str.front())))
 			{
 				str.erase(0, 1);
 				//i++;
@@ -57,7 +57,7 @@ namespace Utils
 	{
 		if (str != "")
 		{
-			while (str.size()>0 && isspace((unsigned char)str.back()))
+			while (str.size()>0 && isspace(static_cast<unsigned char>(str.back())))
 			{
 				str.pop_back();
 			}

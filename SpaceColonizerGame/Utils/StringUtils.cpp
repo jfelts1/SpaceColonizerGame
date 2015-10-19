@@ -21,7 +21,7 @@ std::string Utils::getStringBetweenTwoStrings(const std::string& rawString,const
 	{
 		throw Exceptions::game_invalid_argument("stringTwo not in the rawString", "StringUtils.cpp", "getStringBetweenTwoStrings");
 	}
-	ret = Utils::subString(rawString, beg + (int)stringOne.size(), end);
+	ret = Utils::subString(rawString, beg + static_cast<int>(stringOne.size()), end);
 	Utils::trim(ret);
 
 	return ret;
@@ -31,11 +31,11 @@ int Utils::findFirstStringInString(const std::string& rawString, const std::stri
 {
 	if (lookFor != "")
 	{
-		int len = (int)lookFor.size();
-		const char* rawStr = rawString.c_str();
-		const char* lookStr = lookFor.c_str();
-		int end = (int)rawString.size();
-		for (int i = start;i < end;i++)
+		auto len = static_cast<int>(lookFor.size());
+		auto rawStr = rawString.c_str();
+		auto lookStr = lookFor.c_str();
+		auto end = static_cast<int>(rawString.size());
+		for (auto i = start;i < end;i++)
 		{
 			if (strncmp(rawStr + i, lookStr, len)==0)
 			{
@@ -53,19 +53,19 @@ std::string Utils::subString(const std::string& str, const int start, const int 
 	{
 		throw Exceptions::game_range_error("Start must be smaller than end","StringUtils.cpp","subString");
 	}
-	else if (end == start)
+	if (end == start)
 	{
 		throw Exceptions::game_range_error("Start can't equal end", "StringUtils.cpp", "subString");
 	}
-	else if (start < 0)
+	if (start < 0)
 	{
 		throw Exceptions::game_range_error("Start must be larger than or equal to 0","StringUtils.cpp","subString");
 	}
-	else if (end > str.size() || start > str.size())
+	if (end > str.size() || start > str.size())
 	{
 		throw Exceptions::game_range_error("Start or End can't be past the end of the string", "StringUtils.cpp", "subString");
 	}
-	for (int i = start;i < end;i++)
+	for (auto i = start;i < end;i++)
 	{
 		ret.push_back(str[i]);
 	}

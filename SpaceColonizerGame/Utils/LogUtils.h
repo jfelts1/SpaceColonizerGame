@@ -31,7 +31,7 @@ namespace Utils
 	private:
 		std::fstream m_logFile;
 		std::mutex m_logFileMutex;
-		const std::string m_file = "log.txt";
+		const std::string m_file = "log.log";
 		LogUtils();
 		std::string getLogLevelString(const LogLevel level)const noexcept;
 	};
