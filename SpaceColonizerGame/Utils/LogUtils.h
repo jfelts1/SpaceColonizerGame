@@ -9,6 +9,7 @@ James Felts 2015
 #include <chrono>
 #include <mutex>
 #include <ctime>
+#include <cstring>
 #define GET_LOG Utils::LogUtils::getLog()
 
 namespace Utils

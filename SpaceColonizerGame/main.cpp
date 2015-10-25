@@ -109,13 +109,7 @@ bool initGame()
 		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
 		return false;
 	}
-	if (!al_init_font_addon())
-	{
-		auto msg = "unable to init fonts\n";
-		fprintf(stderr, "%s\n", msg);
-		GET_LOG.writeToLog(msg, "main.cpp", "initGame", Utils::Critical);
-		return false;
-	}
+	al_init_font_addon();
 	if (!al_init_ttf_addon())
 	{
 		auto msg = "unable to init ttf fonts\n";
