@@ -23,6 +23,7 @@ James Felts 2015
 #endif
 #include <thread>
 #include <mutex>
+#include <future>
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif

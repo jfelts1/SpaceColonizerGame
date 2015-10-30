@@ -103,6 +103,7 @@ void Renderer::render()
 		// ReSharper disable once CppAssignedValueIsNeverUsed
 		fps = 60;
 	}
-	std::cout << "Render Time: " << renderTime << std::endl;
+	//std::async(std::launch::async,printf,"Render Time: %lli\n",renderTime);
+	printf("Render Time: %lli\n",renderTime);
 }
 
