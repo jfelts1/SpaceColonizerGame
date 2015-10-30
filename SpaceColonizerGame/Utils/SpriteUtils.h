@@ -3,6 +3,9 @@ James Felts 2015
 */
 #ifndef SPRITEUTILS_H
 #define SPRITEUTILS_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -10,8 +13,6 @@ James Felts 2015
 #include <vector>
 #include <string>
 #include <iostream>
-#include <thread>
-#include <mutex>
 #include <set>
 #include "StringUtils.h"
 #include "LogUtils.h"

@@ -3,7 +3,9 @@ James Felts 2015
 */
 #ifndef VECTOR_H
 #define VECTOR_H
-
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <cmath>
 #define VECTOR_EQUALITY_TOLERANCE_FACTOR 10000
 
@@ -11,7 +13,7 @@ namespace Utils
 {
 	struct Vector2D
 	{
-		friend inline std::ostream& operator<<(std::ostream& out, const Vector2D& vect)
+		friend std::ostream& operator<<(std::ostream& out, const Vector2D& vect)
 		{
 			out << "(" << vect.m_x << "," << vect.m_y << ")";
 			return out;
@@ -119,10 +121,10 @@ namespace Utils
 		bool operator==(const Vector2D& rhs) const noexcept
 		{
 			//avoid floating point equality problems
-			auto x = static_cast<long long>(this->getX()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
-			auto y = static_cast<long long>(this->getY()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
-			auto rhsX = static_cast<long long>(rhs.getX()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
-			auto rhsY = static_cast<long long>(rhs.getY()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
+			long long x = static_cast<long long>(this->getX()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
+			long long y = static_cast<long long>(this->getY()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
+			long long rhsX = static_cast<long long>(rhs.getX()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
+			long long rhsY = static_cast<long long>(rhs.getY()*VECTOR_EQUALITY_TOLERANCE_FACTOR);
 
 			if(x == rhsX && y == rhsY)
 			{

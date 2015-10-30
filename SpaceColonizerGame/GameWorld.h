@@ -3,6 +3,9 @@ James Felts 2015
 */
 #ifndef GAMEWORLD_H
 #define GAMEWORLD_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
@@ -14,7 +17,6 @@ James Felts 2015
 #include <vector>
 #include <memory>
 #include <chrono>
-#include <thread>
 #include "Utils/MapUtils.h"
 #include "GameTile.h"
 #include "Renderer.h"

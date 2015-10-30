@@ -3,7 +3,9 @@ James Felts 2015
 */
 #ifndef NUMBERISPOWEROF2_H
 #define NUMBERISPOWEROF2_H
-
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 namespace Utils
 {
 	//checks at compile time if a given number is a power of 2

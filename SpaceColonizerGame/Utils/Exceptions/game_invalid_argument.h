@@ -3,6 +3,9 @@ James Felts 2015
 */
 #ifndef GAME_INVALID_ARGUMENT_H
 #define GAME_INVALID_ARGUMENT_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include "game_logic_error.h"
 namespace Exceptions
 {

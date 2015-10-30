@@ -3,7 +3,9 @@ James Felts 2015
 */
 #ifndef POINT_H
 #define POINT_H
-
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <allegro5/allegro.h>
 #include <iostream>
 #include <type_traits>

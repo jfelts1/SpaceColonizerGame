@@ -3,6 +3,9 @@ James Felts 2015
 */
 #ifndef GAME_RUNTIME_ERROR_H
 #define GAME_RUNTIME_ERROR_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include "game_exception.h"
 namespace Exceptions
 {

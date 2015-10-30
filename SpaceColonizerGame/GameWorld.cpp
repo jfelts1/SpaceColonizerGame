@@ -7,9 +7,11 @@ GameWorld::GameWorld()
 {
 	//init the renderer by calling it's get function
 	GET_RENDERER;
+	//init Keybinds
 	GET_KEYBINDS;
+	//init Mousebinds
 	GET_MOUSEBINDS;
-	m_map = Utils::loadMap("Data/Maps/TestMap/TestMap.gamemap");
+	m_map = Utils::loadMap(Utils::readFileAsText("Data/Maps/TestMap/TestMap.gamemap"));
 	GET_LOG.writeToLog("Done loading Map", "GameWorld.cpp", "GameWorld()", Utils::Info);
 	std::unique_ptr<Map> copy = m_map->makeUniqueCopy();
 	GET_RENDERER.updateRenderInfo(copy);
@@ -20,7 +22,6 @@ GameWorld::~GameWorld() noexcept
 	GET_RENDERER.stopRenderer();
 	GET_KEYBINDS.shutDownKeyBinds();
 	GET_MOUSEBINDS.shutdownMouseBinds();
-	
 }
 
 void GameWorld::update() noexcept

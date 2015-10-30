@@ -3,6 +3,9 @@ James Felts 2015
 */
 #ifndef RENDERER_H
 #define RENDERER_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
@@ -14,8 +17,15 @@ James Felts 2015
 #include <vector>
 #include <memory>
 #include <chrono>
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4265)
+#endif
 #include <thread>
 #include <mutex>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #include <utility>
 #include <functional>
 #include <system_error>

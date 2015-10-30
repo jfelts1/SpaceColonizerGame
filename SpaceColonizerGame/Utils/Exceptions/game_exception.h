@@ -7,6 +7,9 @@ James Felts 2015
 //no other exception type will inheirit from the standard exceptions but this one
 #ifndef GAME_EXCEPTION_H
 #define GAME_EXCEPTION_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <string>
 #include <stdexcept>
 namespace Exceptions

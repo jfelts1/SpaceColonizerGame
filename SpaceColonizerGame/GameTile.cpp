@@ -2,7 +2,7 @@
 James Felts 2015
 */
 #include "GameTile.h"
-//raw static array for performance reasons
+
 static GameTileHelper m_gameTileHelperAra[MAX_NUMBER_TILE_TEXTURES];
 //static short m_usedTileTextures = 0;
 

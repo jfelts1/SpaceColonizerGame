@@ -3,6 +3,9 @@ James Felts 2015
 */
 #ifndef GAMETILEHELPER_H
 #define GAMETILEHELPER_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <string>
 #include "Utils/SpriteUtils.h"
 #include "Point.h"

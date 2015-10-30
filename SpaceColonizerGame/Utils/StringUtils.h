@@ -3,6 +3,9 @@ James Felts 2015
 */
 #ifndef STRINGUTILS_H
 #define STRINGUTILS_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <string>
 #include <cstring>
 #include <cwchar>
@@ -25,10 +28,10 @@ namespace Utils
 	std::string getStringBetweenTwoStrings(const std::string& str,const std::string& stringOne,const std::string& stringTwo);
 	//finds the first time a string appears in another string
 	//returns -1 if nothing is found
-	int findFirstStringInString(const std::string& str, const std::string& lookFor,const int startAt = 0);
+	int findFirstStringInString(const std::string& str, const std::string& lookFor, const size_t startAt = 0);
 	//returns the substring of the passed in string use instead of substr when determining the count parameter of substr is hard
 	//throws game_range_error
-	std::string subString(const std::string& str, const int start, const int end);
+	std::string subString(const std::string& str, const size_t start, const size_t end);
 	//returns a vector of strings from the original string split on the given delimitor
 	//throws game_invalid_argument
 	std::vector<std::string> splitString(const std::string& str, const char delim);
@@ -40,11 +43,9 @@ namespace Utils
 	{
 		if (str != "")
 		{
-			//int i = 0;
 			while (str.size()>0 && isspace(static_cast<unsigned char>(str.front())))
 			{
 				str.erase(0, 1);
-				//i++;
 			}
 		}
 		else
@@ -79,13 +80,13 @@ namespace Utils
 	inline void removeUpToChar(std::string& str,const char ch)
 	{
 		size_t pos = str.find_first_of(ch, 0);
-		if (pos == std::string::npos)
+		if (pos != std::string::npos)
 		{
-			throw Exceptions::game_invalid_argument("Given character is not in the given string.","StringUtils.h","removeUpToChar");
+			str = str.substr(pos + 1);
 		}
 		else
 		{
-			str = str.substr(pos + 1);
+			throw Exceptions::game_invalid_argument("Given character is not in the given string.","StringUtils.h","removeUpToChar");
 		}
 	}
 

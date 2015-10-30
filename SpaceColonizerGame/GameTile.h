@@ -3,9 +3,11 @@ James Felts 2015
 */
 #ifndef GAMETILE_H
 #define GAMETILE_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <string>
 #include <iostream>
-#include <thread>
 #include <bitset>
 #include <cstdint>
 #include "Utils/SpriteUtils.h"
@@ -17,7 +19,7 @@ James Felts 2015
 
 class GameTile
 {
-	friend inline std::ostream& operator<<(std::ostream& out, const GameTile& tile)
+	friend std::ostream& operator<<(std::ostream& out, const GameTile& tile)
 	{
 		//int* tmp = (int*)tile.m_sprite;
 		out << "Pos" << tile.m_pos;
@@ -76,17 +78,17 @@ public:
 		return *this;
 	}
 
-	inline void shiftX(const float x) noexcept
+	void shiftX(const float x) noexcept
 	{
 		m_pos.x += x;
 	}
 
-	inline void shiftY(const float y) noexcept
+	void shiftY(const float y) noexcept
 	{
 		m_pos.y += y;
 	}
 
-	inline void shift(const Utils::Vector2D shift) noexcept
+	void shift(const Utils::Vector2D shift) noexcept
 	{
 		shiftX(shift.getX());
 		shiftY(shift.getY());

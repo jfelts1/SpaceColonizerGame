@@ -3,10 +3,20 @@ James Felts 2015
 */
 #ifndef CHUNK_H
 #define CHUNK_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <allegro5/allegro.h>
 #include <string>
 #include <iostream>
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4265)
+#endif
 #include <thread>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #include <bitset>
 #include <cstdint>
 #include <array>

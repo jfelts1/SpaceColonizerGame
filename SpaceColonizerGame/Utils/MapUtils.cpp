@@ -8,18 +8,16 @@ using std::vector;
 using std::array;
 using std::istringstream;
 
-std::unique_ptr<Map> Utils::loadMap(const string filepath)
+std::unique_ptr<Map> Utils::loadMap(const string& rawString)
 {
 	vector<Chunk> chunks;
 	texturePathsDefs texturePaths;
 	chunkDataStrings mapData;
 	terrainGameTileFlags terrainFlags;
 
-	string rawString;
 	string texureDefs;
 	string mapDataStr;
 	string terrainFlagsStr;
-	rawString = readFileAsText(filepath);
 
 	texureDefs = getStringBetweenTwoStrings(rawString, "BEGINTEXTUREDEFS", "ENDTEXTUREDEFS");
 	mapDataStr = getStringBetweenTwoStrings(rawString, "BEGINCHUNKTEXDATA", "ENDCHUNKTEXDATA");
@@ -59,7 +57,7 @@ Utils::texturePathsDefs Utils::SpecicalMapUtils::getTexturePathArray(const textu
 				throw Exceptions::game_out_of_range("the number attached to the texure is out of range.","MapUtils.cpp","getTexturePathArray");
 			}
 			removeUpToChar(texPath, '=');
-			ret[textureIndex] = move(texPath);
+			ret[static_cast<size_t>(textureIndex)] = move(texPath);
 		}
 	}
 	catch (Exceptions::game_invalid_argument& e)
@@ -77,19 +75,18 @@ vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& chuDatS
 	chunkData chuDat;
 	GameTile temp;
 	float x, y;
-	int val;
-	int chunkIndex;
-	for (auto j = 0;j < chuDatStr.size();j++)
+	short val;
+	size_t chunkIndex;
+	for (size_t j = 0;j < chuDatStr.size();j++)
 	{
 		chunkIndex = 0;
-		//break the chunk string into 33 rows a position and 32 data rows
 		tmp = splitString(chuDatStr[j], ';');
 		//get the position data
 		chunkStrStream = istringstream(tmp[0]);
 		chunkStrStream >> x;
 		chunkStrStream >> y;
 		//read the chunk data
-		for (auto i = 1;i < tmp.size()-1;i++)
+		for (size_t i = 1;i < tmp.size()-1;i++)
 		{
 			val = 0;
 			chunkStrStream = istringstream(tmp[i]);
@@ -102,7 +99,7 @@ vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& chuDatS
 					throw Exceptions::game_out_of_range("The number to look up the texture is out of range.","MapUtils.cpp","getChunks");
 				}
 				//load the texture into the tileHelper array
-				GameTile::loadTileHelper(texPathDefs[val], val);
+				GameTile::loadTileHelper(texPathDefs[static_cast<size_t>(val)], val);
 				chuDat[chunkIndex] = GameTile(chunkIndex%GAMETILES_PER_ROW, chunkIndex / GAMETILES_PER_COL, val);
 				chunkIndex++;
 			}
@@ -115,11 +112,10 @@ vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& chuDatS
 		ret.emplace_back(Chunk(chuDat, Point<float>(x*DESIRED_TEXTURE_SIZE, y*DESIRED_TEXTURE_SIZE)));
 	}
 
-
 	return ret;
 }
 
-//placeholder stubs since the actualy flags aren't part of the map format yet
+//placeholder stubs since the actual flags aren't part of the map format yet
 Utils::chunkTerrainFlagsStrings Utils::SpecicalMapUtils::getTerrainFlagsStrings(const string & terrainFlags)
 {
 	return chunkTerrainFlagsStrings();

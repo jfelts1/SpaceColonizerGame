@@ -3,11 +3,13 @@ James Felts 2015
 */
 #ifndef MOUSEBINDS_H
 #define MOUSEBINDS_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <allegro5/allegro.h>
 #include <vector>
 #include <iostream>
 #include <cstdio>
-#include <mutex>
 #include "Utils/LogUtils.h"
 #include "Point.h"
 #define GET_MOUSEBINDS Mousebinds::getMousebinds()

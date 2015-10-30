@@ -3,6 +3,9 @@ James Felts 2015
 */
 #ifndef KEYBINDS_H
 #define KEYBINDS_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <allegro5/allegro.h>
 #include <vector>
 #include <iostream>
@@ -18,12 +21,12 @@ public:
 	void shutDownKeyBinds() noexcept;
 	void update() noexcept;
 
-	bool upPressed()noexcept	{ return m_upHeld; }
-	bool leftPressed()noexcept	{ return m_leftHeld; }
-	bool rightPressed()noexcept { return m_rightHeld; }
-	bool downPressed()noexcept	{ return m_downHeld; }
+	bool upPressed() const noexcept	{ return m_upHeld; }
+	bool leftPressed() const noexcept	{ return m_leftHeld; }
+	bool rightPressed() const noexcept { return m_rightHeld; }
+	bool downPressed() const noexcept	{ return m_downHeld; }
 
-	bool quitPressed()noexcept	{ return m_quitHeld; }
+	bool quitPressed() const noexcept	{ return m_quitHeld; }
 
 private:
 	KeyBinds();

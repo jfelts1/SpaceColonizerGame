@@ -57,7 +57,7 @@ void Utils::LogUtils::writeToLog(const char* msg, const char* file, const char* 
 		toLog.push_back(':');
 		toLog.append(exceptFunction);
 		toLog.push_back('\n');
-		m_logFile.write(toLog.c_str(), toLog.size());
+		m_logFile.write(toLog.c_str(), static_cast<std::streamsize>(toLog.size()));
 	}
 	else
 	{

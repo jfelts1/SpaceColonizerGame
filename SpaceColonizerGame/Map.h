@@ -3,6 +3,9 @@ James Felts 2015
 */
 #ifndef MAP_H
 #define MAP_H
+#ifdef _MSC_VER
+#pragma warning(disable: 4505 4514 4668 4820 4710 4711)
+#endif
 #include <memory>
 #include <vector>
 #include "Chunk.h"
