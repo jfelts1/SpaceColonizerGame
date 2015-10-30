@@ -15,12 +15,13 @@ template<typename T>
 struct Point
 {
 	static_assert(std::is_floating_point<T>::value || std::is_integral<T>::value,"T must be a numeric type");
-	friend inline std::ostream& operator<<(std::ostream& out, const Point& point)
+	friend std::ostream& operator<<(std::ostream& out, const Point& point)
 	{
 		out << "(" << point.x << "," << point.y << ")";
 		return out;
 	}
-	constexpr Point(const T x = 0, const T y = 0) :x(x), y(y)
+
+	explicit constexpr Point(const T x = 0, const T y = 0) :x(x), y(y)
 	{}
 
 	virtual ~Point() {}

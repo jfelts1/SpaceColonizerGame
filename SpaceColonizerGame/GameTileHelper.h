@@ -16,7 +16,8 @@ class GameTileHelper
 {
 public:
 	GameTileHelper();
-	GameTileHelper(const std::string filename) :m_spriteFilename(filename) {}
+
+	explicit GameTileHelper(const std::string filename) :m_spriteFilename(filename) {}
 	//copy constructor
 	GameTileHelper(const GameTileHelper& orig)noexcept :m_spriteFilename(orig.m_spriteFilename) 
 	{

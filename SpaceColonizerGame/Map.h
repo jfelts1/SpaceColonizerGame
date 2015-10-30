@@ -14,7 +14,8 @@ class Map
 {
 public:
 	Map();
-	Map(const std::vector<Chunk> chunks) : m_chunks(chunks) {};
+
+	explicit Map(const std::vector<Chunk> chunks) : m_chunks(chunks) {};
 	//copy constructor
 	Map(const Map& orig) = delete;
 	//copy assignement

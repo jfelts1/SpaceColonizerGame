@@ -33,7 +33,7 @@ private:
 	Utils::Vector2D m_curShift;
 	float m_zoomLevel = 1;
 
-	inline void updateCameraShift() noexcept
+	void updateCameraShift() noexcept
 	{
 		Utils::Vector2D curShift;
 		if (GET_KEYBINDS.upPressed())
@@ -59,7 +59,7 @@ private:
 
 	}
 
-	inline void updateZoomLevel() noexcept
+	void updateZoomLevel() noexcept
 	{
 		if (GET_MOUSEBINDS.scrolledDown() && m_zoomLevel > MIN_ZOOM)
 		{

@@ -28,7 +28,6 @@ James Felts 2015
 #endif
 #include <utility>
 #include <functional>
-#include <system_error>
 #include <iostream>
 #include "Utils/LogUtils.h"
 #include "GameTile.h"

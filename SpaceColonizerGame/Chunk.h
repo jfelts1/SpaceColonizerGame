@@ -76,8 +76,10 @@ public:
 	}
 	virtual ~Chunk();
 	void render(const float scale, Utils::Vector2D vect)const noexcept;
-	const float getX()const noexcept { return m_pos.x; }
-	const float getY()const noexcept { return m_pos.y; }
+
+	float getX()const noexcept { return m_pos.x; }
+
+	float getY()const noexcept { return m_pos.y; }
 private:
 	chunkData m_tilesInChunk;
 	//the position relative to the world

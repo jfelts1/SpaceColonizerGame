@@ -22,25 +22,20 @@ std::unique_ptr<Map> Utils::loadMap(const string& rawString)
 	texureDefs = getStringBetweenTwoStrings(rawString, "BEGINTEXTUREDEFS", "ENDTEXTUREDEFS");
 	mapDataStr = getStringBetweenTwoStrings(rawString, "BEGINCHUNKTEXDATA", "ENDCHUNKTEXDATA");
 
-	//handle texure definitions
-	textureDefsStrings texturePathsTmp = splitString(texureDefs, ';');
-	texturePaths = SpecicalMapUtils::getTexturePathArray(texturePathsTmp);
-	texturePathsTmp.clear();
+	MapUtilHelperFuncs::getTexturePaths(texturePaths, texureDefs);
 
-	//handle terrainFlags
-	chunkTerrainFlagsStrings chuTerFlgsStrs = SpecicalMapUtils::getTerrainFlagsStrings(terrainFlagsStr);
-	terrainFlags = SpecicalMapUtils::getTerrainFlags(chuTerFlgsStrs);
-	chuTerFlgsStrs.clear();
+	MapUtilHelperFuncs::getTerrainFlags(terrainFlags, terrainFlagsStr);
 
-	//handle chunks
 	mapData = splitString(mapDataStr, 'P');
-	chunks = SpecicalMapUtils::getChunks(mapData,texturePaths,terrainFlags);
+	chunks = MapUtilHelperFuncs::getChunks(mapData,texturePaths,terrainFlags);
 	chunks.shrink_to_fit();
 
 	return std::make_unique<Map>(chunks);
 }
 
-Utils::texturePathsDefs Utils::SpecicalMapUtils::getTexturePathArray(const textureDefsStrings& texDefsStrs)
+//returns an array containing the file paths to every game tile texture
+//throws game_out_of_range
+Utils::texturePathsDefs Utils::MapUtilHelperFuncs::getTexturePathArray(const textureDefsStrings& texDefsStrs)
 {
 	texturePathsDefs ret;
 	short textureIndex;
@@ -67,7 +62,7 @@ Utils::texturePathsDefs Utils::SpecicalMapUtils::getTexturePathArray(const textu
 	return ret;
 }
 
-vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& chuDatStr, const texturePathsDefs& texPathDefs, const terrainGameTileFlags& chuTerFlgs)
+vector<Chunk> Utils::MapUtilHelperFuncs::getChunks(const chunkDataStrings& chuDatStr, const texturePathsDefs& texPathDefs, const terrainGameTileFlags& chuTerFlgs)
 {
 	vector<Chunk> ret;
 	istringstream chunkStrStream;
@@ -116,12 +111,12 @@ vector<Chunk> Utils::SpecicalMapUtils::getChunks(const chunkDataStrings& chuDatS
 }
 
 //placeholder stubs since the actual flags aren't part of the map format yet
-Utils::chunkTerrainFlagsStrings Utils::SpecicalMapUtils::getTerrainFlagsStrings(const string & terrainFlags)
+Utils::chunkTerrainFlagsStrings Utils::MapUtilHelperFuncs::getTerrainFlagsStrings(const string & terrainFlags)
 {
 	return chunkTerrainFlagsStrings();
 }
 
-Utils::terrainGameTileFlags Utils::SpecicalMapUtils::getTerrainFlags(const chunkTerrainFlagsStrings & chuTerFlgsStrs)
+Utils::terrainGameTileFlags Utils::MapUtilHelperFuncs::getTerrainFlagsHelper(const chunkTerrainFlagsStrings & chuTerFlgsStrs)
 {
 	terrainGameTileFlags ret;
 	for (auto& chunk : ret)
